@@ -25,9 +25,9 @@ module.exports = {
         'neutral-600': 'var(--neutral-600)',
       },
       fontFamily: {
-        sans: ['Noto Sans KR', 'sans-serif'],
+        sans: ['var(--font-inter)', 'Noto Sans KR', 'sans-serif'], // Inter 폰트 변수를 맨 앞에 추가
         serif: ['Noto Serif KR', 'serif'],
-        // inter: ['var(--font-inter)', 'sans-serif'], // layout.tsx에서 변수로 주입
+        // inter: ['var(--font-inter)', 'sans-serif'], // 주석 유지 또는 필요시 제거
       }
     },
   },
