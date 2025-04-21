@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google"; // Inter로 변경
+import { Inter, Noto_Serif_KR } from "next/font/google"; // Noto_Serif_KR 추가
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -10,6 +10,14 @@ import ClientNoiseBackground from "@/components/layout/ClientNoiseBackground";
 const inter = Inter({
   variable: "--font-inter", // 변수명 변경
   subsets: ["latin"],
+  display: 'swap',
+});
+
+// Noto Serif KR 폰트 로드 및 변수 설정
+const notoSerifKR = Noto_Serif_KR({
+  variable: "--font-noto-serif-kr",
+  subsets: ["latin"],
+  weight: ["400", "700"], // 필요한 weight 추가
   display: 'swap',
 });
 
@@ -52,7 +60,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
       </head>
       <body
-        className={`${inter.variable} antialiased flex flex-col min-h-screen bg-black text-white`} // body에서 relative 제거
+        className={`${inter.variable} ${notoSerifKR.variable} antialiased flex flex-col min-h-screen bg-black text-white`} // notoSerifKR.variable 추가
       >
         {/* 노이즈 텍스처 배경 (클라이언트 컴포넌트로 분리) */}
         <ClientNoiseBackground />

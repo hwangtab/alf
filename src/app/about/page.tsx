@@ -56,7 +56,7 @@ export default function AboutPage() {
         className="mb-24 bg-neutral-800 rounded-xl p-8 shadow-lg" // 제목 제거 후 패딩 등 유지
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.1 }} // amount 조정
         variants={fadeIn}
       >
         <div className="grid md:grid-cols-2 gap-12 items-center"> {/* items-start를 items-center로 변경 */}
@@ -111,7 +111,7 @@ export default function AboutPage() {
         className="mb-24 scroll-mt-20" // 스크롤 마진 추가
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.1 }} // amount 조정
         variants={fadeIn}
       >
         <h2 className="text-3xl font-bold mb-8 text-white">우리가 꿈꿨던 세상</h2>
@@ -158,7 +158,7 @@ export default function AboutPage() {
       <motion.section
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.1 }} // amount 조정
         variants={staggerContainer}
       >
         <h2 id="our-values" className="text-3xl font-bold mb-8 text-white scroll-mt-20">우리가 지켜온 가치</h2> {/* ID 추가 및 스크롤 마진 */}
