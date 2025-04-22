@@ -26,7 +26,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'Noto Sans KR', 'sans-serif'], // Inter 폰트 변수를 맨 앞에 추가
-        serif: ['var(--font-noto-serif-kr)', 'serif'], // Noto Serif KR 폰트 변수 사용
+        serif: ['Noto Serif KR', 'serif'],
         // inter: ['var(--font-inter)', 'sans-serif'], // 주석 유지 또는 필요시 제거
       }
     },
