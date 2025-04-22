@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;700;900&display=swap');
+/* @import url(...) 제거 */
 
 :root {
   /* 예술적이고 혁명적인 색상 팔레트 */
@@ -42,7 +42,7 @@
   body {
     background: var(--background);
     color: var(--foreground);
-    font-family: 'Noto Sans KR', sans-serif;
+    /* font-family 제거 (layout.tsx와 tailwind.config.js에서 관리) */
     overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
     /* 한글 줄바꿈 최적화 */
@@ -52,7 +52,7 @@
 
 /* 타이포그래피 */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Noto Serif KR', serif;
+    /* font-family 제거 (font-serif 유틸리티 클래스 사용) */
     font-weight: 700;
     letter-spacing: -0.02em;
     word-break: keep-all;
