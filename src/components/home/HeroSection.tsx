@@ -141,7 +141,7 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
   return (
     <motion.section
       ref={containerRef}
-      className="relative flex items-center justify-center min-h-screen overflow-hidden"
+      className="relative flex items-center justify-center min-h-[calc(100vh-80px)] overflow-hidden" /* py-40 제거, min-h-[calc(100vh-80px)] 추가 */
       style={{ y, opacity }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -233,7 +233,7 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
 
       {/* 스크롤 다운 표시 (클릭 가능) */}
       <motion.button // button으로 변경하여 클릭 가능하게 만듦
-        className="absolute bottom-20 left-1/2 transform -translate-x-1/2 p-2 cursor-pointer" // bottom-10 -> bottom-20
+        className="absolute bottom-16 left-1/2 transform -translate-x-1/2 p-2 cursor-pointer" // bottom-10 -> bottom-16
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 10, 0] }}
         transition={{ delay: 1, duration: 1.5, repeat: Infinity }}
