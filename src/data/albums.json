@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "title": "이름을 모르는 먼곳의 그대에게",
+    "releaseDate": "",
+    "description": "『이름을 모르는 먼 곳의 그대에게』는 평화를 갈망하는 12팀의 뮤지션들이 하나 된 마음으로 전쟁에 반대하고 평화를 노래하는 프로젝트입니다. 각기 다른 음악적 색깔과 개성을 지닌 이들이 전쟁으로 인한 고통과 상처, 그리고 평화를 향한 간절한 염원이라는 공통의 메시지를 노래합니다.",
+    "coverImage": "/images/album/to-you-in-unknown-distance.webp",
+    "tracks": [],
+    "links": {
+      "website": "https://peaceandmusic.net"
+    }
+  },
+  {
+    "id": 2,
+    "title": "물고기는 물이 없으면 죽어요",
+    "releaseDate": "",
+    "description": "노량진 수산시장의 고령의 여성 상인들에게 가해진 폭력을 목격한 예술가들이 상인들에게 연대와 지지를 보내면서 작업한 8곡이 수록되어 있습니다. 이들은 2019년 10월부터 노량진역 광장에서 노래해 왔습니다. 노량진수산시장 상인들의 이야기에 영향을 받아 쓰여지거나, 할머니들에게 들려드리고 싶어서 만든 음악들입니다.",
+    "coverImage": "/images/album/without-water-fish-dies.webp",
+    "tracks": [],
+    "links": {
+      "youtube": "https://youtu.be/re0EQJM2nL8?si=RJ3EJIleA8UT8TDN"
+    }
+  },
+  {
+    "id": 3,
+    "title": "노량진: 터, 도시, 사람",
+    "releaseDate": "",
+    "description": "노량진: 터, 도시, 사람은 구 노량진수산시장 상인들의 길고 외로운 투쟁을 다시 한번 재조명 시키고자 다양한 분야에서 활동하고 있는 예술가들이 기획한 전시, 퍼포먼스입니다. 13명의 시각예술작가들과 20 여명의 음악가들은 자신의 터를 빼앗긴 상인들의 사연을 발굴하고 세상에 드러내 그들의 이야기에 귀를 기울여주기를 바라고 있습니다.",
+    "coverImage": "/images/album/noryangjin-teo-dosi-saram.webp",
+    "tracks": [],
+    "links": {
+      "tumblbug": "https://tumblbug.com/noryangjin"
+    }
+  }
+]

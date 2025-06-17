@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;700;900&display=swap');
+
+:root {
+  /* 예술적이고 혁명적인 색상 팔레트 */
+  --background: #0f0f0f;
+  --foreground: #f0f0f0;
+  
+  /* 주요 색상 */
+  --primary-red: #ff3d3d;
+  --primary-orange: #ff7b00;
+  --primary-yellow: #ffd600;
+  
+  /* 보조 색상 */
+  --accent-blue: #3d7fff;
+  --accent-purple: #9c3dff;
+  --accent-green: #3dff7b;
+  
+  /* 중립 색상 */
+  --neutral-100: #f0f0f0;
+  --neutral-200: #d0d0d0;
+  --neutral-300: #a0a0a0;
+  --neutral-400: #707070;
+  --neutral-500: #404040;
+  --neutral-600: #202020;
+  
+  /* 그라디언트 */
+  --gradient-revolution: linear-gradient(135deg, var(--primary-red), var(--primary-orange), var(--primary-yellow));
+  --gradient-art: linear-gradient(135deg, var(--accent-purple), var(--accent-blue), var(--accent-green));
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* 글로벌 스타일 */
+@layer base { /* Tailwind CSS base 레이어에 스타일 적용 */
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: 'Noto Sans KR', sans-serif;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* 한글 줄바꿈 최적화 */
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+/* 타이포그래피 */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    word-break: keep-all;
+  }
+
+/* 한글 줄바꿈 최적화를 위한 공통 클래스 */
+  /* 일반 태그 선택자 스타일 최소화 - 필요시 컴포넌트/페이지에서 유틸리티 클래스 사용 */
+  /* p, span, li, a, button, input, textarea, label, div {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  } */
+
+/* 문단 간격 조정 */
+  /* p 태그 기본 스타일 제거 -> 유틸리티 클래스(mb-*, leading-*) 사용 권장 */
+  /* p {
+    margin-bottom: 1rem;
+    line-height: 1.75;
+  } */
+
+  /* 링크 스타일 제거 -> 필요한 곳에서 유틸리티 클래스로 직접 지정 */
+  /* a:not([class*="bg-"]) { ... } */
+  /* a:not([class*="bg-"]):hover { ... } */
+
+  /* 기본 버튼 스타일 제거 (Button 컴포넌트에서 관리) */
+  /* 특정 컴포넌트에서 사용되는 mb-4, mb-6, mb-8 등의 클래스가 우선 적용될 수 있음 */
+  /* 필요에 따라 각 컴포넌트에서 마진 클래스를 조정할 수 있습니다. */
+
+  /* 모바일 환경에서 텍스트 최적화 */
+  @media (max-width: 768px) {
+    /* p 태그 스타일 제거 */
+    /* p, .text-sm, .text-xs {
+      letter-spacing: -0.01em;
+      word-spacing: 0.05em;
+    } */
+    
+    h1, h2, h3, h4, h5, h6 {
+      letter-spacing: -0.03em;
+    }
+  }
+} /* @layer base 끝 */
+/* 스크롤바 스타일링 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--neutral-600);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-orange);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-red);
+}
+
+/* 텍스트 선택 스타일 */
+::selection {
+  background: var(--primary-red);
+  color: var(--neutral-100);
+}
+
+/* 애니메이션 클래스 */
+.text-gradient {
+  background: var(--gradient-revolution);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+.text-gradient-art {
+  background: var(--gradient-art);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+.border-gradient {
+  border: 2px solid transparent;
+  background: linear-gradient(var(--background), var(--background)) padding-box,
+              var(--gradient-revolution) border-box;
+}
+
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* 혁명적인 버튼 스타일 (HeroSection 버튼) - 크기 및 스타일 통일 */
+.btn-revolution {
+  background: var(--primary-red); /* 기본 배경색 유지 (Framer Motion에서 호버 시 변경) */
+  color: var(--neutral-100); /* 기본 텍스트 색상 유지 */
+  font-weight: 600; /* font-semibold */
+  padding: 0.75rem 2rem; /* py-3 px-8 */
+  border-radius: 0.5rem; /* rounded-lg */
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: all 0.3s ease;
+  /* ::before 애니메이션 제거 - Framer Motion으로 대체 */
+}
+
+/* .btn-revolution::before { ... } 제거 */
+/* .btn-revolution:hover::before { ... } 제거 */
+
+/* 예술적인 섹션 구분선 */
+.divider-art {
+  height: 3px;
+  background: var(--gradient-art);
+  margin: 2rem 0;
+  width: 100%;
+}
+
+/* 커스텀 텍스트 그림자 유틸리티 */
+.text-shadow-sm {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+.text-shadow-md {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+.text-shadow-lg {
+  text-shadow: 0 10px 15px rgba(0, 0, 0, 0.6);
+}
+.text-shadow-none {
+  text-shadow: none;
+}
+
+/* .button-primary-override 클래스 정의 제거됨 */
