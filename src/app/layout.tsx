@@ -33,6 +33,7 @@ export default function RootLayout({
         
         {/* 성능 최적화: 뷰포트 설정 */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+        <meta name="naver-site-verification" content="4ecf68d648f283081a2bbc8f9ee4a15e27c8626d" />
       </head>
       <body
         className={`${inter.variable} antialiased flex flex-col min-h-screen relative bg-black text-white`} // 변수명 변경 적용
