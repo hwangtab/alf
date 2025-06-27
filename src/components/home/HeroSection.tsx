@@ -161,7 +161,7 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
       {/* 메인 콘텐츠 */}
       <div className="container mx-auto px-4 z-10 text-center relative">
         <motion.h1
-          className="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tighter" // 크기 축소, 여백 최적화
+          className="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tighter font-serif" // 크기 축소, 여백 최적화
           variants={titleVariants}
           initial="hidden"
           animate="visible"
