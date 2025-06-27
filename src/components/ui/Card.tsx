@@ -68,7 +68,7 @@ const CardComponent: React.FC<CardProps> = ({
       </div>
 
       <div className="p-4 md:p-6 flex flex-col flex-grow bg-neutral-800 text-white">
-        {!imageChildren && <h3 className="text-lg md:text-xl font-bold mb-2 font-sans">{title}</h3>}
+        {!imageChildren && <h3 className="text-lg md:text-xl font-bold mb-2 font-serif">{title}</h3>}
 
         {description && (
           <p className={`text-neutral-300 mb-4 text-sm flex-grow whitespace-normal line-clamp-${lineClamp} font-sans`}>
