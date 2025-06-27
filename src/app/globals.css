@@ -2,9 +2,9 @@
 
 /* 커스텀 폰트 설정 */
 @font-face {
-  font-family: 'Pretendard';
-  src: url('/fonts/PretendardVariable.woff2') format('woff2');
-  font-weight: 100 900;
+  font-family: 'GowunDodum';
+  src: url('/fonts/GowunDodum-Regular.ttf') format('truetype');
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
@@ -23,7 +23,7 @@
 }
 
 .font-test-sans {
-  font-family: 'Pretendard', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: 'GowunDodum', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
 /* iOS Safari 동적 뷰포트 높이 지원 */
@@ -80,7 +80,7 @@ html {
   body {
     background: var(--background);
     color: var(--foreground);
-    font-family: 'Pretendard', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'GowunDodum', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     overflow-x: hidden;
     /* GPU 가속 및 폰트 렌더링 최적화 */
     -webkit-font-smoothing: antialiased;
