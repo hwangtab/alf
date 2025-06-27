@@ -1,26 +1,8 @@
 import type { Metadata } from "next";
-import { Noto_Sans_KR, Noto_Serif_KR } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ClientNoiseBackground from "@/components/layout/ClientNoiseBackground";
-
-// 성능 최적화: Noto Sans KR과 Noto Serif KR 폰트 로드 - 필요한 웨이트만
-const notoSansKR = Noto_Sans_KR({
-  variable: "--font-noto-sans-kr",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  display: 'swap',
-  preload: true,
-});
-
-const notoSerifKR = Noto_Serif_KR({
-  variable: "--font-noto-serif-kr", 
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  display: 'swap',
-  preload: true,
-});
 
 export const metadata: Metadata = {
   // 기본 정보
@@ -101,9 +83,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className="scroll-smooth">
-      <body
-        className={`${notoSansKR.variable} ${notoSerifKR.variable} antialiased flex flex-col min-h-screen relative bg-black text-white font-sans`}
-      >
+      <body className="antialiased flex flex-col min-h-screen relative bg-black text-white font-sans">
         {/* 노이즈 텍스처 배경 */}
         <ClientNoiseBackground />
         

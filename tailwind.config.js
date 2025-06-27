@@ -25,8 +25,8 @@ module.exports = {
         'neutral-600': 'var(--neutral-600)',
       },
       fontFamily: {
-        sans: ['var(--font-noto-sans-kr)', 'Noto Sans KR', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
-        serif: ['var(--font-noto-serif-kr)', 'Noto Serif KR', 'serif'],
+        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+        serif: ['SF_HambakSnow', 'Georgia', 'Times New Roman', 'serif'],
       }
     },
   },
