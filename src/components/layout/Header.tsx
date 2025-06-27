@@ -173,7 +173,7 @@ const Header = () => {
                 >
                   <Link
                     href={item.href}
-                    className="text-2xl font-bold text-white hover:text-primary-red transition-colors duration-200 block py-3 px-6"
+                    className="text-2xl font-bold text-white hover:text-primary-red transition-colors duration-200 block py-3 px-6 font-sans"
                     onClick={closeMenu}
                   >
                     {item.label}

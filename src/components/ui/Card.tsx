@@ -68,10 +68,10 @@ const CardComponent: React.FC<CardProps> = ({
       </div>
 
       <div className="p-4 md:p-6 flex flex-col flex-grow bg-neutral-800 text-white">
-        {!imageChildren && <h3 className="text-lg md:text-xl font-bold mb-2">{title}</h3>}
+        {!imageChildren && <h3 className="text-lg md:text-xl font-bold mb-2 font-sans">{title}</h3>}
 
         {description && (
-          <p className={`text-neutral-300 mb-4 text-sm flex-grow whitespace-normal line-clamp-${lineClamp}`}>
+          <p className={`text-neutral-300 mb-4 text-sm flex-grow whitespace-normal line-clamp-${lineClamp} font-sans`}>
             {description}
           </p>
         )}
@@ -82,7 +82,7 @@ const CardComponent: React.FC<CardProps> = ({
           {tags && tags.length > 0 && (
             <div className="flex flex-wrap mb-2 sm:mb-0">
               {tags.slice(0, tagLimit).map(tag => (
-                <span key={tag} className="inline-block bg-neutral-700 text-yellow-500 rounded-full px-2 py-1 text-xs font-semibold mr-2 mb-2">
+                <span key={tag} className="inline-block bg-neutral-700 text-yellow-500 rounded-full px-2 py-1 text-xs font-semibold mr-2 mb-2 font-sans">
                   #{tag}
                 </span>
               ))}

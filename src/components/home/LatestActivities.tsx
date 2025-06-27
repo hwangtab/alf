@@ -41,7 +41,7 @@ const LatestActivities = () => {
             loadingPriority={true} // 홈페이지 첫 화면이므로 우선 로딩
             tagLimit={2} // 홈에서는 태그 2개만 표시
             imageChildren={ // 이미지 위에 제목 표시
-              <h3 className="text-lg font-bold">{activity.title}</h3>
+              <h3 className="text-lg font-bold font-sans">{activity.title}</h3>
             }
           />
         ))}
