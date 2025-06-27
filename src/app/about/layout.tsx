@@ -1,0 +1,38 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "소개 | 예술해방전선",
+  description: "예술해방전선의 창립 배경과 가치관을 소개합니다. 2019년 노량진수산시장에서 시작된 예술을 통한 연대와 저항의 여정을 확인하세요.",
+  keywords: ["예술해방전선", "소개", "창립배경", "가치관", "노량진수산시장", "예술연대", "저항예술"],
+  openGraph: {
+    title: "소개 | 예술해방전선",
+    description: "예술해방전선의 창립 배경과 가치관을 소개합니다. 2019년 노량진수산시장에서 시작된 예술을 통한 연대와 저항의 여정을 확인하세요.",
+    url: 'https://alf.seoul.kr/about',
+    siteName: '예술해방전선',
+    locale: 'ko_KR',
+    type: 'website',
+    images: [
+      {
+        url: '/images/social-thumbnail.jpg',
+        width: 1200,
+        height: 630,
+        alt: '예술해방전선 소개 - 예술을 통한 연대와 저항',
+        type: 'image/jpeg',
+      }
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "소개 | 예술해방전선",
+    description: "예술해방전선의 창립 배경과 가치관을 소개합니다. 2019년 노량진수산시장에서 시작된 예술을 통한 연대와 저항의 여정을 확인하세요.",
+    images: ['/images/social-thumbnail.jpg'],
+  },
+};
+
+export default function AboutLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <>{children}</>;
+}

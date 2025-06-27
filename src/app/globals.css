@@ -1,0 +1,225 @@
+@import "tailwindcss";
+
+/* Google Fonts import 제거 - Next.js font optimization 사용 */
+
+/* iOS Safari 동적 뷰포트 높이 지원 */
+:root {
+  /* 동적 뷰포트 높이 CSS 변수 설정 */
+  --vh: 1vh;
+  
+  /* 핵심 색상만 유지 - 사용하지 않는 색상 제거 */
+  --background: #0f0f0f;
+  --foreground: #f0f0f0;
+  
+  /* 주요 색상 */
+  --primary-red: #ff3d3d;
+  --primary-orange: #ff7b00;
+  --primary-yellow: #ffd600;
+  
+  /* 보조 색상 - 필수만 유지 */
+  --accent-blue: #3d7fff;
+  --accent-purple: #9c3dff;
+  --accent-green: #3dff7b;
+  
+  /* 중립 색상 - 자주 사용되는 것만 */
+  --neutral-100: #f0f0f0;
+  --neutral-200: #d0d0d0;
+  --neutral-400: #707070;
+  --neutral-600: #202020;
+  
+  /* 최적화된 그라디언트 - GPU 가속 고려 */
+  --gradient-revolution: linear-gradient(135deg, var(--primary-red), var(--primary-orange));
+  --gradient-art: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --vh: 1dvh;
+  }
+}
+
+/* 스크롤 동작 최적화 */
+html {
+  scroll-behavior: smooth;
+  /* 모바일 스크롤 최적화 */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
+}
+
+* {
+  /* 모든 요소에 스크롤 마진 적용 */
+  scroll-margin-top: 80px;
+}
+
+/* 글로벌 스타일 - 성능 최적화 적용 */
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-noto-sans-kr), 'Noto Sans KR', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+    /* GPU 가속 및 폰트 렌더링 최적화 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* 한글 줄바꿈 최적화 */
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    /* 모바일 스크롤 최적화 */
+    -webkit-overflow-scrolling: touch;
+    /* iOS Safari 100vh 문제 해결 */
+    min-height: 100vh;
+    min-height: calc(var(--vh) * 100);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-noto-serif-kr), 'Noto Serif KR', Georgia, serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* 모바일 환경에서 텍스트 최적화 */
+  @media (max-width: 768px) {
+    html {
+      /* 모바일에서 더 부드러운 스크롤 */
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      /* 모바일에서 스크롤 성능 향상 */
+      overscroll-behavior: none;
+      /* 터치 스크롤 최적화 */
+      -webkit-overflow-scrolling: touch;
+      /* 바운스 효과 방지 */
+      overflow: hidden auto;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      letter-spacing: -0.03em;
+    }
+    
+    /* 모바일에서 섹션 간격 조정 */
+    section {
+      scroll-margin-top: 60px;
+    }
+    
+    /* 모바일에서 애니메이션 성능 향상 */
+    * {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      perspective: 1000px;
+    }
+  }
+}
+/* 스크롤바 스타일링 - 성능 최적화 */
+@media (hover: hover) {
+  ::-webkit-scrollbar {
+    width: 6px; /* 8px -> 6px로 축소 */
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--neutral-600);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary-orange);
+    border-radius: 3px; /* 4px -> 3px */
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-red);
+  }
+}
+
+/* 텍스트 선택 스타일 */
+::selection {
+  background: var(--primary-red);
+  color: var(--neutral-100);
+}
+
+/* 애니메이션 클래스 - GPU 가속 최적화 */
+.text-gradient {
+  background: var(--gradient-revolution);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+  /* GPU 가속 활성화 */
+  will-change: transform;
+}
+
+.text-gradient-art {
+  background: var(--gradient-art);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+  will-change: transform;
+}
+
+.border-gradient {
+  border: 2px solid transparent;
+  background: linear-gradient(var(--background), var(--background)) padding-box,
+              var(--gradient-revolution) border-box;
+}
+
+.hover-lift {
+  transition: transform 0.2s ease; /* 0.3s -> 0.2s로 단축 */
+  will-change: transform;
+}
+
+.hover-lift:hover {
+  transform: translate3d(0, -3px, 0); /* GPU 가속 및 범위 축소 */
+}
+
+/* 혁명적인 버튼 스타일 - 성능 최적화 */
+.btn-revolution {
+  background: var(--primary-red);
+  color: var(--neutral-100);
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease; /* 0.3s -> 0.2s */
+  will-change: transform, background-color;
+}
+
+/* .btn-revolution::before { ... } 제거 */
+/* .btn-revolution:hover::before { ... } 제거 */
+
+/* 예술적인 섹션 구분선 */
+.divider-art {
+  height: 3px;
+  background: var(--gradient-art);
+  margin: 2rem 0;
+  width: 100%;
+}
+
+/* 성능을 위한 유틸리티 클래스 추가 */
+.gpu-accelerated {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* 텍스트 그림자 최적화 - 필수만 유지 */
+.text-shadow-sm {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow-md {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* 접근성 고려 - 모션 감소 선호 사용자 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
