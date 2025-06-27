@@ -154,9 +154,9 @@ const Header = () => {
               <Image
                 src="/images/logo.webp"
                 alt="예술해방전선 로고"
-                width={100}
-                height={26}
-                className="h-auto w-auto max-w-full object-contain px-1"
+                width={80}
+                height={21}
+                className="h-6 w-auto object-contain"
                 priority
               />
             </Link>
