@@ -9,26 +9,24 @@ import ClientNoiseBackground from "@/components/layout/ClientNoiseBackground";
 const notoSansKR = Noto_Sans_KR({
   variable: "--font-noto-sans-kr",
   subsets: ["latin"],
-  weight: ["400", "500", "700"], // 300, 900 제거로 번들 크기 감소
+  weight: ["400", "500", "700"],
   display: 'swap',
   preload: true,
-  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
 });
 
 const notoSerifKR = Noto_Serif_KR({
   variable: "--font-noto-serif-kr", 
   subsets: ["latin"],
-  weight: ["400", "700"], // 900 제거
+  weight: ["400", "700"],
   display: 'swap',
   preload: true,
-  fallback: ['Georgia', 'Times New Roman', 'serif'],
 });
 
 export const metadata: Metadata = {
   // 기본 정보
   title: {
-    default: "예술해방전선 | 예술로 세상을 바꾸다", // 기본 타이틀
-    template: "%s | 예술해방전선", // 하위 페이지 타이틀 형식
+    default: "예술해방전선 | 예술로 세상을 바꾸다",
+    template: "%s | 예술해방전선",
   },
   description: "예술을 통해 사회적 불평등에 저항하고, 소외된 이들과 연대하며, 모두가 존엄하게 살아갈 수 있는 세상을 만드는 데 기여합니다.",
   keywords: ["예술해방전선", "ALF", "사회운동", "예술활동", "연대", "저항예술", "문화예술"],
@@ -63,7 +61,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/social-thumbnail.webp', // .jpg -> .webp로 변경 예정
+        url: '/images/social-thumbnail.webp',
         width: 1200,
         height: 630,
         alt: '예술해방전선 - 예술로 세상을 바꾸다',
@@ -75,9 +73,7 @@ export const metadata: Metadata = {
   // 트위터 공유
   twitter: {
     card: 'summary_large_image',
-    title: "예술해방전선 | 예술로 세상을 바꾸다",
-    description: "예술을 통해 사회적 불평등에 저항하고, 소외된 이들과 연대합니다.",
-    images: ['/images/social-thumbnail.webp'], // .jpg -> .webp
+    images: ['/images/social-thumbnail.webp'],
   },
 
   // 아이콘 및 테마
@@ -88,9 +84,14 @@ export const metadata: Metadata = {
   },
   themeColor: '#000000',
 
-  // 기타
+  // 기타 최적화
   applicationName: '예술해방전선',
   referrer: 'origin-when-cross-origin',
+  verification: {
+    other: {
+      'naver-site-verification': '4ecf68d648f283081a2bbc8f9ee4a15e27c8626d',
+    },
+  },
 };
 
 export default function RootLayout({
@@ -100,25 +101,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className="scroll-smooth">
-      <head>
-        {/* 성능 최적화: DNS 프리커넥트 및 리소스 힌트 */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://alf.seoul.kr" />
-        
-        {/* 뷰포트 최적화 */}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
-        
-        {/* 성능 힌트 */}
-        <meta httpEquiv="x-dns-prefetch-control" content="on" />
-        
-        <meta name="naver-site-verification" content="4ecf68d648f283081a2bbc8f9ee4a15e27c8626d" />
-      </head>
       <body
-        className={`${notoSansKR.variable} ${notoSerifKR.variable} antialiased flex flex-col min-h-screen relative bg-black text-white`}
-        style={{ fontFamily: `var(--font-noto-sans-kr), 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif` }}
+        className={`${notoSansKR.variable} ${notoSerifKR.variable} antialiased flex flex-col min-h-screen relative bg-black text-white font-sans`}
       >
-        {/* 노이즈 텍스처 배경 (클라이언트 컴포넌트로 분리) */}
+        {/* 노이즈 텍스처 배경 */}
         <ClientNoiseBackground />
         
         {/* 메인 콘텐츠 */}
