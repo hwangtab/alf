@@ -170,7 +170,7 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
         </motion.h1>
 
         <motion.p
-          className="text-lg md:text-xl max-w-2xl mx-auto mb-10 text-neutral-200" // 크기 축소, 여백 최적화
+          className="text-lg md:text-xl max-w-2xl mx-auto mb-10 text-neutral-200 font-test-sans" // 크기 축소, 여백 최적화
           variants={subtitleVariants}
           initial="hidden"
           animate="visible"

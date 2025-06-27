@@ -70,7 +70,7 @@ export default function AboutPage() {
         className="mb-16 text-center"
       >
         <h1 className="text-5xl font-bold mb-6 text-white bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-red-600 font-test-serif">예술해방전선</h1>
-        <p className="text-xl text-neutral-300 max-w-3xl mx-auto">
+        <p className="text-xl text-neutral-300 max-w-3xl mx-auto font-test-sans">
           우리가 걸어온 예술 해방의 발자취
         </p>
       </motion.div>
