@@ -85,7 +85,7 @@ export default function AboutPage() {
       >
         <h2 className="text-3xl font-bold mb-8 text-white font-serif">
           우리의 시작: 새벽의 외침, 연대의 불씨
-        </h2>>
+        </h2>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <p className="mb-4 text-neutral-300 leading-relaxed text-lg font-sans">
