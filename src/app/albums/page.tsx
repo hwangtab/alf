@@ -22,9 +22,6 @@ type Album = {
   };
 };
 
-import type { Metadata } from 'next';
-import { metadata } from './metadata';
-
 export default function AlbumsPage() {
   const albums: Album[] = albumsData;
 
@@ -67,7 +64,7 @@ export default function AlbumsPage() {
               imageSizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               loadingPriority={index < 3}
               lineClamp={3}
-            </Card>
+            />
           );
         })}
       </div>
