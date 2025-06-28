@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* FOUC (Flash of Unstyled Content) 방지 */
+html {
+  /* 초기 배경색 설정으로 플래시 방지 */
+  background-color: #0f0f0f;
+  color: #f0f0f0;
+}
+
 /* 커스텀 폰트 설정 */
 @font-face {
   font-family: 'PretendardVariable';
@@ -246,4 +253,23 @@ html {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* 페이지 전환 최적화 */
+html {
+  /* 페이지 전환 시 깜빡임 방지 */
+  visibility: visible;
+  opacity: 1;
+}
+
+body {
+  /* 페이지 로드 최적화 */
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.1s ease-in-out;
+}
+
+/* 하이드레이션 완료 전까지 스타일 유지 */
+[data-nextjs-scroll-focus-boundary] {
+  background-color: inherit;
 }
