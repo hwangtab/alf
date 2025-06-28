@@ -177,7 +177,6 @@ const Header = () => {
               left: 0,
               right: 0,
               bottom: 0,
-              height: '100vh',
               height: '100dvh', // 동적 뷰포트 높이 지원
               width: '100vw',
               backgroundColor: 'rgba(0, 0, 0, 0.95)',
