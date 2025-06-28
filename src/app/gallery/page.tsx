@@ -72,7 +72,7 @@ export default function GalleryPage() {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
         <motion.h1 
-          className="text-5xl font-bold mb-16 text-center text-white font-serif"
+          className="text-5xl font-bold mb-16 text-center text-white font-test-serif"
           initial="hidden" animate="visible" variants={fadeIn}
         >
           갤러리
@@ -87,7 +87,7 @@ export default function GalleryPage() {
     return (
       <div className="container mx-auto px-4 py-20 text-center text-red-500">
         <motion.h1 
-          className="text-5xl font-bold mb-16 text-center text-white font-serif"
+          className="text-5xl font-bold mb-16 text-center text-white font-test-serif"
           initial="hidden" animate="visible" variants={fadeIn}
         >
           갤러리
@@ -102,7 +102,7 @@ export default function GalleryPage() {
     return (
        <div className="container mx-auto px-4 py-20 text-center">
          <motion.h1 
-           className="text-5xl font-bold mb-16 text-center text-white font-serif"
+           className="text-5xl font-bold mb-16 text-center text-white font-test-serif"
            initial="hidden" animate="visible" variants={fadeIn}
          >
            갤러리

@@ -38,7 +38,7 @@ export default function NewsPage() {
   return (
     <div className="container mx-auto py-20 px-4">
       <motion.h1
-        className="text-5xl font-bold mb-16 text-center text-white font-serif"
+        className="text-5xl font-bold mb-16 text-center text-white font-test-serif"
         initial="hidden"
         animate="visible"
         variants={fadeIn}
