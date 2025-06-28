@@ -130,15 +130,15 @@ export default function AboutPage() {
       </motion.button>
 
       <motion.section
-        id="our-dream" // 섹션에 ID 추가
-        className="mb-24 scroll-mt-20" // 스크롤 마진 추가
+        id="our-dream"
+        className="mb-24 bg-neutral-800 rounded-xl p-8 shadow-lg scroll-mt-20"
         initial="hidden"
         whileInView="visible"
         viewport={mobileViewportSettings}
         variants={fadeIn}
       >
         <h2 className="text-3xl font-bold mb-8 text-white font-serif">우리가 꿈꾸는 세상</h2>
-        <div className="bg-neutral-800 rounded-xl p-8 shadow-lg">
+        <div>
           <p className="text-neutral-300 leading-relaxed text-lg mb-6 font-sans">
             우리가 꿈꾸는 세상은 화려한 청사진이나 이상적인 구호 속에 머물지 않습니다. 예술해방전선은 예술이라는 섬세하고도 강인한 언어를 통해, 우리 사회의 가장 깊숙한 그늘에 따스한 빛을 드리우고, 견고해 보이는 불평등의 벽에 용감하게 균열을 내며, 세상의 변두리로 밀려난 소외된 이들과 조용히 어깨를 나란히 하는 그런 세상을 마음 깊이 그립니다. 모든 존재가 어떠한 차별과 억압 없이 자신의 고유한 존엄성을 온전히 지키며, 서로의 다름을 존중하고 함께 어우러져 살아갈 수 있는 세상. 그것이야말로 우리가 서툰 몸짓이나마 예술로써 다가가고자 하는 세상의 본질적인 모습입니다. 우리는 예술이 더 이상 상아탑이나 미술관, 혹은 값비싼 갤러리 안에 고고하게 갇힌 감상의 대상을 넘어, 치열한 삶의 현장인 거리와 광장에서, 삶의 터전이 속절없이 무너져 내리는 바로 그 자리에서, 세상을 바꾸는 뜨거운 실천이자 살아 숨 쉬는 저항의 언어가 될 수 있다고 굳게, 아주 굳게 믿습니다.
           </p>
@@ -176,9 +176,11 @@ export default function AboutPage() {
         whileInView="visible"
         viewport={mobileViewportSettings}
         variants={staggerContainer}
+        className="mb-24"
       >
-        <h2 id="our-values" className="text-3xl font-bold mb-8 text-white scroll-mt-20 font-serif">우리가 지켜온 가치</h2> {/* ID 추가 및 스크롤 마진 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-neutral-800 rounded-xl p-8 shadow-lg">
+          <h2 id="our-values" className="text-3xl font-bold mb-8 text-white scroll-mt-20 font-serif">우리가 지켜온 가치</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <motion.div variants={fadeIn} className="bg-neutral-800 rounded-xl p-6 shadow-lg border-l-4 border-yellow-500">
             <h3 className="text-xl font-bold mb-3 text-white font-serif">함께 걷는 길, 연대</h3>
             <p className="text-neutral-300 leading-relaxed font-sans"> {/* leading-relaxed 추가 */}
@@ -206,6 +208,7 @@ export default function AboutPage() {
               우리는 서로의 다름이 틀림이 아님을 믿습니다. 다양한 배경과 정체성, 각기 다른 생각과 목소리를 가진 모든 존재를 존중하며 따뜻하게 품고자 합니다. 어떤 차별도 없이 모든 목소리가 동등하게 소중히 여겨지고 자유롭게 울려 퍼지는 포용적인 예술 공동체. 그것이 우리가 함께 만들고 지켜나가고자 하는 소중한 가치입니다.
             </p>
           </motion.div>
+        </div>
         </div>
       </motion.section>
 
