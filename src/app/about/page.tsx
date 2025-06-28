@@ -75,16 +75,6 @@ export default function AboutPage() {
         </p>
       </motion.div>
 
-      {/* h2 제목을 section 바깥으로 이동 */}
-      <motion.h2
-        className="text-3xl font-bold mb-8 text-white font-serif"
-        initial="hidden"
-        whileInView="visible"
-        viewport={mobileViewportSettings}
-        variants={fadeIn}
-      >
-        우리의 시작: 새벽의 외침, 연대의 불씨
-      </motion.h2>
       <motion.section
         className="mb-24 bg-neutral-800 rounded-xl p-8 shadow-lg"
         initial="hidden"
@@ -92,6 +82,9 @@ export default function AboutPage() {
         viewport={mobileViewportSettings}
         variants={fadeIn}
       >
+        <h2 className="text-3xl font-bold mb-8 text-white font-serif">
+          우리의 시작: 새벽의 외침, 연대의 불씨
+        </h2>
         <div className="grid md:grid-cols-2 gap-12 items-center"> {/* items-start를 items-center로 변경 */}
           <div>
             <p className="mb-4 text-neutral-300 leading-relaxed text-lg font-sans">
