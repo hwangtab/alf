@@ -175,15 +175,15 @@ export default function AboutPage() {
         viewport={mobileViewportSettings}
         variants={staggerContainer}
       >
-        <div className="bg-neutral-800 rounded-xl p-8 shadow-lg">
-          <h2 id="our-values" className="text-3xl font-bold mb-12 text-white scroll-mt-20 font-serif text-center">우리가 지켜온 가치</h2>
+        <div className="bg-neutral-800 rounded-xl p-6 pb-4 shadow-lg">
+          <h2 id="our-values" className="text-3xl font-bold mb-8 text-white scroll-mt-20 font-serif text-center">우리가 지켜온 가치</h2>
           
           {/* 타임라인 레이아웃 */}
           <div className="relative">
             {/* 중앙 세로선 */}
             <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-yellow-500 via-red-500 via-orange-500 to-amber-500"></div>
             
-            <div className="space-y-16">
+            <div className="space-y-12">
               {/* 연대 */}
               <motion.div variants={fadeIn} className="flex items-center">
                 <div className="w-1/2 pr-8 text-right">
