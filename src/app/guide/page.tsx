@@ -140,7 +140,7 @@ export default function GuidePage() {
 
   return (
     // Flex 레이아웃 적용 (lg 이상 화면에서 사이드바 표시)
-    <div className="container mx-auto py-20 px-4 flex flex-col lg:flex-row"> {/* 이전 오류 수정 시도 제거 */}
+    <div className="container mx-auto pt-28 pb-20 px-4 flex flex-col lg:flex-row"> {/* 이전 오류 수정 시도 제거 */}
       {/* 사이드바 */}
       <aside className="w-full lg:w-64 lg:flex-shrink-0 lg:sticky lg:top-24 self-start lg:pr-8 lg:mr-8 lg:border-r border-neutral-700 lg:h-[calc(100vh-10rem)] lg:overflow-y-auto mb-12 lg:mb-0">
         <nav>

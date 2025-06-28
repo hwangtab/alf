@@ -63,7 +63,7 @@ export default function AboutPage() {
   };
 
   return (
-    <div className="container mx-auto py-20 px-4">
+    <div className="container mx-auto pt-28 pb-20 px-4">
       <motion.div
         initial="hidden"
         animate="visible"

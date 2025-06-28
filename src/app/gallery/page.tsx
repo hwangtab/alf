@@ -70,7 +70,7 @@ export default function GalleryPage() {
   // 로딩 중 표시
   if (isLoading) {
     return (
-      <div className="container mx-auto px-4 py-20 text-center">
+      <div className="container mx-auto px-4 pt-28 pb-20 text-center">
         <motion.h1 
           className="text-5xl font-bold mb-16 text-center text-white font-test-serif"
           initial="hidden" animate="visible" variants={fadeIn}
@@ -85,7 +85,7 @@ export default function GalleryPage() {
   // 오류 발생 시 표시
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-20 text-center text-red-500">
+      <div className="container mx-auto px-4 pt-28 pb-20 text-center text-red-500">
         <motion.h1 
           className="text-5xl font-bold mb-16 text-center text-white font-test-serif"
           initial="hidden" animate="visible" variants={fadeIn}
@@ -100,7 +100,7 @@ export default function GalleryPage() {
   // 이미지가 없을 경우 표시 (API 호출 후)
   if (images.length === 0) {
     return (
-       <div className="container mx-auto px-4 py-20 text-center">
+       <div className="container mx-auto px-4 pt-28 pb-20 text-center">
          <motion.h1 
            className="text-5xl font-bold mb-16 text-center text-white font-test-serif"
            initial="hidden" animate="visible" variants={fadeIn}
@@ -113,7 +113,7 @@ export default function GalleryPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-20"> 
+    <div className="container mx-auto px-4 pt-28 pb-20"> 
       <motion.h1 
         className="text-5xl font-bold mb-16 text-center text-white"
         initial="hidden"

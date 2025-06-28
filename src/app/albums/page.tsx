@@ -36,7 +36,7 @@ export default function AlbumsPage() {
   };
 
   return (
-    <div className="container mx-auto py-20 px-4">
+    <div className="container mx-auto pt-28 pb-20 px-4">
       <motion.h1 
         className="text-5xl font-bold mb-16 text-center text-white font-test-serif"
         initial="hidden"
