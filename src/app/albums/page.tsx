@@ -69,7 +69,7 @@ export default function AlbumsPage() {
               lineClamp={3}
             >
            {/* 카드 본문에 발매일 및 트랙리스트 추가 */}
-           <div className="text-xs text-neutral-400 mt-2 mb-4">
+           <div className="text-xs text-neutral-400 mt-2">
              {album.releaseDate && <p>발매일: {new Date(album.releaseDate).toLocaleDateString('ko-KR')}</p>}
              {album.tracks && album.tracks.length > 0 && (
                <div className="mt-2">
