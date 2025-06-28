@@ -67,22 +67,6 @@ export default function AlbumsPage() {
               imageSizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               loadingPriority={index < 3}
               lineClamp={3}
-            >
-           {/* 카드 본문에 발매일 및 트랙리스트 추가 */}
-           <div className="text-xs text-neutral-400 mt-2">
-             {album.releaseDate && <p>발매일: {new Date(album.releaseDate).toLocaleDateString('ko-KR')}</p>}
-             {album.tracks && album.tracks.length > 0 && (
-               <div className="mt-2">
-                 <h4 className="font-semibold text-neutral-300 mb-1 font-serif">수록곡:</h4>
-                 <ul className="space-y-0.5">
-                   {album.tracks.slice(0, 3).map((track, i) => (
-                     <li key={i} className="line-clamp-1">{track}</li>
-                   ))}
-                   {album.tracks.length > 3 && <li className="line-clamp-1">...</li>}
-                 </ul>
-               </div>
-             )}
-           </div>
             </Card>
           );
         })}
