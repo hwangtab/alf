@@ -3,6 +3,8 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ClientNoiseBackground from "@/components/layout/ClientNoiseBackground";
+import PageTransition from "@/components/providers/PageTransition";
+import FontLoader from "@/components/providers/FontLoader";
 
 export const metadata: Metadata = {
   // 기본 정보
@@ -100,13 +102,18 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased flex flex-col min-h-screen relative bg-black text-white font-sans">
-        {/* 노이즈 텍스처 배경 */}
+        <FontLoader />
+        
+        {/* 노이즈 텍스처 배경 - 즉시 렌더링 */}
+        <div className="fixed inset-0 bg-black z-0" />
         <ClientNoiseBackground />
         
         {/* 메인 콘텐츠 */}
         <div className="flex flex-col min-h-screen relative z-[1]">
           <Header />
-          <main className="flex-grow">{children}</main>
+          <PageTransition>
+            <main className="flex-grow">{children}</main>
+          </PageTransition>
           <Footer />
         </div>
       </body>

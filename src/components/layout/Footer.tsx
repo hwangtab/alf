@@ -36,7 +36,7 @@ const Footer = () => {
       
       <div className="container mx-auto relative z-10">
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12"
+          className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 motion-element"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"

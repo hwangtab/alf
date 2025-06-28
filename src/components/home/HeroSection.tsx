@@ -26,6 +26,10 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
   const mouseY = useMotionValue(0);
 
   useEffect(() => {
+    // 모바일에서는 마우스 이벤트 비활성화
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    if (isMobile) return;
+
     let animationFrameId: number;
     let lastMoveTime = 0;
     const throttleDelay = 16; // 60fps로 제한
@@ -116,11 +120,11 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
   return (
     <motion.section
       ref={containerRef}
-      className="relative flex items-center justify-center min-h-screen overflow-hidden"
+      className="relative flex items-center justify-center min-h-screen overflow-hidden motion-element"
       style={{ y, opacity }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }} // 0.5 -> 0.3으로 단축
+      transition={{ duration: 0.3 }}
     >
       {/* 배경 이미지 추가 */}
       <Image

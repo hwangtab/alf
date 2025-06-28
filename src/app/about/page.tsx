@@ -77,7 +77,7 @@ export default function AboutPage() {
       </motion.div>
 
       <motion.section
-        className="mb-24 bg-neutral-800 rounded-xl p-8 shadow-lg"
+        className="mb-24 bg-neutral-800 rounded-xl p-8 shadow-lg motion-element"
         initial="hidden"
         whileInView="visible"
         viewport={mobileViewportSettings}
@@ -132,7 +132,7 @@ export default function AboutPage() {
 
       <motion.section
         id="our-dream"
-        className="mb-24 bg-neutral-800 rounded-xl p-8 shadow-lg scroll-mt-20"
+        className="mb-24 bg-neutral-800 rounded-xl p-8 shadow-lg scroll-mt-20 motion-element"
         initial="hidden"
         whileInView="visible"
         viewport={mobileViewportSettings}
@@ -174,6 +174,7 @@ export default function AboutPage() {
         whileInView="visible"
         viewport={mobileViewportSettings}
         variants={staggerContainer}
+        className="motion-element"
       >
         <div className="bg-neutral-800 rounded-xl p-8 shadow-lg">
           <h2 id="our-values" className="text-3xl font-bold mb-8 text-white scroll-mt-20 font-test-serif text-center">우리가 지켜온 가치</h2>
