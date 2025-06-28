@@ -29,10 +29,11 @@ const Header = () => {
     };
   }, []);
 
-  // 메뉴 상태에 따른 body 스크롤 제어 및 ESC 키 처리
+  // 메뉴 상태에 따른 body 클래스 제어 및 ESC 키 처리
   useEffect(() => {
     if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      // body에 클래스 추가로 CSS에서 제어
+      document.body.classList.add('menu-open');
       
       // ESC 키로 메뉴 닫기
       const handleEscKey = (event: KeyboardEvent) => {
@@ -47,11 +48,12 @@ const Header = () => {
         document.removeEventListener('keydown', handleEscKey);
       };
     } else {
-      document.body.style.overflow = '';
+      // body 클래스 제거
+      document.body.classList.remove('menu-open');
     }
     
     return () => {
-      document.body.style.overflow = '';
+      document.body.classList.remove('menu-open');
     };
   }, [isMenuOpen]);
 
@@ -146,7 +148,7 @@ const Header = () => {
           </div>
 
           <button
-            className="block md:hidden text-white p-2 focus:outline-none relative z-[110]"
+            className="hamburger-button block md:hidden text-white p-2 focus:outline-none relative z-[110]"
             onClick={toggleMenu}
             aria-label="메뉴 열기"
             type="button"
@@ -198,21 +200,20 @@ const Header = () => {
           >
             <motion.nav 
               className="flex flex-col items-center gap-8 text-center"
-              initial={{ y: 20 }}
-              animate={{ y: 0 }}
-              exit={{ y: 20 }}
-              transition={{ duration: 0.3, delay: 0.1 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.1 }}
             >
               {navigationLinks.map((item: NavLink, index: number) => (
                 <motion.div
                   key={item.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
                   transition={{ 
-                    delay: index * 0.1 + 0.2, 
-                    duration: 0.3,
-                    ease: "easeOut"
+                    delay: index * 0.05,
+                    duration: 0.1
                   }}
                 >
                   <Link
