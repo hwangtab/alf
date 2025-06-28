@@ -77,7 +77,7 @@ export default function AboutPage() {
 
       {/* h2 제목을 section 바깥으로 이동 */}
       <motion.h2
-        className="text-3xl font-bold mb-8 text-white"
+        className="text-3xl font-bold mb-8 text-white font-serif"
         initial="hidden"
         whileInView="visible"
         viewport={mobileViewportSettings}
@@ -144,7 +144,7 @@ export default function AboutPage() {
         viewport={mobileViewportSettings}
         variants={fadeIn}
       >
-        <h2 className="text-3xl font-bold mb-8 text-white">우리가 꿈꾸는 세상</h2>
+        <h2 className="text-3xl font-bold mb-8 text-white font-serif">우리가 꿈꾸는 세상</h2>
         <div className="bg-neutral-800 rounded-xl p-8 shadow-lg">
           <p className="text-neutral-300 leading-relaxed text-lg mb-6 font-sans">
             우리가 꿈꾸는 세상은 화려한 청사진이나 이상적인 구호 속에 머물지 않습니다. 예술해방전선은 예술이라는 섬세하고도 강인한 언어를 통해, 우리 사회의 가장 깊숙한 그늘에 따스한 빛을 드리우고, 견고해 보이는 불평등의 벽에 용감하게 균열을 내며, 세상의 변두리로 밀려난 소외된 이들과 조용히 어깨를 나란히 하는 그런 세상을 마음 깊이 그립니다. 모든 존재가 어떠한 차별과 억압 없이 자신의 고유한 존엄성을 온전히 지키며, 서로의 다름을 존중하고 함께 어우러져 살아갈 수 있는 세상. 그것이야말로 우리가 서툰 몸짓이나마 예술로써 다가가고자 하는 세상의 본질적인 모습입니다. 우리는 예술이 더 이상 상아탑이나 미술관, 혹은 값비싼 갤러리 안에 고고하게 갇힌 감상의 대상을 넘어, 치열한 삶의 현장인 거리와 광장에서, 삶의 터전이 속절없이 무너져 내리는 바로 그 자리에서, 세상을 바꾸는 뜨거운 실천이자 살아 숨 쉬는 저항의 언어가 될 수 있다고 굳게, 아주 굳게 믿습니다.
@@ -184,31 +184,31 @@ export default function AboutPage() {
         viewport={mobileViewportSettings}
         variants={staggerContainer}
       >
-        <h2 id="our-values" className="text-3xl font-bold mb-8 text-white scroll-mt-20">우리가 지켜온 가치</h2> {/* ID 추가 및 스크롤 마진 */}
+        <h2 id="our-values" className="text-3xl font-bold mb-8 text-white scroll-mt-20 font-serif">우리가 지켜온 가치</h2> {/* ID 추가 및 스크롤 마진 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <motion.div variants={fadeIn} className="bg-neutral-800 rounded-xl p-6 shadow-lg border-l-4 border-yellow-500">
-            <h3 className="text-xl font-bold mb-3 text-white">함께 걷는 길, 연대</h3>
+            <h3 className="text-xl font-bold mb-3 text-white font-serif">함께 걷는 길, 연대</h3>
             <p className="text-neutral-300 leading-relaxed font-sans"> {/* leading-relaxed 추가 */}
               우리는 결코 홀로 서지 않습니다. 노량진 수산시장, 동서울 터미널 등 삶의 터전에서 밀려나고 억압받는 사회적 약자들과 소외된 이들의 곁을 묵묵히 지키고 있습니다. 음악가, 미술가, 사진가, 작가 등 다양한 분야의 예술가들이 어깨를 걸고 함께 아파하며, 그들의 목소리가 세상에 울려 퍼지도록 예술로써 힘을 보태고 있습니다. 연대는 우리의 가장 따뜻한 무기입니다.
             </p>
           </motion.div>
 
           <motion.div variants={fadeIn} className="bg-neutral-800 rounded-xl p-6 shadow-lg border-l-4 border-red-500">
-            <h3 className="text-xl font-bold mb-3 text-white">침묵하지 않는 목소리, 저항</h3>
+            <h3 className="text-xl font-bold mb-3 text-white font-serif">침묵하지 않는 목소리, 저항</h3>
             <p className="text-neutral-300 leading-relaxed font-sans"> {/* leading-relaxed 추가 */}
               우리는 부당한 권력과 거대한 자본, 억압적인 구조 앞에서 결코 침묵하지 않습니다. 예술은 우리의 가장 날카로운 저항의 언어입니다. 때로는 서늘한 분노로, 때로는 뜨거운 외침으로 사회의 깊은 모순과 부조리를 드러내고 비판합니다. 침묵을 강요하는 세상에 맞서, 예술로써 당당히 우리의 목소리를 세상에 외치는 것, 그것이 우리가 걸어가는 저항의 방식입니다.
             </p>
           </motion.div>
 
           <motion.div variants={fadeIn} className="bg-neutral-800 rounded-xl p-6 shadow-lg border-l-4 border-orange-500">
-            <h3 className="text-xl font-bold mb-3 text-white">새로운 길을 찾는 용기, 실험</h3>
+            <h3 className="text-xl font-bold mb-3 text-white font-serif">새로운 길을 찾는 용기, 실험</h3>
             <p className="text-neutral-300 leading-relaxed font-sans"> {/* leading-relaxed 추가 */}
               우리는 정해진 길, 익숙한 방식에 안주하기를 거부합니다. 언제나 기존의 틀을 넘어서는 창의적인 상상력과 두려움 없는 실험 정신으로 새로운 예술적 언어를 찾아 나섭니다. 때로는 거칠고 투박할지라도, 현장의 생생한 목소리와 시대의 아픔을 담아내는 우리만의 표현 방식을 끊임없이 모색하며 예술의 경계를 스스로 넓혀가고자 합니다.
             </p>
           </motion.div>
 
           <motion.div variants={fadeIn} className="bg-neutral-800 rounded-xl p-6 shadow-lg border-l-4 border-amber-500">
-            <h3 className="text-xl font-bold mb-3 text-white">다름을 안는 마음, 포용</h3>
+            <h3 className="text-xl font-bold mb-3 text-white font-serif">다름을 안는 마음, 포용</h3>
             <p className="text-neutral-300 leading-relaxed font-sans"> {/* leading-relaxed 추가 */}
               우리는 서로의 다름이 틀림이 아님을 믿습니다. 다양한 배경과 정체성, 각기 다른 생각과 목소리를 가진 모든 존재를 존중하며 따뜻하게 품고자 합니다. 어떤 차별도 없이 모든 목소리가 동등하게 소중히 여겨지고 자유롭게 울려 퍼지는 포용적인 예술 공동체. 그것이 우리가 함께 만들고 지켜나가고자 하는 소중한 가치입니다.
             </p>

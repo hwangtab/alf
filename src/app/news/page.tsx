@@ -38,7 +38,7 @@ export default function NewsPage() {
   return (
     <div className="container mx-auto py-20 px-4">
       <motion.h1
-        className="text-5xl font-bold mb-16 text-center text-white"
+        className="text-5xl font-bold mb-16 text-center text-white font-serif"
         initial="hidden"
         animate="visible"
         variants={fadeIn}
@@ -70,7 +70,7 @@ export default function NewsPage() {
               >
                 {/* items-center -> items-baseline 으로 변경 */}
                 <div className="flex justify-between items-baseline mb-2">
-                  <h2 className="text-2xl font-semibold text-white group-hover:text-primary-red transition-colors duration-200">{newsletter.title}</h2>
+                  <h2 className="text-2xl font-semibold text-white group-hover:text-primary-red transition-colors duration-200 font-serif">{newsletter.title}</h2>
                   {/* 아이콘 스타일 */}
                   <svg className="w-5 h-5 text-neutral-400 group-hover:text-primary-red transition-colors duration-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 </div>

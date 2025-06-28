@@ -39,7 +39,7 @@ export default function ActivitiesPage() {
     // 로딩 상태에서도 동일한 레이아웃 유지
     return (
       <div className="container mx-auto py-20 px-4">
-        <h1 className="text-5xl font-bold mb-16 text-center text-white">예술해방전선의 활동</h1>
+        <h1 className="text-5xl font-bold mb-16 text-center text-white font-serif">예술해방전선의 활동</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"> {/* 로딩 스켈레톤도 3열로 */}
           {[1, 2, 3, 4, 5, 6].map(i => ( // 6개 스켈레톤 표시
             <div key={i} className="bg-neutral-800 border border-neutral-700 rounded-lg overflow-hidden shadow-lg h-96 animate-pulse"></div>
@@ -55,7 +55,7 @@ export default function ActivitiesPage() {
   return (
     <div className="container mx-auto py-20 px-4">
       <motion.h1
-        className="text-5xl font-bold mb-16 text-center text-white"
+        className="text-5xl font-bold mb-16 text-center text-white font-serif"
         initial="hidden"
         animate="visible"
         variants={fadeIn}

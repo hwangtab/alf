@@ -88,7 +88,7 @@ export default function RootLayout({
         <ClientNoiseBackground />
         
         {/* 메인 콘텐츠 */}
-        <div className="flex flex-col min-h-screen relative z-10">
+        <div className="flex flex-col min-h-screen relative z-[1]">
           <Header />
           <main className="flex-grow">{children}</main>
           <Footer />

@@ -80,12 +80,12 @@ export default function GuidePage() {
   // 스타일 변수
   const sectionStyle = "mb-16 bg-neutral-800 rounded-xl p-8 shadow-lg";
   const sectionNoBgStyle = "mb-16"; // 배경 없는 섹션 스타일
-  const h2Style = "text-3xl font-bold mb-8 text-white scroll-mt-40"; // scroll-mt 값 추가 증가 (10rem)
-  const h3Style = "text-2xl font-semibold mb-6 text-white scroll-mt-40"; // scroll-mt 값 추가 증가 (10rem)
-  const pStyle = "text-neutral-300 leading-relaxed text-lg mb-6";
-  const ulStyle = "list-disc list-outside text-neutral-300 space-y-3 text-lg mb-6 pl-5"; // list-inside -> list-outside, pl-5 추가
-  const quoteStyle = "border-l-4 border-yellow-500 pl-4 italic text-neutral-300 my-8 text-lg bg-neutral-900 p-6 rounded-md";
-  const highlightBoxStyle = "bg-neutral-700 p-6 rounded-lg my-8 border-l-4 border-red-500 text-neutral-200";
+  const h2Style = "text-3xl font-bold mb-8 text-white scroll-mt-40 font-serif"; // scroll-mt 값 추가 증가 (10rem)
+  const h3Style = "text-2xl font-semibold mb-6 text-white scroll-mt-40 font-serif"; // scroll-mt 값 추가 증가 (10rem)
+  const pStyle = "text-neutral-300 leading-relaxed text-lg mb-6 font-sans";
+  const ulStyle = "list-disc list-outside text-neutral-300 space-y-3 text-lg mb-6 pl-5 font-sans"; // list-inside -> list-outside, pl-5 추가
+  const quoteStyle = "border-l-4 border-yellow-500 pl-4 italic text-neutral-300 my-8 text-lg bg-neutral-900 p-6 rounded-md font-sans";
+  const highlightBoxStyle = "bg-neutral-700 p-6 rounded-lg my-8 border-l-4 border-red-500 text-neutral-200 font-sans";
 
   // Intersection Observer 설정
   useEffect(() => {
@@ -185,10 +185,10 @@ export default function GuidePage() {
           animate="visible"
           variants={fadeIn}
         >
-          <h1 className="text-5xl font-bold mb-6 text-white">
+          <h1 className="text-5xl font-bold mb-6 text-white font-serif">
             현장 연대를 위한 예술가 가이드
           </h1>
-          <p className="text-xl text-neutral-300 max-w-3xl mx-auto">
+          <p className="text-xl text-neutral-300 max-w-3xl mx-auto font-sans">
             투쟁과 창조, 그 경계에서 함께 걷는 길
           </p>
         </motion.div>

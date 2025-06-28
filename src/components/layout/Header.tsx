@@ -29,10 +29,23 @@ const Header = () => {
     };
   }, []);
 
-  // 메뉴 상태에 따른 body 스크롤 제어
+  // 메뉴 상태에 따른 body 스크롤 제어 및 ESC 키 처리
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
+      
+      // ESC 키로 메뉴 닫기
+      const handleEscKey = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          setIsMenuOpen(false);
+        }
+      };
+      
+      document.addEventListener('keydown', handleEscKey);
+      
+      return () => {
+        document.removeEventListener('keydown', handleEscKey);
+      };
     } else {
       document.body.style.overflow = '';
     }
@@ -127,25 +140,25 @@ const Header = () => {
           </div>
 
           <button
-            className="block md:hidden text-white p-2 focus:outline-none relative z-10"
+            className="block md:hidden text-white p-2 focus:outline-none relative z-[110]"
             onClick={toggleMenu}
             aria-label="메뉴 열기"
             type="button"
           >
             <div className="w-6 h-5 flex flex-col justify-between">
               <span 
-                className={`block h-0.5 w-full bg-white rounded-full transition-all duration-200 ease-in-out ${
+                className={`block h-0.5 w-full bg-white rounded-full transition-all duration-300 ease-in-out origin-center ${
                   isMenuOpen ? 'rotate-45 translate-y-2' : ''
                 }`}
               />
               <span 
-                className={`block h-0.5 w-4 bg-white rounded-full transition-all duration-200 ease-in-out ${
-                  isMenuOpen ? 'opacity-0' : ''
+                className={`block h-0.5 w-full bg-white rounded-full transition-all duration-300 ease-in-out ${
+                  isMenuOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
                 }`}
               />
               <span 
-                className={`block h-0.5 w-3 bg-white rounded-full transition-all duration-200 ease-in-out ${
-                  isMenuOpen ? '-rotate-45 -translate-y-2 w-full' : ''
+                className={`block h-0.5 w-full bg-white rounded-full transition-all duration-300 ease-in-out origin-center ${
+                  isMenuOpen ? '-rotate-45 -translate-y-2' : ''
                 }`}
               />
             </div>
@@ -154,33 +167,62 @@ const Header = () => {
       </motion.header>
 
       {/* 모바일 메뉴 */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="fixed inset-0 bg-black bg-opacity-95 flex flex-col items-center justify-center z-40"
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={mobileMenuVariants}
+            className="fixed inset-0 z-[100] bg-black/95 flex flex-col items-center justify-center"
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: '100vh',
+              height: '100dvh', // 동적 뷰포트 높이 지원
+              width: '100vw',
+              backgroundColor: 'rgba(0, 0, 0, 0.95)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
           >
-            <nav className="flex flex-col items-center space-y-6 text-center">
+            <motion.nav 
+              className="flex flex-col items-center gap-8 text-center"
+              initial={{ y: 20 }}
+              animate={{ y: 0 }}
+              exit={{ y: 20 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+            >
               {navigationLinks.map((item: NavLink, index: number) => (
                 <motion.div
                   key={item.href}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ 
+                    delay: index * 0.1 + 0.2, 
+                    duration: 0.3,
+                    ease: "easeOut"
+                  }}
                 >
                   <Link
                     href={item.href}
-                    className="text-2xl font-bold text-white hover:text-primary-red transition-colors duration-200 block py-3 px-6 font-sans"
                     onClick={closeMenu}
+                    className="text-white text-2xl font-bold py-3 px-6 block hover:text-red-400 transition-colors duration-200"
+                    style={{ 
+                      fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, sans-serif'
+                    }}
                   >
                     {item.label}
                   </Link>
                 </motion.div>
               ))}
-            </nav>
+            </motion.nav>
           </motion.div>
         )}
       </AnimatePresence>

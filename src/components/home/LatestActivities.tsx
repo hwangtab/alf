@@ -26,7 +26,7 @@ const LatestActivities = () => {
 
   return (
     <section id="latest-activities" className="container mx-auto py-16 px-4 scroll-mt-20"> {/* ID 추가 및 스크롤 마진 */}
-      <h2 className="text-3xl font-bold mb-12 text-center text-white">주요 활동 소개</h2> 
+      <h2 className="text-3xl font-bold mb-12 text-center text-white font-serif">주요 활동 소개</h2> 
       <div className="grid md:grid-cols-3 gap-8">
         {featuredActivities.map((activity, index) => ( 
           <Card

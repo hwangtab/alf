@@ -63,8 +63,8 @@ export default function NewsletterSignup() {
   return (
     <section className="bg-orange-100 py-16 px-4">
       <div className="container mx-auto max-w-3xl text-center">
-        <h2 className="text-3xl font-bold mb-6 text-orange-900">예술해방전선 소식 받기</h2> {/* Added text-orange-900 */}
-        <p className="text-lg mb-8 text-orange-800 whitespace-normal"> {/* Added text-orange-800 and whitespace-normal */}
+        <h2 className="text-3xl font-bold mb-6 text-orange-900 font-serif">예술해방전선 소식 받기</h2> {/* Added text-orange-900 */}
+        <p className="text-lg mb-8 text-orange-800 whitespace-normal font-sans"> {/* Added text-orange-800 and whitespace-normal */}
           예술해방전선의 최신 활동과 소식을 이메일로 받아보세요.
         </p>
 

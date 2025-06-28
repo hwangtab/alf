@@ -18,10 +18,10 @@ export default function Error({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-6xl md:text-8xl font-black mb-6">
+        <h1 className="text-6xl md:text-8xl font-black mb-6 font-serif">
           <span className="text-gradient-art">오류</span>
         </h1>
-        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-neutral-200">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-neutral-200 font-serif">
           문제가 발생했습니다
         </h2>
         <p className="text-neutral-400 max-w-md mx-auto mb-8">

@@ -80,7 +80,7 @@ export default function AlbumsPage() {
   return (
     <div className="container mx-auto py-20 px-4">
       <motion.h1 
-        className="text-5xl font-bold mb-16 text-center text-white"
+        className="text-5xl font-bold mb-16 text-center text-white font-serif"
         initial="hidden"
         animate="visible"
         variants={fadeIn}
@@ -134,7 +134,7 @@ export default function AlbumsPage() {
              {album.releaseDate && <p>발매일: {new Date(album.releaseDate).toLocaleDateString('ko-KR')}</p>}
              {album.tracks && album.tracks.length > 0 && (
                <div className="mt-2">
-                 <h4 className="font-semibold text-neutral-300 mb-1">수록곡:</h4>
+                 <h4 className="font-semibold text-neutral-300 mb-1 font-serif">수록곡:</h4>
                  <ul className="space-y-0.5">
                    {album.tracks.slice(0, 3).map((track, i) => (
                      <li key={i} className="line-clamp-1">{track}</li>
