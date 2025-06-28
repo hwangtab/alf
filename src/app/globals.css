@@ -80,7 +80,7 @@ html {
   body {
     background: var(--background);
     color: var(--foreground);
-    font-family: 'PretendardVariable', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'PretendardVariable', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
     overflow-x: hidden;
     /* GPU 가속 및 폰트 렌더링 최적화 */
     -webkit-font-smoothing: antialiased;

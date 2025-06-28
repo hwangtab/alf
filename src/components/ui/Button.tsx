@@ -34,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({
   ...props // 나머지 모든 props (motion props 포함)
 }) => {
   // 기본 스타일 클래스
-  const baseClasses = "inline-block rounded-lg font-semibold transition-colors shadow hover:shadow-md disabled:opacity-50 border-2 font-sans";
+  const baseClasses = "inline-block rounded-lg font-semibold transition-colors shadow hover:shadow-md disabled:opacity-50 border-2 font-test-sans";
 
   // Variant별 스타일
   const variantClasses: Record<ButtonVariant, string> = {

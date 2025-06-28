@@ -161,7 +161,7 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
       {/* 메인 콘텐츠 */}
       <div className="container mx-auto px-4 z-10 text-center relative">
         <motion.h1
-          className="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tighter font-serif" // 크기 축소, 여백 최적화
+          className="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tighter font-test-serif" // 함박눈체 적용
           variants={titleVariants}
           initial="hidden"
           animate="visible"
@@ -170,7 +170,7 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
         </motion.h1>
 
         <motion.p
-          className="text-lg md:text-xl max-w-2xl mx-auto mb-10 text-neutral-200 font-test-sans" // 크기 축소, 여백 최적화
+          className="text-lg md:text-xl max-w-2xl mx-auto mb-10 text-neutral-200 font-sans" // 크기 축소, 여백 최적화
           variants={subtitleVariants}
           initial="hidden"
           animate="visible"

@@ -44,8 +44,8 @@ const Footer = () => {
         >
           {/* 로고 및 소개 */}
           <motion.div variants={itemVariants}>
-            <h3 className="text-gradient text-2xl font-bold mb-4 font-serif">예술해방전선</h3>
-            <p className="text-neutral-400 mb-6 font-sans">
+            <h3 className="text-gradient text-2xl font-bold mb-4 font-test-serif">예술해방전선</h3>
+            <p className="text-neutral-400 mb-6 font-test-sans">
               예술을 통해 사회적 불평등에 저항하고, 소외된 이들과 연대하며, 모두가 존엄하게 살아갈 수 있는 세상을 만들어갑니다.
             </p>
             <div className="flex space-x-4">
@@ -76,7 +76,7 @@ const Footer = () => {
           
           {/* 빠른 링크 */}
           <motion.div variants={itemVariants}>
-            <h3 className="text-xl font-bold mb-4 text-white font-serif">바로가기</h3>
+            <h3 className="text-xl font-bold mb-4 text-white font-test-serif">바로가기</h3>
             <ul className="space-y-2">
               {[
                 { href: '/about', label: '소개' },
@@ -90,7 +90,7 @@ const Footer = () => {
                 <li key={link.href}>
                   <Link 
                     href={link.href}
-                    className="text-neutral-400 hover:text-primary-red transition-colors inline-block py-1 font-sans"
+                    className="text-neutral-400 hover:text-primary-red transition-colors inline-block py-1 font-test-sans"
                   >
                     {link.label}
                   </Link>
@@ -101,13 +101,13 @@ const Footer = () => {
           
           {/* 연락처 */}
           <motion.div variants={itemVariants}>
-            <h3 className="text-xl font-bold mb-4 text-white font-serif">연락처</h3>
-            <ul className="space-y-2 text-neutral-400 font-sans">
+            <h3 className="text-xl font-bold mb-4 text-white font-test-serif">연락처</h3>
+            <ul className="space-y-2 text-neutral-400 font-test-sans">
               <li className="flex items-start">
                 <svg className="w-5 h-5 mr-2 mt-0.5 text-primary-red" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                 </svg>
-                <a href="mailto:contact@alf.seoul.kr" className="hover:text-primary-red transition-colors font-sans">
+                <a href="mailto:contact@alf.seoul.kr" className="hover:text-primary-red transition-colors font-test-sans">
                   contact@alf.seoul.kr
                 </a>
               </li>
