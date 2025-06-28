@@ -255,6 +255,14 @@ html {
   }
 }
 
+/* 모바일 메뉴 안정화 */
+.mobile-menu-overlay {
+  background-color: #000000 !important;
+  backdrop-filter: none !important;
+  will-change: opacity;
+  transform: translateZ(0);
+}
+
 /* 페이지 전환 최적화 */
 html {
   /* 페이지 전환 시 깜빡임 방지 */

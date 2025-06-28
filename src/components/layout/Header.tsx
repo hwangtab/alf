@@ -63,6 +63,12 @@ const Header = () => {
     setIsMenuOpen(false);
   }, []);
 
+  // 메뉴 클릭 시 즉시 닫기 (번쩍임 방지)
+  const handleMenuLinkClick = useCallback(() => {
+    // 메뉴를 즉시 닫아서 번쩍임 방지
+    setIsMenuOpen(false);
+  }, []);
+
   // 애니메이션 변수들을 useMemo로 최적화
   const logoVariants = useMemo(() => ({
     hidden: { opacity: 0, y: -20 },
@@ -167,19 +173,19 @@ const Header = () => {
       </motion.header>
 
       {/* 모바일 메뉴 */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-[100] bg-black/95 flex flex-col items-center justify-center"
+            className="mobile-menu-overlay fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center"
             style={{
               position: 'fixed',
               top: 0,
               left: 0,
               right: 0,
               bottom: 0,
-              height: '100dvh', // 동적 뷰포트 높이 지원
+              height: '100dvh',
               width: '100vw',
-              backgroundColor: 'rgba(0, 0, 0, 0.95)',
+              backgroundColor: '#000000', // 완전한 검은색으로 변경
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -188,7 +194,7 @@ const Header = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.15 }} // 애니메이션 더 빠르게
           >
             <motion.nav 
               className="flex flex-col items-center gap-8 text-center"
@@ -211,7 +217,7 @@ const Header = () => {
                 >
                   <Link
                     href={item.href}
-                    onClick={closeMenu}
+                    onClick={handleMenuLinkClick}
                     className="text-white text-2xl font-bold py-3 px-6 block hover:text-red-400 transition-colors duration-200"
                     style={{ 
                       fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, sans-serif'
