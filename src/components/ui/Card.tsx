@@ -71,25 +71,27 @@ const CardComponent: React.FC<CardProps> = ({
         {!imageChildren && <h3 className="text-lg md:text-xl font-bold mb-2 font-serif">{title}</h3>}
 
         {description && (
-          <p className={`text-neutral-300 mb-4 text-sm flex-grow whitespace-normal line-clamp-${lineClamp} font-sans`}>
+          <p className={`text-neutral-300 text-sm whitespace-normal line-clamp-${lineClamp} font-sans ${tags && tags.length > 0 || footerContent ? 'mb-4' : 'mb-0'}`}>
             {description}
           </p>
         )}
 
         {children}
 
-        <div className="mt-auto pt-2 flex flex-col sm:flex-row justify-between sm:items-center">
-          {tags && tags.length > 0 && (
-            <div className="flex flex-wrap mb-2 sm:mb-0">
-              {tags.slice(0, tagLimit).map(tag => (
-                <span key={tag} className="inline-block bg-neutral-700 text-yellow-500 rounded-full px-2 py-1 text-xs font-semibold mr-2 mb-2 font-sans">
-                  #{tag}
-                </span>
-              ))}
-            </div>
-          )}
-          {footerContent && <div className="sm:ml-auto">{footerContent}</div>}
-        </div>
+        {(tags && tags.length > 0 || footerContent) && (
+          <div className="mt-auto pt-2 flex flex-col sm:flex-row justify-between sm:items-center">
+            {tags && tags.length > 0 && (
+              <div className="flex flex-wrap mb-2 sm:mb-0">
+                {tags.slice(0, tagLimit).map(tag => (
+                  <span key={tag} className="inline-block bg-neutral-700 text-yellow-500 rounded-full px-2 py-1 text-xs font-semibold mr-2 mb-2 font-sans">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
+            {footerContent && <div className="sm:ml-auto">{footerContent}</div>}
+          </div>
+        )}
       </div>
     </>
   );
