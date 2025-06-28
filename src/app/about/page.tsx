@@ -175,7 +175,7 @@ export default function AboutPage() {
         viewport={mobileViewportSettings}
         variants={staggerContainer}
       >
-        <div className="bg-neutral-800 rounded-xl p-6 pb-4 shadow-lg">
+        <div className="bg-neutral-800 rounded-xl p-8 shadow-lg">
           <h2 id="our-values" className="text-3xl font-bold mb-8 text-white scroll-mt-20 font-serif text-center">우리가 지켜온 가치</h2>
           
           {/* 타임라인 레이아웃 */}
@@ -251,7 +251,7 @@ export default function AboutPage() {
               </motion.div>
 
               {/* 포용 */}
-              <motion.div variants={fadeIn} className="flex items-center">
+              <motion.div variants={fadeIn} className="flex items-center mb-8">
                 <div className="w-1/2"></div>
                 {/* 중앙 포인트 */}
                 <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-amber-500 rounded-full border-4 border-neutral-800 z-10"></div>
