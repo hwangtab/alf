@@ -85,7 +85,7 @@ export default function AboutPage() {
       >
         <h2 className="text-3xl font-bold mb-8 text-white font-serif">
           우리의 시작: 새벽의 외침, 연대의 불씨
-        </h2>
+        </h2>>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <p className="mb-4 text-neutral-300 leading-relaxed text-lg font-sans">
@@ -176,7 +176,7 @@ export default function AboutPage() {
         variants={staggerContainer}
       >
         <div className="bg-neutral-800 rounded-xl p-8 shadow-lg">
-          <h2 id="our-values" className="text-3xl font-bold mb-8 text-white scroll-mt-20 font-serif">우리가 지켜온 가치</h2>
+          <h2 id="our-values" className="text-3xl font-bold mb-8 text-white scroll-mt-20 font-serif text-center">우리가 지켜온 가치</h2>
           
           {/* 타임라인 레이아웃 */}
           <div className="relative">
