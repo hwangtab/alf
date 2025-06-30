@@ -33,6 +33,14 @@ html {
   unicode-range: U+0020-007F, U+00A0-00FF, U+0100-017F, U+0180-024F, U+1E00-1EFF, U+2000-206F, U+AC00-D7AF;
 }
 
+@font-face {
+  font-family: 'Giants-Inline';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Inline.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* 폰트 대체 시스템 - FOUT 방지 */
 html:not(.fonts-loaded) body {
   opacity: 0.95;
@@ -67,6 +75,10 @@ html.fonts-loaded body {
 
 .font-test-sans {
   font-family: 'PretendardVariable', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+.font-giants-inline {
+  font-family: 'Giants-Inline', 'SF_HambakSnow', Georgia, 'Times New Roman', serif !important;
 }
 
 /* iOS Safari 동적 뷰포트 높이 지원 */
