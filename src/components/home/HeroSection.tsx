@@ -32,7 +32,7 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
 
     let animationFrameId: number;
     let lastMoveTime = 0;
-    const throttleDelay = 16; // 60fps로 제한
+    const throttleDelay = 32; // 60fps에서 30fps로 변경 (성능 최적화)
 
     const handleMouseMove = (e: MouseEvent) => {
       const now = Date.now();
@@ -45,9 +45,9 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
 
-        // 마우스 위치를 -10 ~ 10 범위로 축소 (성능 향상)
-        mouseX.set((e.clientX - centerX) / centerX * 10); // 20 -> 10
-        mouseY.set((e.clientY - centerY) / centerY * 10); // 20 -> 10
+        // 마우스 위치를 -5 ~ 5 범위로 축소 (성능 향상)
+        mouseX.set((e.clientX - centerX) / centerX * 5); // 10 -> 5로 감소
+        mouseY.set((e.clientY - centerY) / centerY * 5); // 10 -> 5로 감소
       });
     };
 
@@ -105,11 +105,11 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
   // 배경 도형 애니메이션 최적화
   const shapeVariants = {
     animate: {
-      x: [0, 5, -5, 0], // 범위 축소
-      y: [0, -5, 5, 0],
-      rotate: [0, 3, -3, 0], // 5 -> 3으로 축소
+      x: [0, 3, -3, 0], // 범위 축소
+      y: [0, -3, 3, 0],
+      rotate: [0, 2, -2, 0], // 3 -> 2로 축소
       transition: {
-        duration: 15, // 20 -> 15
+        duration: 12, // 15 -> 12로 단축
         repeat: Infinity,
         repeatType: "mirror" as const,
         ease: "easeInOut"
@@ -121,7 +121,11 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
     <motion.section
       ref={containerRef}
       className="relative flex items-center justify-center min-h-screen overflow-hidden motion-element"
-      style={{ y, opacity }}
+      style={{ 
+        y, 
+        opacity,
+        willChange: 'transform, opacity' // GPU 가속을 위한 will-change 추가
+      }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
@@ -141,24 +145,15 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
 
       {/* <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 z-[-2]" /> */}
 
-      {/* 배경 도형 수 감소 - 성능 최적화 */}
+      {/* 배경 도형 1개로 감소 - 성능 최적화 */}
       <motion.div
-        className="absolute top-1/4 left-1/4 w-48 h-48 rounded-full bg-gradient-to-r from-primary-red to-primary-orange opacity-8 filter blur-3xl" // 크기 축소, 투명도 조정
+        className="absolute top-1/3 left-1/3 w-64 h-64 rounded-full bg-gradient-to-r from-primary-red to-primary-orange opacity-10 filter blur-3xl" // 크기 증가, 투명도 조정
         variants={shapeVariants}
         animate="animate"
         style={{
-          x: useTransform(mouseX, value => -value * 1),
-          y: useTransform(mouseY, value => -value * 1),
-        }}
-      />
-
-      <motion.div
-        className="absolute bottom-1/4 right-1/4 w-56 h-56 rounded-full bg-gradient-to-r from-accent-purple to-accent-blue opacity-6 filter blur-3xl" // 크기 축소
-        variants={shapeVariants}
-        animate="animate"
-        style={{
-          x: useTransform(mouseX, value => -value * 0.5),
-          y: useTransform(mouseY, value => -value * 0.5),
+          x: useTransform(mouseX, value => -value * 0.8),
+          y: useTransform(mouseY, value => -value * 0.8),
+          willChange: 'transform', // GPU 가속을 위한 will-change 추가
         }}
       />
 
@@ -169,6 +164,9 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
           variants={titleVariants}
           initial="hidden"
           animate="visible"
+          style={{
+            willChange: 'transform, opacity' // 제목 애니메이션 최적화
+          }}
         >
           <span className="text-gradient block">{title}</span>
         </motion.h1>
@@ -178,6 +176,9 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
           variants={subtitleVariants}
           initial="hidden"
           animate="visible"
+          style={{
+            willChange: 'transform, opacity' // 부제목 애니메이션 최적화
+          }}
         >
           {subtitle}
         </motion.p>

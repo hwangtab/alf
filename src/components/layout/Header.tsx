@@ -13,19 +13,20 @@ const Header = () => {
 
   // 스크롤 이벤트 최적화
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    let lastScrollTime = 0;
+    const throttleDelay = 16; // 16ms로 고정 (60fps)
     
     const handleScroll = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        setIsScrolled(window.scrollY > 50);
-      }, 10); // 디바운싱
+      const now = performance.now();
+      if (now - lastScrollTime < throttleDelay) return;
+      
+      lastScrollTime = now;
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      clearTimeout(timeoutId);
     };
   }, []);
 
