@@ -8,7 +8,7 @@ const NoiseBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameCountRef = useRef(0);
   const noiseTexturesRef = useRef<ImageData[]>([]); // noiseTextures를 ref로 관리
-  const animationFrameIdRef = useRef<number>();
+  const animationFrameIdRef = useRef<number | undefined>(undefined);
 
   // 성능 최적화: 저사양 기기 감지
   useEffect(() => {
