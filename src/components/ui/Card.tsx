@@ -48,10 +48,15 @@ const CardComponent: React.FC<CardProps> = ({
           fill
           sizes={imageSizes}
           loading={loadingPriority ? "eager" : "lazy"}
-          className="object-cover"
+          className="object-cover opacity-0 transition-opacity duration-300"
           quality={loadingPriority ? 90 : 85}
           placeholder="empty"
           priority={loadingPriority}
+          onLoad={(e) => {
+            const img = e.target as HTMLImageElement;
+            img.classList.remove('opacity-0');
+            img.classList.add('opacity-100');
+          }}
           style={{
             maxWidth: '100%',
             maxHeight: '100%',
@@ -102,7 +107,7 @@ const CardComponent: React.FC<CardProps> = ({
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 0.3, delay: index * 0.05 }}
+        transition={{ duration: 0.4, delay: index * 0.05 }}
         className="group bg-neutral-800 border border-neutral-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full hover:-translate-y-1"
       >
         {href ? (
