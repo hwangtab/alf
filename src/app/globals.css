@@ -68,6 +68,22 @@ html.fonts-loaded body {
   transform: translateY(10px);
 }
 
+/* Card 애니메이션 - Framer Motion 대체 */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.4s ease-out;
+}
+
 /* 폰트 테스트를 위한 클래스 */
 .font-test-serif {
   font-family: 'SF_HambakSnow', Georgia, 'Times New Roman', serif !important;
