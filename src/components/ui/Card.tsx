@@ -49,9 +49,9 @@ const CardComponent: React.FC<CardProps> = ({
           sizes={imageSizes}
           loading={loadingPriority ? "eager" : "lazy"}
           className="object-cover"
-          quality={loadingPriority ? 90 : 80}
-          placeholder="blur"
-          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
+          quality={loadingPriority ? 90 : 85}
+          placeholder="empty"
+          priority={loadingPriority}
           style={{
             maxWidth: '100%',
             maxHeight: '100%',

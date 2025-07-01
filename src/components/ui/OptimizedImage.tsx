@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 
 interface OptimizedImageProps {
   src: string;
@@ -20,6 +19,7 @@ interface OptimizedImageProps {
   loading?: 'lazy' | 'eager';
   onLoad?: () => void;
   onError?: () => void;
+  showLoadingSpinner?: boolean;
 }
 
 const OptimizedImage: React.FC<OptimizedImageProps> = ({
@@ -32,12 +32,13 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   priority = false,
   quality = 80,
   sizes = '100vw',
-  placeholder = 'blur',
-  blurDataURL = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
+  placeholder = 'empty',
+  blurDataURL,
   objectFit = 'cover',
   loading = 'lazy',
   onLoad,
   onError,
+  showLoadingSpinner = false,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -74,19 +75,14 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   }
 
   return (
-    <motion.div
-      className="relative overflow-hidden"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: imageLoaded ? 1 : 0.7 }}
-      transition={{ duration: 0.3 }}
-    >
+    <div className="relative overflow-hidden">
       <Image
         src={src}
         alt={alt}
         width={width}
         height={height}
         fill={fill}
-        className={`transition-all duration-300 ${objectFit === 'cover' ? 'object-cover' : objectFit === 'contain' ? 'object-contain' : `object-${objectFit}`} ${className}`}
+        className={`${objectFit === 'cover' ? 'object-cover' : objectFit === 'contain' ? 'object-contain' : `object-${objectFit}`} ${!imageLoaded ? 'opacity-0' : 'opacity-100'} transition-opacity duration-200 ${className}`}
         priority={priority}
         quality={quality}
         sizes={sizes}
@@ -97,13 +93,13 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         onError={handleError}
       />
       
-      {/* 로딩 인디케이터 */}
-      {!imageLoaded && (
-        <div className="absolute inset-0 bg-neutral-800 animate-pulse flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-neutral-600 border-t-neutral-400 rounded-full animate-spin"></div>
+      {/* 로딩 인디케이터 - 옵션으로 제어 */}
+      {showLoadingSpinner && !imageLoaded && (
+        <div className="absolute inset-0 bg-neutral-800 flex items-center justify-center">
+          <div className="w-6 h-6 border-2 border-neutral-600 border-t-neutral-400 rounded-full animate-spin"></div>
         </div>
       )}
-    </motion.div>
+    </div>
   );
 };
 

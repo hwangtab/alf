@@ -48,10 +48,9 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
               fill
               className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
               sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
-              priority={idx < 10}
-              quality={80}
-              placeholder="blur"
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
+              priority={idx < 20}
+              quality={85}
+              placeholder="empty"
             />
           </div>
         ))}
