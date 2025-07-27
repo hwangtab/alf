@@ -1,10 +1,33 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import localFont from 'next/font/local';
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ClientNoiseBackground from "@/components/layout/ClientNoiseBackground";
 import PageTransition from "@/components/providers/PageTransition";
 import FontLoader from "@/components/providers/FontLoader";
+
+// next/font/local을 사용한 폰트 최적화
+const pretendard = localFont({
+  src: [
+    {
+      path: '../fonts/PretendardVariable.woff2',
+      style: 'normal',
+    }
+  ],
+  variable: '--font-pretendard',
+  display: 'swap',
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+  preload: true,
+});
+
+const sfHambak = localFont({
+  src: '../fonts/SFTTF.ttf',
+  variable: '--font-sf-hambak',
+  display: 'swap',
+  fallback: ['Georgia', 'Times New Roman', 'serif'],
+  preload: true,
+});
 
 export const metadata: Metadata = {
   // 기본 정보
@@ -101,7 +124,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className="antialiased flex flex-col min-h-screen relative bg-black text-white font-sans">
+      <body className={`${pretendard.variable} ${sfHambak.variable} antialiased flex flex-col min-h-screen relative bg-black text-white font-sans`}>
         <FontLoader />
         
         {/* 노이즈 텍스처 배경 - 즉시 렌더링 */}
