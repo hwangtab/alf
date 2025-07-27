@@ -59,15 +59,31 @@ const NoiseBackground = () => {
     const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
-    // 캔버스 크기를 뷰포트 크기로 고정 (순환 참조 방지)
-    const resizeCanvas = () => {
-      // 캔버스 크기를 뷰포트 크기의 1/2로 축소 (성능 최적화)
-      canvas.width = Math.floor(window.innerWidth / 2);
-      canvas.height = Math.floor(window.innerHeight / 2);
+    // 안전한 페이지 높이 계산 (순환 참조 방지)
+    const getSafePageHeight = () => {
+      // 메인 콘텐츠 컨테이너 높이만 측정 (캔버스 제외)
+      const mainContent = document.querySelector('.flex.flex-col.min-h-screen');
+      const contentHeight = mainContent ? mainContent.scrollHeight : document.body.scrollHeight;
       
-      // CSS로 뷰포트 크기에 맞게 확대 표시
+      // 최대 높이 제한 (뷰포트 높이의 5배로 제한)
+      const maxHeight = window.innerHeight * 5;
+      const safeHeight = Math.min(contentHeight, maxHeight);
+      
+      // 최소 높이는 뷰포트 높이로 설정
+      return Math.max(safeHeight, window.innerHeight);
+    };
+
+    // 캔버스 크기를 안전한 페이지 높이로 설정
+    const resizeCanvas = () => {
+      const pageHeight = getSafePageHeight();
+      
+      // 캔버스 크기를 페이지 크기의 1/2로 축소 (성능 최적화)
+      canvas.width = Math.floor(window.innerWidth / 2);
+      canvas.height = Math.floor(pageHeight / 2);
+      
+      // CSS로 페이지 크기에 맞게 확대 표시 (position: fixed이므로 문서 흐름에 영향 없음)
       canvas.style.width = window.innerWidth + 'px';
-      canvas.style.height = window.innerHeight + 'px';
+      canvas.style.height = pageHeight + 'px';
     };
 
     resizeCanvas();
@@ -95,12 +111,14 @@ const NoiseBackground = () => {
 
     // 캔버스 크기 조절 및 텍스처 재생성 함수
     const resizeCanvasAndGenerateTextures = () => {
-      canvas.width = Math.floor(window.innerWidth / 2);
-      canvas.height = Math.floor(window.innerHeight / 2);
+      const pageHeight = getSafePageHeight();
       
-      // CSS로 뷰포트 크기에 맞게 확대 표시
+      canvas.width = Math.floor(window.innerWidth / 2);
+      canvas.height = Math.floor(pageHeight / 2);
+      
+      // CSS로 페이지 크기에 맞게 확대 표시
       canvas.style.width = window.innerWidth + 'px';
-      canvas.style.height = window.innerHeight + 'px';
+      canvas.style.height = pageHeight + 'px';
       
       // 새로운 크기로 노이즈 텍스처 재생성
       const newTextures = Array.from({ length: noiseFrames }, () =>
@@ -119,7 +137,38 @@ const NoiseBackground = () => {
       resizeTimeout = setTimeout(resizeCanvasAndGenerateTextures, 200);
     };
     
+    // 높이 변화 감지를 위한 안전한 체크 (순환 참조 방지)
+    let heightCheckInterval: NodeJS.Timeout;
+    let lastPageHeight = getSafePageHeight();
+    let consecutiveChanges = 0; // 연속 변화 횟수 추적
+    
+    const checkHeightChange = () => {
+      const currentHeight = getSafePageHeight();
+      const heightDiff = Math.abs(currentHeight - lastPageHeight);
+      
+      // 100px 이상 변화하고, 연속 변화가 3회 미만일 때만 업데이트
+      if (heightDiff > 100 && consecutiveChanges < 3) {
+        lastPageHeight = currentHeight;
+        consecutiveChanges++;
+        resizeCanvasAndGenerateTextures();
+      } else if (heightDiff <= 50) {
+        // 변화가 적으면 연속 변화 카운터 리셋
+        consecutiveChanges = 0;
+      }
+      
+      // 연속 변화가 3회 이상이면 5초간 체크 중단
+      if (consecutiveChanges >= 3) {
+        clearInterval(heightCheckInterval);
+        setTimeout(() => {
+          consecutiveChanges = 0;
+          lastPageHeight = getSafePageHeight();
+          heightCheckInterval = setInterval(checkHeightChange, 3000);
+        }, 5000);
+      }
+    };
+    
     window.addEventListener('resize', handleResize);
+    heightCheckInterval = setInterval(checkHeightChange, 3000); // 3초마다 체크
 
     // 애니메이션 프레임
     let lastFrameTime = 0;
@@ -153,6 +202,7 @@ const NoiseBackground = () => {
         cancelAnimationFrame(animationFrameIdRef.current);
       }
       clearTimeout(resizeTimeout);
+      clearInterval(heightCheckInterval);
     };
   }, [isVisible]); // isVisible 의존성만 유지
 
