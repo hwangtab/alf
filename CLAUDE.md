@@ -13,7 +13,7 @@ Art Liberation Front (예술해방전선) is a Next.js-based Korean art activism
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
 - `npm run analyze` - Analyze bundle size with ANALYZE=true
-- `npm run build:prod` - Build and export for static hosting
+- `npm run build:prod` - Build and export for static hosting (Note: This command will fail as `next export` is deprecated - use `npm run build` instead)
 
 ## Architecture
 
@@ -76,3 +76,5 @@ src/
 - Some components commented out (SupportCTA, NewsletterSignup) - organization inactive
 - Uses absolute imports with TypeScript path mapping
 - Metadata templates configured for SEO
+- Static export configuration with custom image loader for hosting compatibility
+- TailwindCSS with custom color variables defined in globals.css

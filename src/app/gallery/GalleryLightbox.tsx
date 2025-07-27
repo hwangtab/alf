@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
-import FsLightbox from 'fslightbox-react'; // 새 라이브러리 임포트
-// import 'yet-another-react-lightbox/styles.css'; // 이전 라이브러리 CSS 임포트 - 제거됨
+import Lightbox from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
+import './lightbox-custom.css';
 
 interface GalleryImage {
   src: string;
@@ -15,22 +15,26 @@ interface GalleryLightboxProps {
 }
 
 export default function GalleryLightbox({ images }: GalleryLightboxProps) {
-  // fslightbox 상태 관리
-  const [lightboxController, setLightboxController] = useState({
-    toggler: false,
-    slide: 1 // fslightbox는 1부터 시작하는 인덱스 사용
-  });
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // 이미지 클릭 핸들러
-  function openLightboxOnSlide(number: number) {
-    setLightboxController({
-      toggler: !lightboxController.toggler,
-      slide: number
-    });
+  function openLightbox(index: number) {
+    console.log(`🚀 Opening lightbox at index: ${index}`);
+    console.log(`🖼️ Image source:`, images[index].src);
+    
+    setCurrentIndex(index);
+    setIsOpen(true);
   }
 
-  // fslightbox에 전달할 이미지 소스 배열
-  const sources = images.map(image => image.src);
+  // yet-another-react-lightbox용 슬라이드 배열
+  const slides = images.map(image => ({
+    src: image.src,
+    alt: image.alt
+  }));
+  
+  // 디버깅: slides 배열 내용 확인
+  console.log('🔍 Lightbox slides:', slides.slice(0, 3));
+  console.log('📊 Total slides count:', slides.length);
 
   return (
     <>
@@ -39,30 +43,43 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
         {images.map((image, idx) => (
           <div
             key={idx}
-            className="relative aspect-square overflow-hidden rounded-md group cursor-pointer"
-            onClick={() => openLightboxOnSlide(idx + 1)} // 1부터 시작하는 인덱스 전달
+            className="aspect-square overflow-hidden rounded-md group cursor-pointer bg-gray-800"
+            onClick={() => openLightbox(idx)} // 0부터 시작하는 인덱스 전달
           >
-            <Image
+            {/* 더 간단한 접근 - absolute 제거, 일반 block 요소로 변경 */}
+            <img
               src={image.src}
               alt={image.alt}
-              fill
-              className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-              sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
-              priority={idx < 20}
-              quality={85}
-              placeholder="empty"
+              className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 block"
+              loading={idx < 20 ? "eager" : "lazy"}
+              onLoad={() => {
+                console.log(`✓ Image loaded successfully: ${image.src}`);
+              }}
+              onError={(e) => {
+                console.error(`✗ Failed to load image: ${image.src}`);
+                e.currentTarget.style.display = 'none';
+              }}
             />
           </div>
         ))}
       </div>
 
-      {/* FsLightbox Component */}
-      <FsLightbox
-        toggler={lightboxController.toggler}
-        sources={sources}
-        slide={lightboxController.slide}
-        // onClose 콜백은 fslightbox-react 유료 버전 기능일 수 있음
-        // 무료 버전에서는 toggler를 false로 설정하여 닫음 (이미지/배경 클릭 시 기본 동작)
+      {/* yet-another-react-lightbox Component */}
+      <Lightbox
+        open={isOpen}
+        close={() => setIsOpen(false)}
+        slides={slides}
+        index={currentIndex}
+        styles={{
+          root: { 
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 9999
+          }
+        }}
       />
     </>
   );
