@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from 'react';
 
 const NoiseBackground = () => {
   const [isVisible, setIsVisible] = useState(true);
-  const [isInView, setIsInView] = useState(true); // IntersectionObserver 상태
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameCountRef = useRef(0);
   const noiseTexturesRef = useRef<ImageData[]>([]); // noiseTextures를 ref로 관리
@@ -43,34 +42,10 @@ const NoiseBackground = () => {
     testPerformance();
   }, []);
 
-  // IntersectionObserver로 뷰포트 감지
-  useEffect(() => {
-    if (!isVisible) return;
-
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        setIsInView(entry.isIntersecting);
-      },
-      {
-        threshold: 0.1, // 10% 이상 보일 때만 활성화
-        rootMargin: '50px' // 50px 여유를 두고 미리 감지
-      }
-    );
-
-    observer.observe(canvas);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [isVisible]);
 
   useEffect(() => {
-    // 노이즈 효과가 비활성화되거나 뷰포트 밖에 있으면 더 이상 진행하지 않음
-    if (!isVisible || !isInView) {
+    // 노이즈 효과가 비활성화되면 더 이상 진행하지 않음
+    if (!isVisible) {
       // 애니메이션 중지
       if (animationFrameIdRef.current) {
         cancelAnimationFrame(animationFrameIdRef.current);
@@ -84,15 +59,28 @@ const NoiseBackground = () => {
     const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
-    // 캔버스 크기를 화면 크기의 1/2로 설정 (성능 최적화)
+    // 페이지 전체 높이를 얻는 함수
+    const getPageHeight = () => {
+      return Math.max(
+        document.documentElement.scrollHeight,
+        document.documentElement.offsetHeight,
+        document.documentElement.clientHeight,
+        document.body.scrollHeight,
+        document.body.offsetHeight
+      );
+    };
+
+    // 캔버스 크기를 페이지 전체 크기의 1/2로 설정 (성능 최적화)
     const resizeCanvas = () => {
-      // 캔버스 크기를 화면 크기의 1/2로 축소
-      canvas.width = Math.floor(window.innerWidth / 2);
-      canvas.height = Math.floor(window.innerHeight / 2);
+      const pageHeight = getPageHeight();
       
-      // CSS로 실제 화면 크기에 맞게 확대 표시
+      // 캔버스 크기를 전체 페이지 크기의 1/2로 축소
+      canvas.width = Math.floor(window.innerWidth / 2);
+      canvas.height = Math.floor(pageHeight / 2);
+      
+      // CSS로 실제 페이지 크기에 맞게 확대 표시
       canvas.style.width = window.innerWidth + 'px';
-      canvas.style.height = window.innerHeight + 'px';
+      canvas.style.height = pageHeight + 'px';
     };
 
     resizeCanvas();
@@ -120,12 +108,14 @@ const NoiseBackground = () => {
 
     // 캔버스 크기 조절 및 텍스처 재생성 함수
     const resizeCanvasAndGenerateTextures = () => {
-      canvas.width = Math.floor(window.innerWidth / 2);
-      canvas.height = Math.floor(window.innerHeight / 2);
+      const pageHeight = getPageHeight();
       
-      // CSS로 실제 화면 크기에 맞게 확대 표시
+      canvas.width = Math.floor(window.innerWidth / 2);
+      canvas.height = Math.floor(pageHeight / 2);
+      
+      // CSS로 실제 페이지 크기에 맞게 확대 표시
       canvas.style.width = window.innerWidth + 'px';
-      canvas.style.height = window.innerHeight + 'px';
+      canvas.style.height = pageHeight + 'px';
       
       // 새로운 크기로 노이즈 텍스처 재생성
       const newTextures = Array.from({ length: noiseFrames }, () =>
@@ -144,18 +134,26 @@ const NoiseBackground = () => {
       resizeTimeout = setTimeout(resizeCanvasAndGenerateTextures, 200);
     };
     
+    // 페이지 높이 변화 감지를 위한 주기적 체크
+    let heightCheckInterval: NodeJS.Timeout;
+    let lastPageHeight = getPageHeight();
+    
+    const checkHeightChange = () => {
+      const currentHeight = getPageHeight();
+      if (Math.abs(currentHeight - lastPageHeight) > 50) { // 50px 이상 변화 시에만 업데이트
+        lastPageHeight = currentHeight;
+        resizeCanvasAndGenerateTextures();
+      }
+    };
+    
     window.addEventListener('resize', handleResize);
+    heightCheckInterval = setInterval(checkHeightChange, 1000); // 1초마다 체크
 
     // 애니메이션 프레임
     let lastFrameTime = 0;
     
     // 애니메이션 루프 (성능 최적화: 프레임 제한)
     const animate = (timestamp: number) => {
-      // 뷰포트 밖에 있으면 애니메이션 중지
-      if (!isInView) {
-        return;
-      }
-
       // 초당 10프레임으로 제한 (성능 최적화)
       if (timestamp - lastFrameTime > 100) { // 100ms = 10fps
         lastFrameTime = timestamp;
@@ -183,8 +181,9 @@ const NoiseBackground = () => {
         cancelAnimationFrame(animationFrameIdRef.current);
       }
       clearTimeout(resizeTimeout);
+      clearInterval(heightCheckInterval);
     };
-  }, [isVisible, isInView]); // isInView 의존성 추가
+  }, [isVisible]); // isVisible 의존성만 유지
 
   // 노이즈 효과가 비활성화되면 아무것도 렌더링하지 않음
   if (!isVisible) return null;
@@ -192,10 +191,11 @@ const NoiseBackground = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-60"
+      className="fixed top-0 left-0 w-full pointer-events-none z-0 opacity-60"
       style={{ 
         imageRendering: 'pixelated', // 픽셀화된 렌더링으로 성능 향상
-        willChange: isInView ? 'contents' : 'auto' // 뷰포트에 있을 때만 GPU 가속
+        willChange: 'contents', // GPU 가속 항상 활성화
+        minHeight: '100vh' // 최소 뷰포트 높이 보장
       }}
     />
   );
