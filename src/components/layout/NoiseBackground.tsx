@@ -59,28 +59,15 @@ const NoiseBackground = () => {
     const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
-    // 페이지 전체 높이를 얻는 함수
-    const getPageHeight = () => {
-      return Math.max(
-        document.documentElement.scrollHeight,
-        document.documentElement.offsetHeight,
-        document.documentElement.clientHeight,
-        document.body.scrollHeight,
-        document.body.offsetHeight
-      );
-    };
-
-    // 캔버스 크기를 페이지 전체 크기의 1/2로 설정 (성능 최적화)
+    // 캔버스 크기를 뷰포트 크기로 고정 (순환 참조 방지)
     const resizeCanvas = () => {
-      const pageHeight = getPageHeight();
-      
-      // 캔버스 크기를 전체 페이지 크기의 1/2로 축소
+      // 캔버스 크기를 뷰포트 크기의 1/2로 축소 (성능 최적화)
       canvas.width = Math.floor(window.innerWidth / 2);
-      canvas.height = Math.floor(pageHeight / 2);
+      canvas.height = Math.floor(window.innerHeight / 2);
       
-      // CSS로 실제 페이지 크기에 맞게 확대 표시
+      // CSS로 뷰포트 크기에 맞게 확대 표시
       canvas.style.width = window.innerWidth + 'px';
-      canvas.style.height = pageHeight + 'px';
+      canvas.style.height = window.innerHeight + 'px';
     };
 
     resizeCanvas();
@@ -108,14 +95,12 @@ const NoiseBackground = () => {
 
     // 캔버스 크기 조절 및 텍스처 재생성 함수
     const resizeCanvasAndGenerateTextures = () => {
-      const pageHeight = getPageHeight();
-      
       canvas.width = Math.floor(window.innerWidth / 2);
-      canvas.height = Math.floor(pageHeight / 2);
+      canvas.height = Math.floor(window.innerHeight / 2);
       
-      // CSS로 실제 페이지 크기에 맞게 확대 표시
+      // CSS로 뷰포트 크기에 맞게 확대 표시
       canvas.style.width = window.innerWidth + 'px';
-      canvas.style.height = pageHeight + 'px';
+      canvas.style.height = window.innerHeight + 'px';
       
       // 새로운 크기로 노이즈 텍스처 재생성
       const newTextures = Array.from({ length: noiseFrames }, () =>
@@ -134,20 +119,7 @@ const NoiseBackground = () => {
       resizeTimeout = setTimeout(resizeCanvasAndGenerateTextures, 200);
     };
     
-    // 페이지 높이 변화 감지를 위한 주기적 체크
-    let heightCheckInterval: NodeJS.Timeout;
-    let lastPageHeight = getPageHeight();
-    
-    const checkHeightChange = () => {
-      const currentHeight = getPageHeight();
-      if (Math.abs(currentHeight - lastPageHeight) > 50) { // 50px 이상 변화 시에만 업데이트
-        lastPageHeight = currentHeight;
-        resizeCanvasAndGenerateTextures();
-      }
-    };
-    
     window.addEventListener('resize', handleResize);
-    heightCheckInterval = setInterval(checkHeightChange, 1000); // 1초마다 체크
 
     // 애니메이션 프레임
     let lastFrameTime = 0;
@@ -181,7 +153,6 @@ const NoiseBackground = () => {
         cancelAnimationFrame(animationFrameIdRef.current);
       }
       clearTimeout(resizeTimeout);
-      clearInterval(heightCheckInterval);
     };
   }, [isVisible]); // isVisible 의존성만 유지
 
@@ -191,11 +162,10 @@ const NoiseBackground = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed top-0 left-0 w-full pointer-events-none z-0 opacity-60"
+      className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-60"
       style={{ 
         imageRendering: 'pixelated', // 픽셀화된 렌더링으로 성능 향상
-        willChange: 'contents', // GPU 가속 항상 활성화
-        minHeight: '100vh' // 최소 뷰포트 높이 보장
+        willChange: 'contents' // GPU 가속 항상 활성화
       }}
     />
   );
