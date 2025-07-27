@@ -160,7 +160,7 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
       {/* 메인 콘텐츠 */}
       <div className="container mx-auto px-4 z-10 text-center relative">
         <motion.h1
-          className="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tighter font-giants-inline" // Giants-Inline 폰트 적용
+          className="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-normal font-giants-inline" // Giants-Inline 폰트 적용
           variants={titleVariants}
           initial="hidden"
           animate="visible"
