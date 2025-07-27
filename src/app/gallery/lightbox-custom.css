@@ -44,12 +44,12 @@
 
 /* ========== UI/UX 개선: 버튼 위치 및 디자인 최적화 ========== */
 
-/* 모든 라이트박스 버튼 기본 스타일 - 더 크고 접근하기 쉽게 */
+/* 모든 라이트박스 버튼 기본 스타일 - 크고 단순하게 */
 .yarl__button {
-  width: 64px !important;
-  height: 64px !important;
-  background-color: rgba(0, 0, 0, 0.6) !important;
-  border-radius: 8px !important;
+  width: 80px !important;
+  height: 80px !important;
+  background-color: transparent !important;
+  border-radius: 0 !important;
   border: none !important;
   color: white !important;
   display: flex !important;
@@ -59,15 +59,15 @@
   cursor: pointer !important;
 }
 
-/* 버튼 hover 효과 - 애니메이션 없이 깔끔하게 */
+/* 버튼 hover 효과 - 살짝 반투명 배경만 */
 .yarl__button:hover {
-  background-color: rgba(0, 0, 0, 0.8) !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-/* 이전/다음 버튼 위치 - 이미지 중앙에 훨씬 더 가깝게 */
+/* 이전/다음 버튼 위치 - 픽셀 단위로 정확한 위치 */
 .yarl__button_prev {
   position: absolute !important;
-  left: 5% !important;
+  left: 60px !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
   z-index: 1000 !important;
@@ -75,49 +75,50 @@
 
 .yarl__button_next {
   position: absolute !important;
-  right: 5% !important;
+  right: 60px !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
   z-index: 1000 !important;
 }
 
-/* 닫기 버튼 위치 - 더 안쪽으로 */
+/* 닫기 버튼 위치 - 안전한 픽셀 단위 */
 .yarl__button_close {
   position: absolute !important;
-  right: 4% !important;
-  top: 4% !important;
+  right: 60px !important;
+  top: 60px !important;
   z-index: 1000 !important;
 }
 
-/* 아이콘 크기 - 버튼이 커진 만큼 아이콘도 크게 */
+/* 아이콘 크기 - 버튼에 맞게 확대 */
 .yarl__icon {
-  width: 28px !important;
-  height: 28px !important;
+  width: 36px !important;
+  height: 36px !important;
   stroke-width: 2px !important;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5)) !important;
 }
 
 /* 모바일 최적화 */
 @media (max-width: 768px) {
   .yarl__button {
-    width: 56px !important;
-    height: 56px !important;
+    width: 70px !important;
+    height: 70px !important;
   }
   
   .yarl__button_prev {
-    left: 3% !important;
+    left: 40px !important;
   }
   
   .yarl__button_next {
-    right: 3% !important;
+    right: 40px !important;
   }
   
   .yarl__button_close {
-    right: 3% !important;
-    top: 3% !important;
+    right: 40px !important;
+    top: 40px !important;
   }
   
   .yarl__icon {
-    width: 24px !important;
-    height: 24px !important;
+    width: 32px !important;
+    height: 32px !important;
   }
 }

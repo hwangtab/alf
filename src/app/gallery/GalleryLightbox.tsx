@@ -70,6 +70,7 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
         close={() => setIsOpen(false)}
         slides={slides}
         index={currentIndex}
+        controller={{ closeOnBackdropClick: true }}
         styles={{
           root: { 
             position: 'fixed',
