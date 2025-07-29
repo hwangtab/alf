@@ -212,10 +212,12 @@ const NoiseBackground = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-60"
+      className="fixed top-0 left-0 w-full pointer-events-none z-0 opacity-60"
       style={{ 
         imageRendering: 'pixelated', // 픽셀화된 렌더링으로 성능 향상
-        willChange: 'contents' // GPU 가속 항상 활성화
+        willChange: 'contents', // GPU 가속 항상 활성화
+        height: '100vh', // 뷰포트 높이로 고정하여 스크롤에 영향 없음
+        maxHeight: '100vh' // 최대 높이 제한
       }}
     />
   );
