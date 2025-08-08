@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "analyze": "ANALYZE=true next build",
-    "build:prod": "next build && next export"
+    "build:prod": "next build && next export",
+    "convert:gallery": "node scripts/convert-gallery.js"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
