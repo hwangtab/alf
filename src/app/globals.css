@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* Tailwind 4.x CSS 변수 직접 덮어쓰기 - CSS 변수 체인 문제 해결 */
+@theme {
+  --font-sans: "__gmarketSans_a0970f", "__gmarketSans_Fallback_a0970f", "GmarketSans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --font-serif: "__sfHambak_b90ef3", "__sfHambak_Fallback_b90ef3", "SF_HambakSnow", Georgia, "Times New Roman", serif;
+}
+
 /* FOUC (Flash of Unstyled Content) 방지 */
 html {
   /* 초기 배경색 설정으로 플래시 방지 */
@@ -13,39 +19,12 @@ html {
   will-change: transform;
 }
 
-/* 커스텀 폰트 설정 - 다중 포맷 지원 및 CDN 대체 */
-@font-face {
-  font-family: 'PretendardVariable';
-  src: url('/fonts/PretendardVariable.woff2') format('woff2'),
-       url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/woff2/PretendardVariable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+0020-007F, U+00A0-00FF, U+0100-017F, U+0180-024F, U+1E00-1EFF, U+2000-206F, U+AC00-D7AF;
-}
+/* Next.js localFont가 폰트를 처리하므로 중복 @font-face 제거 */
 
-/* 대체 정적 폰트 (Variable 폰트 지원하지 않는 환경용) */
-@font-face {
-  font-family: 'PretendardStatic';
-  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+AC00-D7AF;
-}
-
-@font-face {
-  font-family: 'SF_HambakSnow';
-  src: url('/fonts/SFTTF.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+0020-007F, U+00A0-00FF, U+0100-017F, U+0180-024F, U+1E00-1EFF, U+2000-206F, U+AC00-D7AF;
-}
-
+/* Giants-Inline 폰트 정의 */
 @font-face {
   font-family: 'Giants-Inline';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Inline.woff2') format('woff2');
+  src: url('/fonts/Giants-Inline.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -94,17 +73,10 @@ html.fonts-loaded body {
   animation: fade-in-up 0.4s ease-out;
 }
 
-/* 폰트 클래스 - 개선된 대체 체인 */
-.font-test-serif {
-  font-family: var(--font-sf-hambak), 'SF_HambakSnow', Georgia, 'Times New Roman', serif !important;
-}
-
-.font-test-sans {
-  font-family: var(--font-pretendard), 'PretendardVariable', 'PretendardStatic', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-}
+/* 특수 폰트 클래스만 유지 */
 
 .font-giants-inline {
-  font-family: 'Giants-Inline', var(--font-sf-hambak), 'SF_HambakSnow', Georgia, 'Times New Roman', serif !important;
+  font-family: 'Giants-Inline', '__sfHambak_b90ef3', '__sfHambak_Fallback_b90ef3', 'SF_HambakSnow', Georgia, 'Times New Roman', serif;
 }
 
 /* iOS Safari 동적 뷰포트 높이 지원 */
@@ -164,7 +136,7 @@ html {
   body {
     background: var(--background);
     color: var(--foreground);
-    font-family: var(--font-pretendard), 'PretendardVariable', 'PretendardStatic', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-family: var(--font-gmarket-sans), 'GmarketSans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
     /* 이중 스크롤바 방지 - html에서 처리하므로 제거 */
     /* GPU 가속 및 폰트 렌더링 최적화 */
     -webkit-font-smoothing: antialiased;

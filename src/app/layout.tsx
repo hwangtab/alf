@@ -8,16 +8,11 @@ import PageTransition from "@/components/providers/PageTransition";
 import FontLoader from "@/components/providers/FontLoader";
 
 // next/font/local을 사용한 폰트 최적화
-const pretendard = localFont({
-  src: [
-    {
-      path: '../fonts/PretendardVariable.woff2',
-      style: 'normal',
-    }
-  ],
-  variable: '--font-pretendard',
+const gmarketSans = localFont({
+  src: '../fonts/GmarketSansTTFLight.ttf',
+  variable: '--font-gmarket-sans',
   display: 'swap',
-  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', 'sans-serif'],
   preload: true,
 });
 
@@ -111,9 +106,9 @@ export default function RootLayout({
       <head>
         <link
           rel="preload"
-          href="/fonts/PretendardVariable.woff2"
+          href="/fonts/GmarketSansTTFLight.ttf"
           as="font"
-          type="font/woff2"
+          type="font/ttf"
           crossOrigin="anonymous"
         />
         <link
@@ -123,8 +118,15 @@ export default function RootLayout({
           type="font/ttf"
           crossOrigin="anonymous"
         />
+        <link
+          rel="preload"
+          href="/fonts/Giants-Inline.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
       </head>
-      <body className={`${pretendard.variable} ${sfHambak.variable} antialiased flex flex-col min-h-screen relative bg-black text-white font-sans`}>
+      <body className={`${gmarketSans.variable} ${sfHambak.variable} antialiased flex flex-col min-h-screen relative bg-black text-white font-sans`}>
         <FontLoader />
         
         {/* 노이즈 텍스처 배경 - 즉시 렌더링 */}
