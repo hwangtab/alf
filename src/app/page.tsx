@@ -8,7 +8,7 @@ export default function Home() {
     <div>
       <HeroSection
         title="예술해방전선"
-        subtitle="함께 만들어가는 예술 해방의 여정"
+        subtitle="함께 만들어가는 예술과 연대"
       />
       <LatestActivities />
       {/* 활동 종료로 SupportCTA 및 NewsletterSignup 제거 */}
