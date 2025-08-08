@@ -185,7 +185,7 @@ export default function GuidePage() {
           animate="visible"
           variants={fadeIn}
         >
-          <h1 className="text-5xl font-bold mb-6 text-white font-test-serif">
+          <h1 className="text-5xl font-bold mb-6 text-white font-giants-inline">
             현장 연대를 위한 예술가 가이드
           </h1>
           <p className="text-xl text-neutral-300 max-w-3xl mx-auto font-sans">

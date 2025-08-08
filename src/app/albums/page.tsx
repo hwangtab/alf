@@ -38,7 +38,7 @@ export default function AlbumsPage() {
   return (
     <div className="container mx-auto pt-28 pb-20 px-4">
       <motion.h1 
-        className="text-5xl font-bold mb-16 text-center text-white font-test-serif"
+        className="text-5xl font-bold mb-16 text-center text-white font-giants-inline"
         initial="hidden"
         animate="visible"
         variants={fadeIn}
