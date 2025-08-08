@@ -26,7 +26,7 @@ export default function GalleryClientPage({ images }: GalleryClientPageProps) {
   return (
     <div className="container mx-auto px-4 pt-28 pb-20 relative"> 
       <motion.h1 
-        className="text-5xl font-bold mb-16 text-center text-white"
+        className="text-5xl font-bold mb-16 text-center text-white font-giants-inline"
         initial="hidden"
         animate="visible"
         variants={fadeIn}
