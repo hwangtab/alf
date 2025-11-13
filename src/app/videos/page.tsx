@@ -56,7 +56,6 @@ export default function VideosPage() {
       setDisplayedVideos(nextVideos);
       setPage(prev => prev + 1);
       setLoading(false);
-    }, 400); // 가상 로딩 시간
   };
 
   useEffect(() => {
