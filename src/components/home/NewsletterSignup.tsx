@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import emailjs from '@emailjs/browser';
 import { motion } from 'framer-motion';
 import Button from '@/components/ui/Button'; // Button 컴포넌트 임포트
 
@@ -22,41 +21,27 @@ export default function NewsletterSignup() {
 
     setStatus('submitting');
 
-    // 환경 변수에서 EmailJS 설정 읽기
-    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-
-    // 환경 변수 검증
-    if (!serviceId || !templateId || !publicKey) {
-      setStatus('error');
-      setErrorMessage('EmailJS 설정이 올바르지 않습니다. 관리자에게 문의하세요.');
-      console.error('EmailJS environment variables are not set');
-      return;
-    }
-
     try {
-      // 직접 할당된 값 사용, 키 이름을 EmailJS 템플릿 변수와 일치시킴
-      await emailjs.send(
-        serviceId, 
-        templateId,
-        {
-          name: name, // user_name -> name
-          email: email, // user_email -> email
-          // subscription_type은 템플릿에 없으므로 제거하거나, 
-          // 템플릿에 맞는 변수(예: service)로 변경. 여기서는 제거.
-          // service: 'newsletter' // 만약 템플릿에 {{service}}가 있다면 이렇게 사용
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        publicKey
-      );
+        body: JSON.stringify({ name, email }),
+      });
+
+      if (!response.ok) {
+        const { error } = await response.json();
+        throw new Error(error || '구독 신청에 실패했습니다.');
+      }
 
       setStatus('success');
       setEmail('');
       setName('');
     } catch (error) {
       setStatus('error');
-      setErrorMessage('구독 신청 중 오류가 발생하고 있습니다. 다시 시도해주세요.');
-      console.error('EmailJS error:', error);
+      setErrorMessage('구독 신청 중 오류가 발생했습니다. 다시 시도해주세요.');
+      console.error('Newsletter signup error:', error);
     }
   };
 

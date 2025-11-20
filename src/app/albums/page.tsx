@@ -1,6 +1,3 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import albumsData from "@/data/albums.json";
 import { Card } from '@/components/ui/Card';
 
@@ -25,30 +22,16 @@ type Album = {
 export default function AlbumsPage() {
   const albums: Album[] = albumsData;
 
-  // 애니메이션 변수
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.6 }
-    }
-  };
-
   return (
     <div className="container mx-auto pt-28 pb-20 px-4">
-      <motion.h1 
-        className="text-5xl font-bold mb-16 text-center text-white font-giants-inline"
-        initial="hidden"
-        animate="visible"
-        variants={fadeIn}
-      >
-        음반 및 작품
-      </motion.h1>
+      <div className="text-center mb-16">
+        <h1 className="text-5xl font-bold text-white font-giants-inline animate-fade-in-up">
+          음반 및 작품
+        </h1>
+      </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {albums.map((album, index) => {
-          // links 객체에서 첫 번째 유효한 URL 찾기
           const firstLink = Object.values(album.links).find(url => url && url !== '#');
 
           return (
@@ -60,7 +43,7 @@ export default function AlbumsPage() {
               imageAlt={`${album.title} 앨범 커버`}
               description={album.description}
               index={index}
-              aspectRatio="66.67%" // 3:2 비율로 통일
+              aspectRatio="66.67%"
               imageSizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               loadingPriority={index < 3}
               lineClamp={3}

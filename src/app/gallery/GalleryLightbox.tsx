@@ -38,18 +38,18 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
             key={idx}
             className="aspect-square overflow-hidden rounded-md group cursor-pointer bg-gray-800"
             onClick={() => openLightbox(idx)} // 0부터 시작하는 인덱스 전달
-          >
-            {/* 더 간단한 접근 - absolute 제거, 일반 block 요소로 변경 */}
-            <img
-              src={image.src}
-              alt={image.alt}
-              className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 block"
-              loading={idx < 20 ? "eager" : "lazy"}
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-          </div>
+        >
+          {/* 더 간단한 접근 - absolute 제거, 일반 block 요소로 변경 */}
+          <img
+            src={image.src}
+            alt={image.alt}
+            className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 block"
+            loading={idx < 12 ? "eager" : "lazy"}
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
+          />
+        </div>
         ))}
       </div>
 

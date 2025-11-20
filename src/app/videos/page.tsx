@@ -34,10 +34,11 @@ export default function VideosPage() {
     (a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
   );
 
-  const [displayedVideos, setDisplayedVideos] = useState<Video[]>([]);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+  const [displayedVideos, setDisplayedVideos] = useState<Video[]>(() =>
+    sortedVideos.slice(0, VIDEOS_PER_PAGE)
+  );
+  const [hasMore, setHasMore] = useState(sortedVideos.length > VIDEOS_PER_PAGE);
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -45,27 +46,18 @@ export default function VideosPage() {
   });
 
   const loadMoreVideos = () => {
-    if (loading || !hasMore) return;
-    setLoading(true);
-    
-    setTimeout(() => {
-      const nextVideos = sortedVideos.slice(0, page * VIDEOS_PER_PAGE);
-      if (nextVideos.length >= sortedVideos.length) {
-        setHasMore(false);
-      }
-      setDisplayedVideos(nextVideos);
-      setPage(prev => prev + 1);
-      setLoading(false);
-    }, 300);
+    if (!hasMore) return;
+
+    const nextPage = page + 1;
+    const nextVideos = sortedVideos.slice(0, nextPage * VIDEOS_PER_PAGE);
+
+    setDisplayedVideos(nextVideos);
+    setPage(nextPage);
+    setHasMore(nextVideos.length < sortedVideos.length);
   };
 
   useEffect(() => {
-    loadMoreVideos();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (inView && hasMore && !loading) {
+    if (inView && hasMore) {
       loadMoreVideos();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -118,12 +110,6 @@ export default function VideosPage() {
           );
         })}
       </div>
-
-      {loading && (
-        <div className="text-center text-white py-12">
-          <p>로딩 중...</p>
-        </div>
-      )}
 
       {!hasMore && displayedVideos.length > 0 && (
         <div className="text-center text-neutral-400 py-12">

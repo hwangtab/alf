@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
   images: {
     unoptimized: true, // 정적 export를 위해 이미지 최적화 비활성화
     formats: ['image/webp'],
