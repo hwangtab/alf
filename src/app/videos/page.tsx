@@ -26,7 +26,7 @@ const getYouTubeThumbnailUrl = (videoId: string): string => {
   return `https://img.youtube.com/vi/${videoId}/sddefault.jpg`;
 };
 
-const VIDEOS_PER_PAGE = 6;
+const VIDEOS_PER_PAGE = 12;
 
 export default function VideosPage() {
   // 데이터 최신순 정렬
