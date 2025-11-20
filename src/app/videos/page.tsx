@@ -56,6 +56,7 @@ export default function VideosPage() {
       setDisplayedVideos(nextVideos);
       setPage(prev => prev + 1);
       setLoading(false);
+    }, 300);
   };
 
   useEffect(() => {

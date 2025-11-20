@@ -22,18 +22,18 @@ export default function NewsletterSignup() {
 
     setStatus('submitting');
 
-    // 사용자가 제공한 ID와 키 직접 사용
-    const serviceId = 'service_lop4659';
-    const templateId = 'template_wxwj093';
-    const publicKey = 'E5wHxyFgSkrjQhYVG';
+    // 환경 변수에서 EmailJS 설정 읽기
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
-    // 환경 변수 체크 로직 제거 또는 주석 처리
-    // if (!serviceId || !templateId || !publicKey) {
-    //   setStatus('error');
-    //   setErrorMessage('EmailJS 설정이 올바르지 않습니다. 관리자에게 문의하세요.');
-    //   console.error('EmailJS environment variables are not set');
-    //   return;
-    // }
+    // 환경 변수 검증
+    if (!serviceId || !templateId || !publicKey) {
+      setStatus('error');
+      setErrorMessage('EmailJS 설정이 올바르지 않습니다. 관리자에게 문의하세요.');
+      console.error('EmailJS environment variables are not set');
+      return;
+    }
 
     try {
       // 직접 할당된 값 사용, 키 이름을 EmailJS 템플릿 변수와 일치시킴

@@ -19,9 +19,6 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   function openLightbox(index: number) {
-    console.log(`🚀 Opening lightbox at index: ${index}`);
-    console.log(`🖼️ Image source:`, images[index].src);
-    
     setCurrentIndex(index);
     setIsOpen(true);
   }
@@ -31,10 +28,6 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
     src: image.src,
     alt: image.alt
   }));
-  
-  // 디버깅: slides 배열 내용 확인
-  console.log('🔍 Lightbox slides:', slides.slice(0, 3));
-  console.log('📊 Total slides count:', slides.length);
 
   return (
     <>
@@ -52,11 +45,7 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
               alt={image.alt}
               className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 block"
               loading={idx < 20 ? "eager" : "lazy"}
-              onLoad={() => {
-                console.log(`✓ Image loaded successfully: ${image.src}`);
-              }}
               onError={(e) => {
-                console.error(`✗ Failed to load image: ${image.src}`);
                 e.currentTarget.style.display = 'none';
               }}
             />

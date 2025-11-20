@@ -2,6 +2,7 @@
 
 import React, { memo } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion, m, LazyMotion, domAnimation } from 'framer-motion';
 
 interface CardProps {
@@ -71,7 +72,15 @@ const CardComponent: React.FC<CardProps> = ({
         {!imageChildren && <h3 className="text-lg md:text-xl font-bold mb-2 font-test-serif">{title}</h3>}
 
         {description && (
-          <p className={`text-neutral-300 text-sm whitespace-normal line-clamp-${lineClamp} font-test-sans ${tags && tags.length > 0 || footerContent ? 'mb-4' : 'mb-0'}`}>
+          <p
+            className={`text-neutral-300 text-sm whitespace-normal font-test-sans ${tags && tags.length > 0 || footerContent ? 'mb-4' : 'mb-0'}`}
+            style={{
+              display: '-webkit-box',
+              WebkitLineClamp: lineClamp,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden'
+            }}
+          >
             {description}
           </p>
         )}
@@ -96,24 +105,38 @@ const CardComponent: React.FC<CardProps> = ({
     </>
   );
 
+  const isInternalLink = href && href.startsWith('/');
+  const isExternalLink = href && href.startsWith('http');
+
   return (
     <LazyMotion features={domAnimation}>
       <m.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.1, margin: "0px 0px -100px 0px" }}
-        transition={{ 
-          duration: 0.5, 
+        transition={{
+          duration: 0.5,
           delay: index * 0.1,
           ease: "easeOut"
         }}
         className="group bg-neutral-800 border border-neutral-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full hover:-translate-y-1"
       >
-        {href ? (
+        {isInternalLink ? (
+          <Link href={href} className="flex flex-col h-full">
+            {cardContent}
+          </Link>
+        ) : isExternalLink ? (
           <a
             href={href}
-            target={href?.startsWith('http') ? '_blank' : '_self'}
+            target="_blank"
             rel="noopener noreferrer"
+            className="flex flex-col h-full"
+          >
+            {cardContent}
+          </a>
+        ) : href ? (
+          <a
+            href={href}
             className="flex flex-col h-full"
           >
             {cardContent}

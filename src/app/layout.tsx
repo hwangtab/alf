@@ -103,29 +103,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className="scroll-smooth">
-      <head>
-        <link
-          rel="preload"
-          href="/fonts/GmarketSansTTFLight.ttf"
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/SFTTF.ttf"
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/Giants-Inline.ttf"
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
-        />
-      </head>
       <body className={`${gmarketSans.variable} ${sfHambak.variable} antialiased flex flex-col min-h-screen relative bg-black text-white font-sans`}>
         <FontLoader />
         
