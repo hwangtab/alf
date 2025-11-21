@@ -179,11 +179,13 @@ function collectContentBlocks($doc) {
 function extractHighlights($doc) {
   const highlights = [];
   const seen = new Set();
-  const selectors = "span,strong,h1,h2,h3,td";
+  const selectors = "span,strong,h1,h2,h3,td,p";
 
   $doc(selectors).each((_, el) => {
     const text = cleanText($doc(el).text());
-    if (isHighlightCandidate(text) && !seen.has(text)) {
+    if (!text || seen.has(text)) return;
+    const headingByStyle = isHeadingByStyle($doc, el);
+    if (isHighlightCandidate(text, { forceHeading: headingByStyle })) {
       highlights.push(text);
       seen.add(text);
     }
@@ -275,7 +277,7 @@ function truncate(text, limit) {
   return `${text.slice(0, limit - 1).trim()}…`;
 }
 
-function isHighlightCandidate(text = "") {
+function isHighlightCandidate(text = "", options = {}) {
   if (!text) return false;
   const normalized = text.trim();
   if (normalized.length < 6 || normalized.length > 90) return false;
@@ -283,6 +285,10 @@ function isHighlightCandidate(text = "") {
   if (/https?:\/\//i.test(normalized)) return false;
   if (HIGHLIGHT_STOPWORDS.some((pattern) => pattern.test(normalized))) {
     return false;
+  }
+
+  if (options.forceHeading) {
+    return true;
   }
 
   const numbered = /^\d+[\.\)]\s*/.test(normalized);
@@ -294,6 +300,42 @@ function isHighlightCandidate(text = "") {
   );
 
   return colonSeparated && keywords;
+}
+
+function isHeadingByStyle($doc, el) {
+  if (!el) return false;
+  const tagName = el.name ? el.name.toLowerCase() : "";
+  if (["h1", "h2", "h3"].includes(tagName)) return true;
+
+  const { fontSize, fontWeight } = collectFontMetrics(el);
+  return fontSize >= HEADING_FONT_SIZE || fontWeight >= HEADING_FONT_WEIGHT;
+}
+
+function collectFontMetrics(node) {
+  let fontSize = 0;
+  let fontWeight = 0;
+  let current = node;
+  for (let depth = 0; depth < 3 && current; depth += 1) {
+    const styleAttr = current.attribs?.style || "";
+    if (styleAttr) {
+      fontSize = Math.max(fontSize, parseFontSize(styleAttr));
+      fontWeight = Math.max(fontWeight, parseFontWeight(styleAttr));
+    }
+    current = current.parent && current.parent.type !== "root" ? current.parent : null;
+  }
+  return { fontSize, fontWeight };
+}
+
+function parseFontSize(style = "") {
+  const match = style.match(/font-size\s*:\s*([0-9.]+)px/i);
+  return match ? Number(match[1]) : 0;
+}
+
+function parseFontWeight(style = "") {
+  const numericMatch = style.match(/font-weight\s*:\s*([0-9]+)/i);
+  if (numericMatch) return Number(numericMatch[1]);
+  if (/font-weight\s*:\s*(bold|bolder)/i.test(style)) return 700;
+  return 0;
 }
 
 function normalizeUrl(src = "") {
@@ -345,7 +387,9 @@ const HIGHLIGHT_STOPWORDS = [
   /^함께 연대/i,
   /^with solidarity/i,
   /^후원계좌/i,
-  /^일시\s*:/,
-  /^장소\s*:/,
-  /^주제\s*:/,
+  /^일시\s*:?$/i,
+  /^장소\s*:?$/i,
+  /^주제\s*:?$/i,
 ];
+const HEADING_FONT_SIZE = 18;
+const HEADING_FONT_WEIGHT = 600;
