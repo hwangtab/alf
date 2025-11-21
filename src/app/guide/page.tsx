@@ -407,7 +407,7 @@ export default function GuidePage() {
           <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
-              src="/images/gallery/DSC06231.webp"
+              src="/images/gallery/DSC03211.webp"
               alt="지속가능한 연대"
               fill
               className="object-cover"
@@ -532,7 +532,7 @@ export default function GuidePage() {
           <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
-              src="/images/gallery/DSC06234.webp"
+              src="/images/gallery/DSC01928.webp"
               alt="함께 만드는 축제"
               fill
               className="object-cover"
@@ -658,7 +658,7 @@ export default function GuidePage() {
           <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
-              src="/images/gallery/DSC06235.webp"
+              src="/images/gallery/DSC02808.webp"
               alt="보이지 않던 이야기의 힘"
               fill
               className="object-cover"
@@ -787,7 +787,7 @@ export default function GuidePage() {
           <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
-              src="/images/gallery/DSC06236.webp"
+              src="/images/gallery/DSC02826.webp"
               alt="프리피규레이션"
               fill
               className="object-cover"
@@ -916,7 +916,7 @@ export default function GuidePage() {
           <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
-              src="/images/gallery/DSC06238.webp"
+              src="/images/gallery/DSC02878.webp"
               alt="마침표가 아닌 쉼표"
               fill
               className="object-cover"
