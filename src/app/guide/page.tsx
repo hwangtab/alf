@@ -684,7 +684,7 @@ export default function GuidePage() {
           <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg mb-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
-              src="/images/gallery/IMG_3425.webp"
+              src="/images/gallery/IMG_0034.webp"
               alt="수평적 관계와 상호부조의 현장"
               fill
               className="object-cover"
@@ -720,7 +720,7 @@ export default function GuidePage() {
           <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
-              src="/images/gallery/IMG_5423.webp"
+              src="/images/gallery/DSC08525.webp"
               alt="수평적 관계와 상호부조의 실천"
               fill
               className="object-cover"
@@ -806,7 +806,7 @@ export default function GuidePage() {
           <motion.div variants={fadeIn} className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
-              src="/images/gallery/IMG_3823.webp"
+              src="/images/gallery/DSC08066.webp"
               alt="다양한 세대가 함께하는 지속가능한 연대 문화"
               fill
               className="object-cover"
@@ -920,7 +920,7 @@ export default function GuidePage() {
           <motion.div variants={fadeIn} className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
-              src="/images/gallery/IMG_7341.webp"
+              src="/images/gallery/DSC07756.webp"
               alt="예술과 투쟁의 경계에서 함께하는 모습"
               fill
               className="object-cover"
