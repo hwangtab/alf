@@ -10,18 +10,6 @@ type Newsletter = {
   highlights?: string[];
 };
 
-const dateFormatter = new Intl.DateTimeFormat("ko", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
-
-const formatDate = (date: string) => {
-  const parsed = new Date(date);
-  if (Number.isNaN(parsed.getTime())) return date;
-  return dateFormatter.format(parsed);
-};
-
 export default function NewsPage() {
   const sortedNewsletters: Newsletter[] = [...newslettersData].sort(
     (a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
@@ -56,17 +44,9 @@ export default function NewsPage() {
               >
                 <div className="flex flex-col gap-3">
                   <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <h2 className="text-2xl font-semibold text-white group-hover:text-primary-red transition-colors duration-200 font-serif">
-                        {newsletter.title}
-                      </h2>
-                      <time
-                        dateTime={newsletter.publishDate}
-                        className="text-sm text-neutral-400"
-                      >
-                        {formatDate(newsletter.publishDate)}
-                      </time>
-                    </div>
+                    <h2 className="text-2xl font-semibold text-white group-hover:text-primary-red transition-colors duration-200 font-serif">
+                      {newsletter.title}
+                    </h2>
                     <svg
                       className="w-5 h-5 text-neutral-400 group-hover:text-primary-red transition-colors duration-200 flex-shrink-0 mt-1"
                       fill="none"
