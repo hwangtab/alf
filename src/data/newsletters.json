@@ -3,357 +3,487 @@
     "id": 1,
     "title": "2021년 9월호",
     "publishDate": "2021-09-01",
-    "summary": "",
-    "link": "https://stib.ee/UYu3"
+    "summary": "안녕하세요, 예술해방전선의 첫번째 소식지를 전해드리게 되어 기쁩니다. 첫 소식지를 작성하게 되어서 몹시 기쁩니다. 현장 예술가들의 결실을 소식지를 통해 조금이라도 전해드릴 수 있으면 좋겠습니다.구 노량진수산시장에서 상인들이 겪고 있는 참상을 목격한…",
+    "link": "https://stib.ee/UYu3",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 2,
     "title": "2021년 10월호",
     "publishDate": "2021-10-01",
-    "summary": "",
-    "link": "https://stib.ee/rg44"
+    "summary": "안녕하세요, 예술해방전선의 두번째 소식지를 전해드리게 되어 기쁜 마음입니다. 날씨가 저녁에는 꽤 쌀쌀해졌습니다. 건강을 항상 잘 살피시길 당부드립니다.이번 달에도 현장 예술가들의 작업을 소식지를 통해서 전해드리고자 합니다. 코로나19로 인해 활동폭이…",
+    "link": "https://stib.ee/rg44",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 3,
     "title": "2021년 11월호",
     "publishDate": "2021-11-01",
-    "summary": "",
-    "link": "https://stib.ee/Rt64"
+    "summary": "안녕하세요, 예술해방전선의 세번째 소식지를 전해드리게 되어 기쁩니다. 이번 달에도 현장 예술가들의 작업을 소식지를 통해서 전해드리고자 합니다. 이번 소식지에는 박산들 작가의 그림과 뮤지션 세민의 음악, 황경하의 사진, 그리고 다시 재개되는 노량진수산…",
+    "link": "https://stib.ee/Rt64",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 4,
     "title": "2021년 12월호",
     "publishDate": "2021-12-01",
-    "summary": "",
+    "summary": "1. 11월 활동 사진자료",
     "link": "https://stib.ee/HYP4"
   },
   {
     "id": 5,
     "title": "2022년 1월호",
     "publishDate": "2022-01-01",
-    "summary": "",
-    "link": "https://stib.ee/c4Y4"
+    "summary": "안녕하세요, 예술해방전선의 다섯번째 소식지를 전해드리게 되어 기쁩니다. 새해 복 많이 받으시고, 동지의 곁에 행복과 평안이 가득하시길 바랍니다. 저희도 꾸준하고 힘차게 계속 나아가겠습니다.12월부터는 매주 금요일, 구 노량진수산시장 상인 분들과 노량…",
+    "link": "https://stib.ee/c4Y4",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 6,
     "title": "2022년 2월호",
     "publishDate": "2022-02-01",
-    "summary": "",
-    "link": "https://stib.ee/zxh4"
+    "summary": "안녕하세요, 행복하고 평등한 설날 명절 되십시오. 예술해방전선의 여섯번째 소식지를 전해드리게 되어 기쁩니다. 바쁜 1월이셨을 것 같습니다. 저희들도 어떻게 지났는지 모를 정도로 바쁘게 일정들을 진행했습니다. 1월에도 매주 금요일마다 지속적으로 노량진…",
+    "link": "https://stib.ee/zxh4",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 7,
     "title": "2022년 3월호",
     "publishDate": "2022-03-01",
-    "summary": "",
-    "link": "https://stib.ee/UUr4"
+    "summary": "안녕하세요, 예술해방전선의 일곱번째 소식지를 전해드리게 되어 기쁩니다. 오미크론 변이 확산으로 고생이 심하셨을 것 같습니다. 예술해방전선도 활동에 약간의 제약이 발생하는 상황들이 있었으나 별탈없이 일들을 수행하였습니다. 2월에는 부산의 신진문화예술행…",
+    "link": "https://stib.ee/UUr4",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 8,
     "title": "2022년 4월호",
     "publishDate": "2022-04-01",
-    "summary": "",
+    "summary": "달을 넣어둔 장롱에멈춰버린 그 시간들그림자가 떠난 자리에는달빛이 비추고 있네",
     "link": "https://stib.ee/3o25"
   },
   {
     "id": 9,
     "title": "2022년 5월호",
     "publishDate": "2022-05-01",
-    "summary": "",
+    "summary": "맑은 - 물고기는 물이 없으면 죽어요",
     "link": "https://stib.ee/a2E5"
   },
   {
     "id": 10,
     "title": "2022년 6월호",
     "publishDate": "2022-06-01",
-    "summary": "",
+    "summary": "안녕하세요, 예술해방전선의 열번째 소식지를 전해드리게 되어 기쁩니다. 날이 조금씩 더워지고 있습니다. 상인 분들의 건강을 염려하며 일들을 진행해야 할 것도 같습니다. 고령에 여성들이 대부분인 구 노량진수산시장 상인들이 겪고 있는 폭력적인 참상을 목격…",
     "link": "https://stib.ee/GHQ5"
   },
   {
     "id": 11,
     "title": "2022년 7월호",
     "publishDate": "2022-07-01",
-    "summary": "",
+    "summary": "임대료 2회 체납했다고 강제철거...'망연자실'",
     "link": "https://stib.ee/VVb5"
   },
   {
     "id": 12,
     "title": "2022년 8월호",
     "publishDate": "2022-08-01",
-    "summary": "",
+    "summary": "안녕하세요, 예술해방전선의 열두번째 소식지를 전해드리게 되어 기쁩니다. 노량진수산시장 상인 분들께서 폭염과 높은 습도 속에도 계속 노숙투쟁을 전개하시다가 장마를 거쳐 8월 7일까지 휴가를 갖기로 하셨습니다. 다음 문화제는 8월 12일 (금)에 재개될…",
     "link": "https://stib.ee/gPn5"
   },
   {
     "id": 13,
     "title": "2022년 9월호",
     "publishDate": "2022-09-01",
-    "summary": "",
-    "link": "https://stib.ee/fuz5"
+    "summary": "안녕하세요, 예술해방전선의 열세번째 소식지를 전해드리게 되어 기쁩니다. 날씨가 선선해졌지만 무서운 태풍이 북상하고 있다는 소식이 있었습니다. 모두 별탈없이 재난과 불운을 피할 수 있기를 기원합니다. 고령에 여성들이 대부분인 구 노량진수산시장 상인들이…",
+    "link": "https://stib.ee/fuz5",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 14,
     "title": "2022년 10월호",
     "publishDate": "2022-10-01",
-    "summary": "",
-    "link": "https://stib.ee/oIC6"
+    "summary": "안녕하세요, 예술해방전선의 열네번째 소식지를 전해드리게 되었습니다. 긴 투쟁 끝에 구 노량진수산시장 상인 분들이 승리하여 마지막 소식지를 전해드리게 되는 순간을 기대해봅니다. 고물가, 고금리, 고환율이 야기시킨 경제위기에 우리 빈민들의 생활이 혹독해…",
+    "link": "https://stib.ee/oIC6",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 15,
     "title": "2022년 11월호",
     "publishDate": "2022-11-01",
-    "summary": "",
-    "link": "https://stib.ee/qJO6"
+    "summary": "천신만고의 노력 끝에 드디어 노량진수산시장 옴니버스 앨범을 완성하였습니다.",
+    "link": "https://stib.ee/qJO6",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 16,
     "title": "2022년 12월호",
     "publishDate": "2022-12-01",
-    "summary": "",
-    "link": "https://stib.ee/Xca6"
+    "summary": "<물고기는 물이 없으면 죽어요> 앨범판매 후원금 전달이 있을 예정입니다.",
+    "link": "https://stib.ee/Xca6",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 17,
     "title": "2023년 1월호",
     "publishDate": "2023-01-01",
-    "summary": "",
-    "link": "https://stib.ee/8Xn6"
+    "summary": "연대방문을 했던 어느 날, 구 노량진수산시장 대책위원회의 윤헌주 위원장님이 하신 말씀을 담아 음악으로 만들었습니다. 이 말씀을 듣는 도중에도 갑자기 용역들이 들어닥쳐서 깽판을 쳤었지요. 그때 노량진수산시장은 항상 전쟁중이었습니다.",
+    "link": "https://stib.ee/8Xn6",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 18,
     "title": "2023년 2월호",
     "publishDate": "2023-02-01",
-    "summary": "",
-    "link": "https://stib.ee/wm27"
+    "summary": "고향이 곡성 산골짜기야. 아버지가 일찍 돌아가시고 어머니께서 어렵게 키우셨지. 나도 1남 3녀 중 장녀라서 고생을 많이 했다. 78년도에 중매를 통해서 곡성사람과 결혼을 해서 6년을 곡성에서 머물러 살다가 자녀교육 문제로 서울로 올라오게 되었지. 시…",
+    "link": "https://stib.ee/wm27",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 19,
     "title": "2023년 3월호",
     "publishDate": "2023-03-01",
-    "summary": "",
-    "link": "https://stib.ee/UgD7"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://stib.ee/UgD7",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 20,
     "title": "2023년 4월호",
     "publishDate": "2023-04-01",
-    "summary": "",
-    "link": "https://stib.ee/NMT7"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://stib.ee/NMT7",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 21,
     "title": "2023년 5월호",
     "publishDate": "2023-05-01",
-    "summary": "",
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
     "link": "https://stib.ee/b6f7"
   },
   {
     "id": 22,
     "title": "2023년 6월호",
     "publishDate": "2023-06-01",
-    "summary": "",
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
     "link": "https://stib.ee/nmq7"
   },
   {
     "id": 23,
     "title": "2023년 7월호",
     "publishDate": "2023-07-01",
-    "summary": "",
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
     "link": "https://stib.ee/jZ68"
   },
   {
     "id": 24,
     "title": "2023년 8월호",
     "publishDate": "2023-08-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/14/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/14/",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 25,
     "title": "2023년 9월호",
     "publishDate": "2023-09-01",
-    "summary": "",
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
     "link": "https://artliberationfront.stibee.com/p/15/"
   },
   {
     "id": 26,
     "title": "2023년 10월호",
     "publishDate": "2023-10-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/16/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/16/",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 27,
     "title": "2023년 11월호",
     "publishDate": "2023-11-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/17/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/17/",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 28,
     "title": "2023년 12월호",
     "publishDate": "2023-12-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/18/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/18/",
+    "badges": [
+      "캠페인",
+      "행사"
+    ]
   },
   {
     "id": 29,
     "title": "2024년 1월호",
     "publishDate": "2024-01-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/19/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/19/",
+    "badges": [
+      "인터뷰",
+      "캠페인",
+      "행사"
+    ]
   },
   {
     "id": 30,
     "title": "2024년 2월호",
     "publishDate": "2024-02-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/20/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/20/",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 31,
     "title": "2024년 3월호",
     "publishDate": "2024-03-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/21/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/21/",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 32,
     "title": "2024년 4월호",
     "publishDate": "2024-04-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/22/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/22/",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 33,
     "title": "2024년 5월호",
     "publishDate": "2024-05-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/23/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/23/",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 34,
     "title": "2024년 6월호",
     "publishDate": "2024-06-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/24/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/24/",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 35,
     "title": "2024년 7월호",
     "publishDate": "2024-07-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/25/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/25/",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 36,
     "title": "2024년 8월호",
     "publishDate": "2024-08-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/26/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/26/",
+    "badges": [
+      "캠페인",
+      "행사"
+    ]
   },
   {
     "id": 37,
     "title": "2024년 9월호",
     "publishDate": "2024-09-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/27/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/27/",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 38,
     "title": "2024년 10월호",
     "publishDate": "2024-10-01",
-    "summary": "",
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
     "link": "https://artliberationfront.stibee.com/p/28/"
   },
   {
     "id": 39,
     "title": "2024년 11월호",
     "publishDate": "2024-11-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/29/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/29/",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 40,
     "title": "2024년 12월호",
     "publishDate": "2024-12-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/30/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/30/",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 41,
     "title": "2025년 1월호",
     "publishDate": "2025-01-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/31/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/31/",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 42,
     "title": "2025년 2월호",
     "publishDate": "2025-02-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/32/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/32/",
+    "badges": [
+      "캠페인",
+      "공지"
+    ]
   },
   {
     "id": 43,
     "title": "2025년 3월호",
     "publishDate": "2025-03-01",
-    "summary": "",
-    "link": "https://artliberationfront.stibee.com/p/33/"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://artliberationfront.stibee.com/p/33/",
+    "badges": [
+      "인터뷰",
+      "캠페인"
+    ]
   },
   {
     "id": 44,
     "title": "2025년 4월호",
     "publishDate": "2025-04-01",
-    "summary": "",
-    "link": "https://stib.ee/4jRH"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://stib.ee/4jRH",
+    "badges": [
+      "인터뷰",
+      "캠페인"
+    ]
   },
   {
     "id": 45,
     "title": "2025년 5월호",
     "publishDate": "2025-05-01",
-    "summary": "",
-    "link": "https://stib.ee/wFoH"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://stib.ee/wFoH",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 46,
     "title": "2025년 6월호",
     "publishDate": "2025-06-01",
-    "summary": "",
-    "link": "https://stib.ee/0vEI"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://stib.ee/0vEI",
+    "badges": [
+      "캠페인",
+      "공지"
+    ]
   },
   {
     "id": 47,
     "title": "2025년 7월호",
     "publishDate": "2025-07-01",
-    "summary": "",
-    "link": "https://stib.ee/SXaI"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://stib.ee/SXaI",
+    "badges": [
+      "캠페인",
+      "공지"
+    ]
   },
   {
     "id": 48,
     "title": "2025년 8월호",
     "publishDate": "2025-08-01",
-    "summary": "",
-    "link": "https://stib.ee/Wi9J"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://stib.ee/Wi9J",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 49,
     "title": "2025년 9월호",
     "publishDate": "2025-09-01",
-    "summary": "",
-    "link": "https://stib.ee/vKVJ"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://stib.ee/vKVJ",
+    "badges": [
+      "캠페인"
+    ]
   },
   {
     "id": 50,
     "title": "2025년 10월호",
     "publishDate": "2025-10-01",
-    "summary": "",
-    "link": "https://stib.ee/FKqJ"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://stib.ee/FKqJ",
+    "badges": [
+      "인터뷰",
+      "캠페인"
+    ]
   },
   {
     "id": 51,
     "title": "2025년 11월호",
     "publishDate": "2025-11-01",
-    "summary": "",
-    "link": "https://stib.ee/9kDK"
+    "summary": "구 노량진수산시장 예술해방전선입니다.",
+    "link": "https://stib.ee/9kDK",
+    "badges": [
+      "캠페인"
+    ]
   }
 ]

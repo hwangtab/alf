@@ -9,11 +9,13 @@
     "lint": "next lint",
     "analyze": "ANALYZE=true next build",
     "build:prod": "next build && next export",
-    "convert:gallery": "node scripts/convert-gallery.js"
+    "convert:gallery": "node scripts/convert-gallery.js",
+    "generate:newsletters": "node scripts/generate-newsletter-summaries.js"
   },
   "dependencies": {
     "@next/font": "^14.2.15",
     "@vercel/analytics": "^1.5.0",
+    "cheerio": "^1.1.0",
     "framer-motion": "^11.18.2",
     "fslightbox-react": "^1.8.0",
     "next": "^14.2.28",

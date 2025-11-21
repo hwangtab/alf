@@ -6,6 +6,20 @@ type Newsletter = {
   title: string;
   publishDate: string;
   link: string;
+  summary?: string;
+  badges?: string[];
+};
+
+const dateFormatter = new Intl.DateTimeFormat("ko", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const formatDate = (date: string) => {
+  const parsed = new Date(date);
+  if (Number.isNaN(parsed.getTime())) return date;
+  return dateFormatter.format(parsed);
 };
 
 export default function NewsPage() {
@@ -22,39 +36,74 @@ export default function NewsPage() {
       </div>
 
       <div className="space-y-8 max-w-3xl mx-auto">
-        {sortedNewsletters.map((newsletter) => (
-          <div
-            key={newsletter.id}
-            className="border-b border-neutral-700 pb-8 group animate-fade-in-up"
-          >
-            <Link
-              href={newsletter.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block hover:bg-neutral-800 rounded-md p-4 transition-colors duration-200"
+        {sortedNewsletters.map((newsletter) => {
+          const summary =
+            newsletter.summary?.trim() || "이 뉴스레터의 요약은 준비 중입니다.";
+          const badges = newsletter.badges?.filter(Boolean) ?? [];
+
+          return (
+            <article
+              key={newsletter.id}
+              className="border-b border-neutral-700 pb-8 group animate-fade-in-up"
             >
-              <div className="flex justify-between items-baseline mb-2">
-                <h2 className="text-2xl font-semibold text-white group-hover:text-primary-red transition-colors duration-200 font-serif">
-                  {newsletter.title}
-                </h2>
-                <svg
-                  className="w-5 h-5 text-neutral-400 group-hover:text-primary-red transition-colors duration-200 flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                  ></path>
-                </svg>
-              </div>
-            </Link>
-          </div>
-        ))}
+              <Link
+                href={newsletter.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                prefetch={false}
+                aria-label={`${newsletter.title} 뉴스레터 새 창에서 열기`}
+                className="block hover:bg-neutral-800 rounded-md p-5 transition-colors duration-200"
+              >
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h2 className="text-2xl font-semibold text-white group-hover:text-primary-red transition-colors duration-200 font-serif">
+                        {newsletter.title}
+                      </h2>
+                      <time
+                        dateTime={newsletter.publishDate}
+                        className="text-sm text-neutral-400"
+                      >
+                        {formatDate(newsletter.publishDate)}
+                      </time>
+                    </div>
+                    <svg
+                      className="w-5 h-5 text-neutral-400 group-hover:text-primary-red transition-colors duration-200 flex-shrink-0 mt-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      ></path>
+                    </svg>
+                  </div>
+
+                  <p className="text-base text-neutral-200 leading-relaxed line-clamp-3">
+                    {summary}
+                  </p>
+
+                  {badges.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {badges.map((badge) => (
+                        <span
+                          key={`${newsletter.id}-${badge}`}
+                          className="px-3 py-1 text-xs uppercase tracking-wide border border-primary-red/60 text-primary-red rounded-full bg-primary-red/5"
+                        >
+                          {badge}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </Link>
+            </article>
+          );
+        })}
 
         {sortedNewsletters.length === 0 && (
           <p className="text-center text-neutral-400 py-12">
