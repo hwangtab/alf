@@ -183,11 +183,12 @@ function extractHighlights($doc) {
 
   $doc(selectors).each((_, el) => {
     const text = cleanText($doc(el).text());
-    if (!text || seen.has(text)) return;
+    const key = createHighlightKey(text);
+    if (!text || seen.has(key)) return;
     const headingByStyle = isHeadingByStyle($doc, el);
     if (isHighlightCandidate(text, { forceHeading: headingByStyle })) {
       highlights.push(text);
-      seen.add(text);
+      seen.add(key);
     }
   });
 
@@ -286,6 +287,11 @@ function isHighlightCandidate(text = "", options = {}) {
   if (HIGHLIGHT_STOPWORDS.some((pattern) => pattern.test(normalized))) {
     return false;
   }
+  if (HIGHLIGHT_EXCLUSION_PATTERNS.some((pattern) => pattern.test(normalized))) {
+    return false;
+  }
+  if (!/[A-Za-z가-힣]/.test(normalized)) return false;
+  if (/^[-•·◦]/.test(normalized)) return false;
 
   if (options.forceHeading) {
     return true;
@@ -336,6 +342,14 @@ function parseFontWeight(style = "") {
   if (numericMatch) return Number(numericMatch[1]);
   if (/font-weight\s*:\s*(bold|bolder)/i.test(style)) return 700;
   return 0;
+}
+
+function createHighlightKey(text = "") {
+  return text
+    .toLowerCase()
+    .replace(/[\s"'.,!?-]/g, "")
+    .replace(/동지$/i, "")
+    .trim();
 }
 
 function normalizeUrl(src = "") {
@@ -393,3 +407,9 @@ const HIGHLIGHT_STOPWORDS = [
 ];
 const HEADING_FONT_SIZE = 18;
 const HEADING_FONT_WEIGHT = 600;
+const HIGHLIGHT_EXCLUSION_PATTERNS = [
+  /^\d+(\.\d+)?\s*x\s*\d+(\.\d+)?$/i,
+  /^이번 소식지 어떠셨나요/i,
+  /^존경하는\s+/i,
+  /^함께하고 계신/i,
+];
