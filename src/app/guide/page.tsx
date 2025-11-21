@@ -404,6 +404,16 @@ export default function GuidePage() {
             </ul>
           </motion.div>
 
+          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/DSC06231.webp"
+              alt="지속가능한 연대"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
+
           <motion.div variants={fadeIn} className="mt-12">
             {/* h3에 ID 추가 */}
             <h3 id={sections[2].subSections![2].id} className={h3Style}><span className="mr-2">❤️‍🩹</span>{sections[2].subSections![2].title}: 나를 태우지 않고 불을 지피는 법</h3>
@@ -517,6 +527,16 @@ export default function GuidePage() {
               <li><strong>낯설게 하기:</strong> 현장에서 발견한 요소들을 새로운 맥락에 배치하거나 다른 형식과 결합하여 익숙한 것을 낯설게 보이게 함으로써, 문제의 본질에 대해 다시 한번 생각하게 만들 수 있습니다. (예: 투쟁 구호를 클래식 음악 형식으로 편곡하기, 폐품을 이용해 투쟁의 상징물을 만들기)</li>
               <li><strong>의미 증폭하기:</strong> 현장의 언어와 이미지를 활용하여, 그 안에 담긴 의미(예: 저항, 희망, 연대, 존엄)를 더욱 강력하고 감동적으로 전달하는 예술 작품을 창조할 수 있습니다.</li>
             </ul>
+          </motion.div>
+
+          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/DSC06234.webp"
+              alt="함께 만드는 축제"
+              fill
+              className="object-cover"
+            />
           </motion.div>
 
           <motion.div variants={fadeIn} className="mt-12">
@@ -633,6 +653,16 @@ export default function GuidePage() {
               <li><strong>일회성이 아닌 꾸준함:</strong> 한 번의 공연이나 전시로 끝나지 않고, 꾸준히 새로운 작업물을 발표하고 소식을 전하며 사람들의 관심과 참여를 지속적으로 유도하는 것이 중요합니다.</li>
               <li><strong>피드백과 대화:</strong> 작품이나 활동에 대한 사람들의 반응과 질문에 귀 기울이고 적극적으로 소통하며 대화를 이어가려는 노력이 필요합니다. 이를 통해 오해를 해소하고 이해의 깊이를 더할 수 있습니다.</li>
             </ul>
+          </motion.div>
+
+          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/DSC06235.webp"
+              alt="보이지 않던 이야기의 힘"
+              fill
+              className="object-cover"
+            />
           </motion.div>
 
           <motion.div variants={fadeIn} className="mt-12">
@@ -754,6 +784,16 @@ export default function GuidePage() {
             </ul>
           </motion.div>
 
+          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/DSC06236.webp"
+              alt="프리피규레이션"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
+
           <motion.div variants={fadeIn} className="mt-12">
             {/* h3에 ID 추가 */}
             <h3 id={sections[5].subSections![2].id} className={h3Style}><span className="mr-2">🌱</span>{sections[5].subSections![2].title}: 우리가 꿈꾸는 세상을 지금 여기서 살아내기</h3>
@@ -871,6 +911,16 @@ export default function GuidePage() {
               <li><strong>열린 기록과 공유:</strong> 과거 연대 활동의 자료(사진, 영상, 글, 작품 등)를 잘 아카이빙하고 쉽게 접근할 수 있도록 하여, 새로운 세대가 과거의 경험으로부터 배울 수 있도록 돕습니다.</li>
               <li><strong>세대 간 대화의 자리:</strong> 서로 다른 세대의 예술가들이 편안하게 만나 각자의 경험, 고민, 예술적 언어를 나누고 서로를 이해하는 자리를 의식적으로 마련합니다.</li>
             </ul>
+          </motion.div>
+
+          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/DSC06238.webp"
+              alt="마침표가 아닌 쉼표"
+              fill
+              className="object-cover"
+            />
           </motion.div>
 
           <motion.div variants={fadeIn} className="mt-12">
