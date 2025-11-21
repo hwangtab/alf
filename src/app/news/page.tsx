@@ -7,7 +7,7 @@ type Newsletter = {
   publishDate: string;
   link: string;
   summary?: string;
-  badges?: string[];
+  highlights?: string[];
 };
 
 const dateFormatter = new Intl.DateTimeFormat("ko", {
@@ -39,7 +39,7 @@ export default function NewsPage() {
         {sortedNewsletters.map((newsletter) => {
           const summary =
             newsletter.summary?.trim() || "이 뉴스레터의 요약은 준비 중입니다.";
-          const badges = newsletter.badges?.filter(Boolean) ?? [];
+          const highlights = newsletter.highlights?.filter(Boolean) ?? [];
 
           return (
             <article
@@ -83,21 +83,18 @@ export default function NewsPage() {
                     </svg>
                   </div>
 
-                  <p className="text-base text-neutral-200 leading-relaxed line-clamp-3">
-                    {summary}
-                  </p>
-
-                  {badges.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {badges.map((badge) => (
-                        <span
-                          key={`${newsletter.id}-${badge}`}
-                          className="px-3 py-1 text-xs uppercase tracking-wide border border-primary-red/60 text-primary-red rounded-full bg-primary-red/5"
-                        >
-                          {badge}
-                        </span>
+                  {highlights.length > 0 ? (
+                    <ul className="list-disc pl-5 space-y-1 text-neutral-200">
+                      {highlights.map((item, index) => (
+                        <li key={`${newsletter.id}-highlight-${index}`}>
+                          {item}
+                        </li>
                       ))}
-                    </div>
+                    </ul>
+                  ) : (
+                    <p className="text-base text-neutral-200 leading-relaxed line-clamp-3">
+                      {summary}
+                    </p>
                   )}
                 </div>
               </Link>

@@ -72,9 +72,18 @@ async function main() {
         if (options.clearBadges && entry.badges) {
           delete entry.badges;
         }
+        if (payload.highlights.length > 0) {
+          entry.highlights = payload.highlights;
+        } else {
+          delete entry.highlights;
+        }
       }
 
-      console.log(`완료 (${payload.summary.length}자)`);
+      console.log(
+        `완료 (${payload.summary.length}자${
+          payload.highlights.length ? `, highlights: ${payload.highlights.length}` : ""
+        })`
+      );
       await sleep(WAIT_MS);
     } catch (error) {
       console.log(`오류: ${error.message}`);
@@ -112,8 +121,11 @@ function parseNewsletter(html) {
     fallbackTitle
   );
 
+  const highlights = extractHighlights(email);
+
   return {
     summary,
+    highlights,
   };
 }
 
@@ -155,6 +167,22 @@ function collectContentBlocks($doc) {
     }
   });
   return blocks;
+}
+
+function extractHighlights($doc) {
+  const highlights = [];
+  const seen = new Set();
+  const selectors = "span,strong,h1,h2,h3,td";
+
+  $doc(selectors).each((_, el) => {
+    const text = cleanText($doc(el).text());
+    if (isHighlightCandidate(text) && !seen.has(text)) {
+      highlights.push(text);
+      seen.add(text);
+    }
+  });
+
+  return highlights.slice(0, 5);
 }
 
 async function fetchHtml(url, attempts = 3) {
@@ -223,6 +251,22 @@ function truncate(text, limit) {
   if (!text) return "";
   if (text.length <= limit) return text;
   return `${text.slice(0, limit - 1).trim()}…`;
+}
+
+function isHighlightCandidate(text = "") {
+  if (!text) return false;
+  if (text.length < 6 || text.length > 90) return false;
+  if (isPlaceholderText(text)) return false;
+  if (/https?:\/\//i.test(text)) return false;
+  if (/이 메일이 잘 안보이시나요/.test(text)) return false;
+
+  const numbered = /^\d+[\.\)]\s*/.test(text);
+  const colonSeparated = /[:：]/.test(text);
+  const keywords = /(연대|보고|특집|인터뷰|캠페인|앨범|프로젝트|행사|워크숍)/i.test(
+    text
+  );
+
+  return numbered || colonSeparated || keywords;
 }
 
 function sleep(ms) {
