@@ -488,7 +488,7 @@ export default function GuidePage() {
           <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
-              src="/images/gallery/IMG_5935.webp"
+              src="/images/gallery/IMG_0045.webp"
               alt="함께 만드는 공동 창작의 과정"
               fill
               className="object-cover"
@@ -684,7 +684,7 @@ export default function GuidePage() {
           <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg mb-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
-              src="/images/gallery/DSC06261.webp"
+              src="/images/gallery/IMG_3425.webp"
               alt="수평적 관계와 상호부조의 현장"
               fill
               className="object-cover"
@@ -806,7 +806,7 @@ export default function GuidePage() {
           <motion.div variants={fadeIn} className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
-              src="/images/gallery/IMG_5947.webp"
+              src="/images/gallery/IMG_3823.webp"
               alt="다양한 세대가 함께하는 지속가능한 연대 문화"
               fill
               className="object-cover"
@@ -839,6 +839,16 @@ export default function GuidePage() {
               <li><strong>갈등 다루기:</strong> 서로 다른 의견이나 관점을 가질 수 있습니다. 갈등이 발생했을 때 회피하거나 비난하기보다, 솔직하게 대화하고 서로의 입장을 이해하려 노력하며 건설적으로 해결해나가는 방법을 함께 연습합니다.</li>
               <li><strong>환대의 문화:</strong> 새로운 사람이 네트워크에 들어왔을 때 따뜻하게 환영하고, 쉽게 적응하고 참여할 수 있도록 돕는 문화를 만듭니다.</li>
             </ul>
+          </motion.div>
+
+          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/IMG_3717.webp"
+              alt="지속가능한 연대와 교류"
+              fill
+              className="object-cover"
+            />
           </motion.div>
 
           <motion.div variants={fadeIn} className="mt-12">
