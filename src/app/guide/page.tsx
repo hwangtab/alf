@@ -268,7 +268,7 @@ export default function GuidePage() {
             {/* h3에 ID 추가 */}
             <h3 id={sections[1].subSections![0].id} className={h3Style}><span className="mr-2">🧐</span>{sections[1].subSections![0].title}: 아는 만큼 보이고, 존중하는 만큼 열립니다</h3>
             <p className={pStyle}>
-              섣불리 현장에 뛰어들기 전에, 그곳의 이야기를 충분히 듣고 배우려는 노력이 필요합니다. 이는 단순한 정보 습득을 넘어, 연대하고자 하는 이들에 대한 깊은 존중의 표현입니다.
+              섣불리 현장에 뛰어들기 전에, 그곳의 이야기를 충분히 듣고 배우려는 노력이 필요합니다. 이는 연대하고자 하는 이들에 대한 깊은 존중의 표현입니다.
             </p>
             <p className={`${pStyle} font-semibold text-white`}>무엇을, 왜 알아야 할까요?</p>
             <ul className={ulStyle}>
@@ -370,7 +370,7 @@ export default function GuidePage() {
             </ul>
             <p className={`${pStyle} font-semibold text-white`}>기록과 내면화, 그리고 거리두기:</p>
             <ul className={ulStyle}>
-              <li><strong>다양한 기록:</strong> 스케치, 메모, 녹음, 사진, 영상 등 자신에게 익숙하고 편안한 방식으로 현장의 인상과 감정을 기록하세요. 이는 단순한 자료 수집이 아니라, 경험을 소화하고 의미를 부여하는 과정입니다.</li>
+              <li><strong>다양한 기록:</strong> 스케치, 메모, 녹음, 사진, 영상 등 자신에게 익숙하고 편안한 방식으로 현장의 인상과 감정을 기록하세요. 이는 그저 자료 수집이 아니라, 경험을 소화하고 의미를 부여하는 과정입니다.</li>
               <li><strong>성찰의 시간:</strong> 현장에서 느낀 감정(분노, 슬픔, 연민, 희망, 혼란 등)과 생각들을 일기나 작업 노트에 적으며 정리해보세요. “이 경험이 나에게 어떤 질문을 던지는가?”, “내 기존 작업 방식이나 세계관에 어떤 영향을 미치는가?” 스스로에게 질문하며 내면화하는 시간이 필요합니다.</li>
               <li><strong>의식적인 거리두기:</strong> 때로는 현장의 감정에 너무 깊이 몰입되지 않도록 의식적으로 거리를 두는 연습도 필요합니다. 객관적인 시각을 유지하고, 예술적 언어로 번역하기 위한 성찰의 공간을 확보하기 위함입니다. 모든 경험을 즉시 예술로 만들어야 한다는 부담감을 내려놓으세요.</li>
             </ul>
@@ -558,7 +558,7 @@ export default function GuidePage() {
             </ul>
             <p className={`${pStyle} font-semibold text-white`}>예술을 넘어 관계로:</p>
             <ul className={ulStyle}>
-              <li><strong>시작과 끝:</strong> 공연이나 예술 활동 전후로 함께 음식을 나누거나 차를 마시며 자연스럽게 이야기를 나눌 수 있는 시간을 마련합니다. 이는 단순한 행사를 넘어, 서로의 마음을 나누고 관계를 다지는 중요한 계기가 됩니다.</li>
+              <li><strong>시작과 끝:</strong> 공연이나 예술 활동 전후로 함께 음식을 나누거나 차를 마시며 자연스럽게 이야기를 나눌 수 있는 시간을 마련합니다. 이를 통해 서로의 마음을 나누고 관계를 다지는 중요한 계기를 만듭니다.</li>
               <li><strong>지속적인 만남:</strong> 일회성 이벤트로 끝나지 않고, 정기적인 문화제나 워크숍, 소모임 등을 통해 만남을 이어가며 연대의 끈을 더욱 단단하게 만듭니다.</li>
             </ul>
           </motion.div>
@@ -582,7 +582,7 @@ export default function GuidePage() {
           {/* h2에 ID 추가 */}
           <motion.h2 id={sections[4].id} variants={fadeIn} className={h2Style}>{sections[4].title}: 목소리 없는 이들의 목소리가 되어</motion.h2>
           <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
-            예술은 현장의 생생한 경험과 절실한 목소리를 기록하고, 그 울림을 현장 너머의 세상으로 <strong>확산시키는 강력한 매체</strong>가 될 수 있습니다. 이는 단순한 정보 전달을 넘어, 공감을 이끌어내고 연대의 지평을 넓히는 중요한 실천입니다.
+            예술은 현장의 생생한 경험과 절실한 목소리를 기록하고, 그 울림을 현장 너머의 세상으로 <strong>확산시키는 강력한 매체</strong>가 될 수 있습니다. 이는 사람들의 공감을 이끌어내고 연대의 지평을 넓히는 중요한 실천입니다.
           </motion.p>
 
           {/* 전체 너비 이미지 */}
@@ -683,7 +683,7 @@ export default function GuidePage() {
             </ul>
             <p className={`${pStyle} font-semibold text-white`}>저항과 희망의 씨앗 뿌리기:</p>
             <ul className={ulStyle}>
-              <li><strong>피해자를 넘어 주체로:</strong> 어려움 속에서도 좌절하지 않고 자신의 존엄성을 지키며 저항하는 이들의 능동적인 모습, 서로 돕고 의지하며 공동체를 이루어가는 과정을 그림으로써, 단순한 동정심을 넘어 존경과 연대의 마음을 이끌어냅니다.</li>
+              <li><strong>피해자를 넘어 주체로:</strong> 어려움 속에서도 좌절하지 않고 자신의 존엄성을 지키며 저항하는 이들의 능동적인 모습, 서로 돕고 의지하며 공동체를 이루어가는 과정을 그림으로써, 동정심을 넘어 존경과 연대의 마음을 이끌어냅니다.</li>
               <li><strong>대안적 상상력:</strong> 현실의 문제를 고발하는 것을 넘어, 우리가 꿈꾸는 더 나은 세상의 모습, 대안적인 관계와 삶의 방식을 예술적 상상력을 통해 제시함으로써 희망의 가능성을 보여줍니다.</li>
             </ul>
           </motion.div>
@@ -895,7 +895,7 @@ export default function GuidePage() {
             {/* h3에 ID 추가 */}
             <h3 id={sections[6].subSections![1].id} className={h3Style}><span className="mr-2">🧑‍🤝‍🧑</span>{sections[6].subSections![1].title}: 경험을 나누고 미래를 함께 열기</h3>
             <p className={pStyle}>
-              <strong className="text-yellow-500">현장 연대</strong>의 경험과 지혜는 소중한 자산입니다. 이것이 특정 세대에게만 머무르지 않고 <strong>다음 세대의 예술가들에게 자연스럽게 흘러가고 공유</strong>될 때, 연대의 역사는 더욱 풍부해지고 미래는 더 밝아질 수 있습니다. 이는 단순한 '가르침'이 아니라, 서로에게 배우고 영감을 주고받는 <strong>상호적인 동행</strong>의 과정입니다.
+              <strong className="text-yellow-500">현장 연대</strong>의 경험과 지혜는 소중한 자산입니다. 이것이 특정 세대에게만 머무르지 않고 <strong>다음 세대의 예술가들에게 자연스럽게 흘러가고 공유</strong>될 때, 연대의 역사는 더욱 풍부해지고 미래는 더 밝아질 수 있습니다. 이는 서로에게 배우고 영감을 주고받는 <strong>상호적인 동행</strong>의 과정입니다.
             </p>
             <p className={`${pStyle} font-semibold text-white`}>왜 세대 간 연결이 중요할까요?</p>
             <ul className={ulStyle}>
