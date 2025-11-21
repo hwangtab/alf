@@ -277,18 +277,23 @@ function truncate(text, limit) {
 
 function isHighlightCandidate(text = "") {
   if (!text) return false;
-  if (text.length < 6 || text.length > 90) return false;
-  if (isPlaceholderText(text)) return false;
-  if (/https?:\/\//i.test(text)) return false;
-  if (/이 메일이 잘 안보이시나요/.test(text)) return false;
+  const normalized = text.trim();
+  if (normalized.length < 6 || normalized.length > 90) return false;
+  if (isPlaceholderText(normalized)) return false;
+  if (/https?:\/\//i.test(normalized)) return false;
+  if (HIGHLIGHT_STOPWORDS.some((pattern) => pattern.test(normalized))) {
+    return false;
+  }
 
-  const numbered = /^\d+[\.\)]\s*/.test(text);
-  const colonSeparated = /[:：]/.test(text);
-  const keywords = /(연대|보고|특집|인터뷰|캠페인|앨범|프로젝트|행사|워크숍)/i.test(
-    text
+  const numbered = /^\d+[\.\)]\s*/.test(normalized);
+  if (numbered) return true;
+
+  const colonSeparated = /^\S[\s\S]+[:：]\s+\S/.test(normalized);
+  const keywords = /(연대|보고|특집|인터뷰|캠페인|앨범|프로젝트|행사|워크숍|공연|회의)/i.test(
+    normalized
   );
 
-  return numbered || colonSeparated || keywords;
+  return colonSeparated && keywords;
 }
 
 function normalizeUrl(src = "") {
@@ -335,3 +340,12 @@ main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
+const HIGHLIGHT_STOPWORDS = [
+  /^함께 연대하며/i,
+  /^함께 연대/i,
+  /^with solidarity/i,
+  /^후원계좌/i,
+  /^일시\s*:/,
+  /^장소\s*:/,
+  /^주제\s*:/,
+];
