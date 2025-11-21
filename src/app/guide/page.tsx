@@ -253,6 +253,17 @@ export default function GuidePage() {
             현장은 낯설고, 때로는 두렵게 느껴질 수 있습니다. 하지만 그 문턱을 넘어서는 첫걸음이 중요합니다. 조심스럽지만 진솔하게 다가가는 방법을 알아봅니다.
           </motion.p>
 
+          {/* 전체 너비 이미지 */}
+          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg mb-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/DSC04644.webp"
+              alt="집회와 연대 현장에서 함께하는 사람들"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
+
           <motion.div variants={fadeIn}>
             {/* h3에 ID 추가 */}
             <h3 id={sections[1].subSections![0].id} className={h3Style}><span className="mr-2">🧐</span>{sections[1].subSections![0].title}: 아는 만큼 보이고, 존중하는 만큼 열립니다</h3>
@@ -319,9 +330,22 @@ export default function GuidePage() {
         >
           {/* h2에 ID 추가 */}
           <motion.h2 variants={fadeIn} className={h2Style}>{sections[2].title}: 연대는 나를 성장시키는 또 다른 작업실</motion.h2>
-          <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
-            <strong className="text-yellow-500">현장 연대</strong>는 당신의 예술적 감수성과 표현력을 필요로 하지만, 동시에 당신에게 예술적 영감과 성찰의 기회를 제공하는 살아있는 작업실이 될 수 있습니다. 소진되지 않고 이 관계를 지속하며 함께 성장하는 방법을 고민해봅니다.
-          </motion.p>
+
+          {/* 2단 그리드: 이미지 왼쪽, 텍스트 오른쪽 */}
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-10">
+            <motion.div variants={fadeIn} className="relative h-[32rem] rounded-lg overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+              <Image
+                src="/images/gallery/DSC02835.webp"
+                alt="예술가들의 공동 작업과 창작 활동"
+                fill
+                className="object-cover transition-transform duration-700 hover:scale-105"
+              />
+            </motion.div>
+            <motion.p variants={fadeIn} className={pStyle}>
+              <strong className="text-yellow-500">현장 연대</strong>는 당신의 예술적 감수성과 표현력을 필요로 하지만, 동시에 당신에게 예술적 영감과 성찰의 기회를 제공하는 살아있는 작업실이 될 수 있습니다. 소진되지 않고 이 관계를 지속하며 함께 성장하는 방법을 고민해봅니다.
+            </motion.p>
+          </div>
 
           <motion.div variants={fadeIn}>
             {/* h3에 ID 추가 */}
@@ -408,6 +432,17 @@ export default function GuidePage() {
           <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
             <strong className="text-yellow-500">현장 연대</strong> 예술의 진정한 의미는 예술가가 일방적으로 무언가를 ‘선사’하는 것이 아니라, 현장의 당사자들과 <strong>함께 새로운 의미와 형식을 빚어가는 공동 창조</strong>의 과정에 있습니다. 이는 예술과 투쟁이 서로에게 영감을 주고 영향을 미치며 함께 성장하는 역동적인 과정입니다.
           </motion.p>
+
+          {/* 전체 너비 이미지 */}
+          <motion.div variants={fadeIn} className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/DSC05730.webp"
+              alt="함께하는 공동 창작과 축제의 현장"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
 
           <motion.div variants={fadeIn}>
             {/* h3에 ID 추가 */}
@@ -498,9 +533,22 @@ export default function GuidePage() {
         >
           {/* h2에 ID 추가 */}
           <motion.h2 variants={fadeIn} className={h2Style}>{sections[4].title}: 목소리 없는 이들의 목소리가 되어</motion.h2>
-          <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
-            예술은 현장의 생생한 경험과 절실한 목소리를 기록하고, 그 울림을 현장 너머의 세상으로 <strong>확산시키는 강력한 매체</strong>가 될 수 있습니다. 이는 단순한 정보 전달을 넘어, 공감을 이끌어내고 연대의 지평을 넓히는 중요한 실천입니다.
-          </motion.p>
+
+          {/* 2단 그리드: 텍스트 왼쪽, 이미지 오른쪽 */}
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-10">
+            <motion.p variants={fadeIn} className={pStyle}>
+              예술은 현장의 생생한 경험과 절실한 목소리를 기록하고, 그 울림을 현장 너머의 세상으로 <strong>확산시키는 강력한 매체</strong>가 될 수 있습니다. 이는 단순한 정보 전달을 넘어, 공감을 이끌어내고 연대의 지평을 넓히는 중요한 실천입니다.
+            </motion.p>
+            <motion.div variants={fadeIn} className="relative h-[32rem] rounded-lg overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+              <Image
+                src="/images/gallery/DSC03110.webp"
+                alt="현장 기록과 아카이빙 활동"
+                fill
+                className="object-cover transition-transform duration-700 hover:scale-105"
+              />
+            </motion.div>
+          </div>
 
           <motion.div variants={fadeIn}>
             {/* h3에 ID 추가 */}
@@ -595,6 +643,17 @@ export default function GuidePage() {
           <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
             "아나키즘"이라는 단어가 조금 낯설거나 과격하게 들릴 수도 있습니다. 하지만 여기서 말하는 아나키즘적 실천은 거창한 이념 투쟁이 아니라, 우리가 현장에서 관계 맺고 함께 작업하는 방식에 대한 <strong>근본적인 질문이자 대안적인 태도</strong>입니다. 이는 권위적인 명령이나 위계적인 질서 대신, <strong>개인의 자율성과 상호 존중, 그리고 자발적인 협력(<span className="text-yellow-500">상호부조</span>)</strong>을 바탕으로 모두가 평등하고 자유롭게 연대하고 창조하는 방식을 모색하는 것입니다. <strong className="text-yellow-500">현장 연대</strong>는 종종 기존 사회의 불평등한 권력 관계에 맞서는 일이기에, 우리의 연대 방식 자체에서부터 평등과 자유의 가치를 실현하려는 노력은 매우 중요합니다.
           </motion.p>
+
+          {/* 전체 너비 이미지 */}
+          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg mb-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/DSC06261.webp"
+              alt="수평적 관계와 상호부조의 현장"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
 
           <motion.div variants={fadeIn}>
             {/* h3에 ID 추가 */}
@@ -693,9 +752,22 @@ export default function GuidePage() {
         >
           {/* h2에 ID 추가 */}
           <motion.h2 variants={fadeIn} className={h2Style}>{sections[6].title}: 홀로 외롭지 않게, 함께 멀리 가기 위하여</motion.h2>
-          <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
-            한두 명의 열정적인 예술가만으로는 <strong className="text-yellow-500">현장 연대</strong>를 지속하기 어렵습니다. 더 많은 예술가들이 서로에게 배우고, 의지하며, 함께 성장할 수 있는 <strong>지지적인 문화와 커뮤니티를 만드는 것</strong>이 중요합니다. 이는 단지 활동의 효율성을 높이는 것을 넘어, 예술가들이 고립되지 않고 오랫동안 지치지 않으며 연대의 길을 걸어갈 수 있도록 돕는 안전망이자 자양분입니다. 아나키즘적 가치를 바탕으로 한 자율적이고 협력적인 예술 생태계를 함께 가꾸어 나가는 과정입니다.
-          </motion.p>
+
+          {/* 2단 그리드: 이미지 왼쪽, 텍스트 오른쪽 */}
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-10">
+            <motion.div variants={fadeIn} className="relative h-[32rem] rounded-lg overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+              <Image
+                src="/images/gallery/DSC04686.webp"
+                alt="다양한 세대가 함께하는 지속가능한 연대 문화"
+                fill
+                className="object-cover transition-transform duration-700 hover:scale-105"
+              />
+            </motion.div>
+            <motion.p variants={fadeIn} className={pStyle}>
+              한두 명의 열정적인 예술가만으로는 <strong className="text-yellow-500">현장 연대</strong>를 지속하기 어렵습니다. 더 많은 예술가들이 서로에게 배우고, 의지하며, 함께 성장할 수 있는 <strong>지지적인 문화와 커뮤니티를 만드는 것</strong>이 중요합니다. 이는 단지 활동의 효율성을 높이는 것을 넘어, 예술가들이 고립되지 않고 오랫동안 지치지 않으며 연대의 길을 걸어갈 수 있도록 돕는 안전망이자 자양분입니다. 아나키즘적 가치를 바탕으로 한 자율적이고 협력적인 예술 생태계를 함께 가꾸어 나가는 과정입니다.
+            </motion.p>
+          </div>
 
           <motion.div variants={fadeIn}>
             {/* h3에 ID 추가 */}
