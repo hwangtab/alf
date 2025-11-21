@@ -27,7 +27,7 @@ jobs:
         run: npm ci
 
       - name: Generate newsletter summaries
-        run: npm run generate:newsletters -- --wait 200
+        run: npm run generate:newsletters -- --wait 200 --clear-badges
 
       - name: Commit changes
         id: commit
