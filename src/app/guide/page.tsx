@@ -624,7 +624,7 @@ export default function GuidePage() {
           <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
-              src="/images/gallery/IMG_5901.webp"
+              src="/images/gallery/DSC02821.webp"
               alt="현장의 기록과 확산"
               fill
               className="object-cover"
