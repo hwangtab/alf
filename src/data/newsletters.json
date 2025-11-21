@@ -327,5 +327,26 @@
     "publishDate": "2025-07-01",
     "summary": "",
     "link": "https://stib.ee/SXaI"
+  },
+  {
+    "id": 48,
+    "title": "2025년 8월호",
+    "publishDate": "2025-08-01",
+    "summary": "",
+    "link": "https://stib.ee/Wi9J"
+  },
+  {
+    "id": 49,
+    "title": "2025년 9월호",
+    "publishDate": "2025-09-01",
+    "summary": "",
+    "link": "https://stib.ee/vKVJ"
+  },
+  {
+    "id": 50,
+    "title": "2025년 10월호",
+    "publishDate": "2025-10-01",
+    "summary": "",
+    "link": "https://stib.ee/FKqJ"
   }
 ]
