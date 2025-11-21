@@ -330,22 +330,20 @@ export default function GuidePage() {
         >
           {/* h2에 ID 추가 */}
           <motion.h2 variants={fadeIn} className={h2Style}>{sections[2].title}: 연대는 나를 성장시키는 또 다른 작업실</motion.h2>
+          <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
+            <strong className="text-yellow-500">현장 연대</strong>는 당신의 예술적 감수성과 표현력을 필요로 하지만, 동시에 당신에게 예술적 영감과 성찰의 기회를 제공하는 살아있는 작업실이 될 수 있습니다. 소진되지 않고 이 관계를 지속하며 함께 성장하는 방법을 고민해봅니다.
+          </motion.p>
 
-          {/* 2단 그리드: 이미지 왼쪽, 텍스트 오른쪽 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-10">
-            <motion.div variants={fadeIn} className="relative h-[32rem] rounded-lg overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
-              <Image
-                src="/images/gallery/DSC02835.webp"
-                alt="예술가들의 공동 작업과 창작 활동"
-                fill
-                className="object-cover transition-transform duration-700 hover:scale-105"
-              />
-            </motion.div>
-            <motion.p variants={fadeIn} className={pStyle}>
-              <strong className="text-yellow-500">현장 연대</strong>는 당신의 예술적 감수성과 표현력을 필요로 하지만, 동시에 당신에게 예술적 영감과 성찰의 기회를 제공하는 살아있는 작업실이 될 수 있습니다. 소진되지 않고 이 관계를 지속하며 함께 성장하는 방법을 고민해봅니다.
-            </motion.p>
-          </div>
+          {/* 전체 너비 이미지 */}
+          <motion.div variants={fadeIn} className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/IMG_3829.webp"
+              alt="예술가들의 공동 작업과 창작 활동"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
 
           <motion.div variants={fadeIn}>
             {/* h3에 ID 추가 */}
@@ -533,22 +531,20 @@ export default function GuidePage() {
         >
           {/* h2에 ID 추가 */}
           <motion.h2 variants={fadeIn} className={h2Style}>{sections[4].title}: 목소리 없는 이들의 목소리가 되어</motion.h2>
+          <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
+            예술은 현장의 생생한 경험과 절실한 목소리를 기록하고, 그 울림을 현장 너머의 세상으로 <strong>확산시키는 강력한 매체</strong>가 될 수 있습니다. 이는 단순한 정보 전달을 넘어, 공감을 이끌어내고 연대의 지평을 넓히는 중요한 실천입니다.
+          </motion.p>
 
-          {/* 2단 그리드: 텍스트 왼쪽, 이미지 오른쪽 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-10">
-            <motion.p variants={fadeIn} className={pStyle}>
-              예술은 현장의 생생한 경험과 절실한 목소리를 기록하고, 그 울림을 현장 너머의 세상으로 <strong>확산시키는 강력한 매체</strong>가 될 수 있습니다. 이는 단순한 정보 전달을 넘어, 공감을 이끌어내고 연대의 지평을 넓히는 중요한 실천입니다.
-            </motion.p>
-            <motion.div variants={fadeIn} className="relative h-[32rem] rounded-lg overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
-              <Image
-                src="/images/gallery/DSC03110.webp"
-                alt="현장 기록과 아카이빙 활동"
-                fill
-                className="object-cover transition-transform duration-700 hover:scale-105"
-              />
-            </motion.div>
-          </div>
+          {/* 전체 너비 이미지 */}
+          <motion.div variants={fadeIn} className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/IMG_9984.webp"
+              alt="현장 기록과 아카이빙 활동"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
 
           <motion.div variants={fadeIn}>
             {/* h3에 ID 추가 */}
@@ -752,22 +748,20 @@ export default function GuidePage() {
         >
           {/* h2에 ID 추가 */}
           <motion.h2 variants={fadeIn} className={h2Style}>{sections[6].title}: 홀로 외롭지 않게, 함께 멀리 가기 위하여</motion.h2>
+          <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
+            한두 명의 열정적인 예술가만으로는 <strong className="text-yellow-500">현장 연대</strong>를 지속하기 어렵습니다. 더 많은 예술가들이 서로에게 배우고, 의지하며, 함께 성장할 수 있는 <strong>지지적인 문화와 커뮤니티를 만드는 것</strong>이 중요합니다. 이는 단지 활동의 효율성을 높이는 것을 넘어, 예술가들이 고립되지 않고 오랫동안 지치지 않으며 연대의 길을 걸어갈 수 있도록 돕는 안전망이자 자양분입니다. 아나키즘적 가치를 바탕으로 한 자율적이고 협력적인 예술 생태계를 함께 가꾸어 나가는 과정입니다.
+          </motion.p>
 
-          {/* 2단 그리드: 이미지 왼쪽, 텍스트 오른쪽 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-10">
-            <motion.div variants={fadeIn} className="relative h-[32rem] rounded-lg overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
-              <Image
-                src="/images/gallery/DSC04686.webp"
-                alt="다양한 세대가 함께하는 지속가능한 연대 문화"
-                fill
-                className="object-cover transition-transform duration-700 hover:scale-105"
-              />
-            </motion.div>
-            <motion.p variants={fadeIn} className={pStyle}>
-              한두 명의 열정적인 예술가만으로는 <strong className="text-yellow-500">현장 연대</strong>를 지속하기 어렵습니다. 더 많은 예술가들이 서로에게 배우고, 의지하며, 함께 성장할 수 있는 <strong>지지적인 문화와 커뮤니티를 만드는 것</strong>이 중요합니다. 이는 단지 활동의 효율성을 높이는 것을 넘어, 예술가들이 고립되지 않고 오랫동안 지치지 않으며 연대의 길을 걸어갈 수 있도록 돕는 안전망이자 자양분입니다. 아나키즘적 가치를 바탕으로 한 자율적이고 협력적인 예술 생태계를 함께 가꾸어 나가는 과정입니다.
-            </motion.p>
-          </div>
+          {/* 전체 너비 이미지 */}
+          <motion.div variants={fadeIn} className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/IMG_4925.webp"
+              alt="다양한 세대가 함께하는 지속가능한 연대 문화"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
 
           <motion.div variants={fadeIn}>
             {/* h3에 ID 추가 */}
