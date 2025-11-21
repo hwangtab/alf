@@ -291,6 +291,16 @@ export default function GuidePage() {
             </ul>
           </motion.div>
 
+          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/IMG_9949.webp"
+              alt="첫 만남과 현장 방문의 순간"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
+
           <motion.div variants={fadeIn} className="mt-12">
             {/* h3에 ID 추가 */}
             <h3 id={sections[1].subSections![1].id} className={h3Style}><span className="mr-2">🤝</span>{sections[1].subSections![1].title}: 예술가 이전에 한 사람의 이웃으로</h3>
@@ -369,6 +379,16 @@ export default function GuidePage() {
               <li><strong>새로운 형식 실험:</strong> 현장의 경험은 기존의 정형화된 예술 형식에 담기 어려울 수 있습니다. 현장 자체를 활용한 설치나 퍼포먼스, 다큐멘터리적 요소와 허구적 상상력을 결합한 글쓰기, 현장의 소리를 이용한 사운드 아트, 참여자들과 함께 만드는 워크숍 기반 작업 등 새로운 형식을 탐색하고 실험해보세요.</li>
               <li><strong>은유와 상징 찾기:</strong> 현장의 구체적인 사건이나 인물을 넘어서, 그 안에 담긴 보편적인 의미(예: 부당함에 대한 저항, 인간 존엄성, 연대의 가치, 상실과 치유 등)를 포착하고 이를 예술적 은유나 상징으로 표현하는 방법을 고민해보세요.</li>
             </ul>
+          </motion.div>
+
+          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/IMG_9946.webp"
+              alt="예술가로서 현장에서 깊어지는 경험"
+              fill
+              className="object-cover"
+            />
           </motion.div>
 
           <motion.div variants={fadeIn} className="mt-12">
@@ -463,6 +483,16 @@ export default function GuidePage() {
               <li><strong>결과보다 관계:</strong> 최종 결과물의 미적 완성도에만 집착하기보다, 함께 만들어가는 과정에서 형성되는 관계, 나누는 대화, 서로에게 미치는 긍정적인 영향에 더 큰 의미를 두세요. 그 과정 자체가 이미 공동체의 힘을 키우고 투쟁에 활력을 불어넣는 예술적 실천일 수 있습니다.</li>
               <li><strong>과정의 기록과 공유:</strong> 함께 작업하는 모습, 나누는 이야기, 만들어지는 중간 결과물들을 사진이나 영상, 글로 기록하고 공유하는 것은 참여자들에게 성취감을 주고 연대 의식을 높이는 좋은 방법입니다. 이 기록물 자체가 또 다른 예술 작품이 될 수도 있습니다.</li>
             </ul>
+          </motion.div>
+
+          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/IMG_5935.webp"
+              alt="함께 만드는 공동 창작의 과정"
+              fill
+              className="object-cover"
+            />
           </motion.div>
 
           <motion.div variants={fadeIn} className="mt-12">
@@ -571,6 +601,16 @@ export default function GuidePage() {
             </ul>
           </motion.div>
 
+          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/IMG_5901.webp"
+              alt="현장의 기록과 확산"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
+
           <motion.div variants={fadeIn} className="mt-12">
             {/* h3에 ID 추가 */}
             <h3 id={sections[4].subSections![1].id} className={h3Style}><span className="mr-2">🌐</span>{sections[4].subSections![1].title}: 고립된 섬들을 연결하는 다리 놓기</h3>
@@ -677,6 +717,16 @@ export default function GuidePage() {
             </motion.div>
           </motion.div>
 
+          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/IMG_5423.webp"
+              alt="수평적 관계와 상호부조의 실천"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
+
           <motion.div variants={fadeIn} className="mt-12">
             {/* h3에 ID 추가 */}
             <h3 id={sections[5].subSections![1].id} className={h3Style}><span className="mr-2">🤲</span>{sections[5].subSections![1].title}: 경쟁 대신 협력으로, 각자도생 대신 함께 살기로</h3>
@@ -756,7 +806,7 @@ export default function GuidePage() {
           <motion.div variants={fadeIn} className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
-              src="/images/gallery/IMG_4925.webp"
+              src="/images/gallery/IMG_5947.webp"
               alt="다양한 세대가 함께하는 지속가능한 연대 문화"
               fill
               className="object-cover"
@@ -852,9 +902,20 @@ export default function GuidePage() {
         >
           {/* h2에 ID 추가 */}
           <motion.h2 variants={fadeIn} className={h3Style}>{sections[7].title}: 예술과 투쟁의 경계에서, 당신의 자리를 찾아서</motion.h2>
-          <motion.p variants={fadeIn} className={pStyle}>
+          <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
             지금까지 현장 연대라는 낯설지만 의미 있는 길에 대해 길게 이야기 나누었습니다. 이 가이드가 제시한 내용들이 때로는 너무 이상적이거나 어렵게 느껴졌을 수도 있습니다. 어쩌면 ‘과연 내가 할 수 있을까?’ 하는 두려움이나 망설임이 여전히 남아있을지도 모릅니다.
           </motion.p>
+
+          {/* 전체 너비 이미지 */}
+          <motion.div variants={fadeIn} className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
+            <Image
+              src="/images/gallery/IMG_7341.webp"
+              alt="예술과 투쟁의 경계에서 함께하는 모습"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
           <motion.p variants={fadeIn} className={pStyle}>
             하지만 기억해주세요. <strong className="text-yellow-500">현장 연대</strong>는 완벽한 영웅이나 투사를 요구하는 것이 아닙니다. 정해진 매뉴얼이나 성공 공식이 있는 것도 아닙니다. 중요한 것은 <strong>세상의 아픔에 공감하는 마음, 불의에 함께 분노하고 연대하려는 의지, 그리고 예술가로서 자신이 가진 고유한 감수성과 표현력으로 기꺼이 그 여정에 동참하려는 용기</strong>입니다.
           </motion.p>
