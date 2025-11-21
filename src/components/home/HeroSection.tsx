@@ -32,26 +32,30 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
 
     let animationFrameId: number;
     let lastMoveTime = 0;
-    const throttleDelay = 32; // 60fps에서 30fps로 변경 (성능 최적화)
+    const throttleDelay = 16; // 60fps
 
     const handleMouseMove = (e: MouseEvent) => {
       const now = Date.now();
       if (now - lastMoveTime < throttleDelay) return;
-      
+
       lastMoveTime = now;
       cancelAnimationFrame(animationFrameId);
 
       animationFrameId = requestAnimationFrame(() => {
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
+        const { innerWidth, innerHeight } = window;
+        const centerX = innerWidth / 2;
+        const centerY = innerHeight / 2;
 
         // 마우스 위치를 -5 ~ 5 범위로 축소 (성능 향상)
-        mouseX.set((e.clientX - centerX) / centerX * 5); // 10 -> 5로 감소
-        mouseY.set((e.clientY - centerY) / centerY * 5); // 10 -> 5로 감소
+        const xVal = (e.clientX - centerX) / centerX * 5;
+        const yVal = (e.clientY - centerY) / centerY * 5;
+
+        mouseX.set(xVal);
+        mouseY.set(yVal);
       });
     };
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true }); // passive 옵션 추가
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animationFrameId);
@@ -121,8 +125,8 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
     <motion.section
       ref={containerRef}
       className="relative flex items-center justify-center min-h-screen overflow-hidden motion-element"
-      style={{ 
-        y, 
+      style={{
+        y,
         opacity,
         willChange: 'transform, opacity' // GPU 가속을 위한 will-change 추가
       }}
@@ -137,7 +141,7 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
         fill
         className="object-cover z-[-1] opacity-30"
         priority
-        quality={85} // 90 -> 85로 최적화
+        quality={75} // 85 -> 75로 추가 최적화 (육안상 차이 미미)
         placeholder="blur"
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
         sizes="100vw"
@@ -190,12 +194,12 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
           whileTap="tap" // tap 효과는 Button 컴포넌트에서 처리
         >
           {/* Button 컴포넌트 사용, variant="secondary"로 빨간색 버튼 적용 */}
-          <Button 
-            href="/about" 
-            variant="secondary" 
-            size="md" 
+          <Button
+            href="/about"
+            variant="secondary"
+            size="md"
             className="btn-revolution"
-            // Button 컴포넌트의 기본 hover/tap 효과 사용
+          // Button 컴포넌트의 기본 hover/tap 효과 사용
           >
             우리의 연대
           </Button>
@@ -220,7 +224,7 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
         aria-label="Scroll down" // 접근성 레이블 추가
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> {/* 크기 축소 */}
-          <path d="M12 5L12 19M12 19L19 12M12 19L5 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M12 5L12 19M12 19L19 12M12 19L5 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </motion.button>
     </motion.section>

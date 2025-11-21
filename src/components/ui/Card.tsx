@@ -33,7 +33,7 @@ const CardComponent: React.FC<CardProps> = ({
   footerContent,
   index = 0,
   aspectRatio = '66.67%',
-  imageSizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+  imageSizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
   loadingPriority = false,
   tagLimit = 3,
   lineClamp = 2,

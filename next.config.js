@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    unoptimized: true, // 정적 export를 위해 이미지 최적화 비활성화
-    formats: ['image/webp'],
+    // unoptimized: true, // Vercel 배포를 위해 이미지 최적화 활성화
+    formats: ['image/avif', 'image/webp'], // AVIF 추가
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     dangerouslyAllowSVG: true,

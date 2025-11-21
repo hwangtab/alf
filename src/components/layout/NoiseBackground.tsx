@@ -3,14 +3,11 @@ import type { CSSProperties } from 'react';
 const noiseStyle: CSSProperties = {
   backgroundColor: '#050505',
   backgroundImage: `
-    linear-gradient(125deg, rgba(255,255,255,0.03) 25%, transparent 25%),
-    linear-gradient(305deg, rgba(255,255,255,0.025) 25%, transparent 25%),
-    linear-gradient(0deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)),
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 55%),
-    radial-gradient(circle at 80% 0%, rgba(255,255,255,0.03), transparent 45%)
+    linear-gradient(rgba(255,255,255,0.05), rgba(255,255,255,0)),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E")
   `,
-  backgroundSize: '4px 4px, 4px 4px, 100% 100%, 220px 220px, 180px 180px',
-  mixBlendMode: 'screen',
+  backgroundSize: 'cover, 200px 200px',
+  mixBlendMode: 'overlay',
 };
 
 export default function NoiseBackground() {
