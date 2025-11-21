@@ -23,15 +23,10 @@ export default function AboutPage() {
   }, []);
 
   // 스크롤 함수
-  const scrollToElement = (elementId: string, offset: number = 60) => {
+  const scrollToElement = (elementId: string) => {
     const element = document.getElementById(elementId);
     if (element) {
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-      const offsetPosition = elementPosition - offset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -58,8 +53,8 @@ export default function AboutPage() {
   // 모바일 친화적 뷰포트 설정 - 직접 framer-motion 설정 사용
   const mobileViewportSettings = {
     once: false, // 여러 번 트리거 가능
-    amount: 0.01, // 1%만 보여도 트리거
-    margin: "0px 0px -300px 0px" // 매우 일찍 트리거
+    amount: 0.1, // 10%만 보여도 트리거
+    margin: "0px 0px 120px 0px" // 하단에 여유를 둬 작은 뷰포트에서도 즉시 트리거
   };
 
   return (
@@ -122,7 +117,7 @@ export default function AboutPage() {
         whileInView={{ opacity: 1, y: [0, 8, 0] }}
         viewport={{ once: false }}
         transition={{ duration: 1.2, repeat: Infinity }}
-        onClick={() => scrollToElement('our-dream', 60)}
+        onClick={() => scrollToElement('our-dream')}
         aria-label="다음 섹션으로 스크롤"
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -161,7 +156,7 @@ export default function AboutPage() {
         whileInView={{ opacity: 1, y: [0, 8, 0] }}
         viewport={{ once: false }}
         transition={{ duration: 1.2, repeat: Infinity }}
-        onClick={() => scrollToElement('our-values', 60)}
+        onClick={() => scrollToElement('our-values')}
         aria-label="다음 섹션으로 스크롤"
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

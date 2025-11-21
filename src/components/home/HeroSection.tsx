@@ -215,10 +215,7 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
         onClick={() => {
           const targetElement = document.getElementById('latest-activities');
           if (targetElement) {
-            const headerOffset = 100; // 헤더 높이 오프셋 (px)
-            const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
-            const offsetPosition = elementPosition - headerOffset;
-            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         }}
         aria-label="Scroll down" // 접근성 레이블 추가
