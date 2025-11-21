@@ -32,3 +32,7 @@ npm run generate:newsletters -- --all
 3. `<h1>`, `<h2>`, `<h3>`, `<strong>`, `<p>` 텍스트에 `특집`, `인터뷰`, `캠페인`, `공지`, `행사` 등 키워드가 포함되어 있으면 `badges` 배열을 채웁니다.
 
 오류나 비어 있는 요약이 발생하면 콘솔에 해당 항목이 표시되므로 편집자가 수동으로 정리한 뒤 다시 실행하면 됩니다. Stibee 구조가 변경되면 선택자(`div.email-content`)만 조정하면 됩니다.
+
+## 자동 실행
+
+`.github/workflows/update-newsletters.yml` 워크플로가 매주 월요일 오전 6시(KST)마다 `npm run generate:newsletters -- --wait 200`을 실행합니다. 변경분이 있을 때만 `chore: update newsletter summaries (auto)` 커밋을 만들고 `main` 브랜치에 푸시합니다. 필요 시 `workflow_dispatch`로 수동 실행도 가능합니다.
