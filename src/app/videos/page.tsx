@@ -113,12 +113,6 @@ export default function VideosPage() {
           })}
         </div>
 
-        {!hasMore && displayedVideos.length > 0 && (
-          <div className="text-center text-neutral-400 py-12">
-            <p>모든 비디오를 불러왔습니다.</p>
-          </div>
-        )}
-
         {/* 스크롤 감지를 위한 요소 */}
         {hasMore && <div ref={ref} className="h-10" />}
 
