@@ -844,7 +844,7 @@ export default function GuidePage() {
           <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
-              src="/images/gallery/IMG_3717.webp"
+              src="/images/gallery/IMG_1960.webp"
               alt="지속가능한 연대와 교류"
               fill
               className="object-cover"
