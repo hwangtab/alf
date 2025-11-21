@@ -207,7 +207,7 @@ export default function GuidePage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               {/* h2에 ID 추가 */}
-              <motion.h2 variants={fadeIn} className={h3Style}>{sections[0].title}: 예술, 침묵을 깨고 세상 속으로</motion.h2>
+              <motion.h2 id={sections[0].id} variants={fadeIn} className={h3Style}>{sections[0].title}: 예술, 침묵을 깨고 세상 속으로</motion.h2>
               <motion.p variants={fadeIn} className={pStyle}>
                 혹시 이런 마음을 품어본 적 없으신가요? 캔버스 앞에서, 악기 앞에서, 혹은 빈 종이 앞에서 문득 느껴지는 막막함. "내가 하는 이 작업이 세상과 무슨 상관이 있을까?", "아름다움을 추구하는 것만으로 충분할까?", "저 바깥의 외침과 고통 앞에서 내 예술은 너무 무력한 건 아닐까?" 많은 예술가들이 한 번쯤은 품어봤을 법한 질문이자, 어쩌면 떨쳐내기 어려운 불안일지도 모릅니다.
               </motion.p>
@@ -248,7 +248,7 @@ export default function GuidePage() {
           viewport={{ once: true, amount: 0.05, margin: "0px 0px 100px 0px" }}
         >
           {/* h2에 ID 추가 */}
-          <motion.h2 variants={fadeIn} className={h2Style}>{sections[1].title}: 낯선 문턱을 넘어, 마음으로 다가가기</motion.h2>
+          <motion.h2 id={sections[1].id} variants={fadeIn} className={h2Style}>{sections[1].title}: 낯선 문턱을 넘어, 마음으로 다가가기</motion.h2>
           <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
             현장은 낯설고, 때로는 두렵게 느껴질 수 있습니다. 하지만 그 문턱을 넘어서는 첫걸음이 중요합니다. 조심스럽지만 진솔하게 다가가는 방법을 알아봅니다.
           </motion.p>
@@ -339,7 +339,7 @@ export default function GuidePage() {
           viewport={{ once: true, amount: 0.05, margin: "0px 0px 100px 0px" }}
         >
           {/* h2에 ID 추가 */}
-          <motion.h2 variants={fadeIn} className={h2Style}>{sections[2].title}: 연대는 나를 성장시키는 또 다른 작업실</motion.h2>
+          <motion.h2 id={sections[2].id} variants={fadeIn} className={h2Style}>{sections[2].title}: 연대는 나를 성장시키는 또 다른 작업실</motion.h2>
           <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
             <strong className="text-yellow-500">현장 연대</strong>는 당신의 예술적 감수성과 표현력을 필요로 하지만, 동시에 당신에게 예술적 영감과 성찰의 기회를 제공하는 살아있는 작업실이 될 수 있습니다. 소진되지 않고 이 관계를 지속하며 함께 성장하는 방법을 고민해봅니다.
           </motion.p>
@@ -456,7 +456,7 @@ export default function GuidePage() {
           viewport={{ once: true, amount: 0.05, margin: "0px 0px 100px 0px" }}
         >
           {/* h2에 ID 추가 */}
-          <motion.h2 variants={fadeIn} className={h2Style}>{sections[3].title}: 예술, 투쟁의 언어가 되고 투쟁, 예술의 영감이 되다</motion.h2>
+          <motion.h2 id={sections[3].id} variants={fadeIn} className={h2Style}>{sections[3].title}: 예술, 투쟁의 언어가 되고 투쟁, 예술의 영감이 되다</motion.h2>
           <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
             <strong className="text-yellow-500">현장 연대</strong> 예술의 진정한 의미는 예술가가 일방적으로 무언가를 ‘선사’하는 것이 아니라, 현장의 당사자들과 <strong>함께 새로운 의미와 형식을 빚어가는 공동 창조</strong>의 과정에 있습니다. 이는 예술과 투쟁이 서로에게 영감을 주고 영향을 미치며 함께 성장하는 역동적인 과정입니다.
           </motion.p>
@@ -580,7 +580,7 @@ export default function GuidePage() {
           viewport={{ once: true, amount: 0.05, margin: "0px 0px 100px 0px" }}
         >
           {/* h2에 ID 추가 */}
-          <motion.h2 variants={fadeIn} className={h2Style}>{sections[4].title}: 목소리 없는 이들의 목소리가 되어</motion.h2>
+          <motion.h2 id={sections[4].id} variants={fadeIn} className={h2Style}>{sections[4].title}: 목소리 없는 이들의 목소리가 되어</motion.h2>
           <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
             예술은 현장의 생생한 경험과 절실한 목소리를 기록하고, 그 울림을 현장 너머의 세상으로 <strong>확산시키는 강력한 매체</strong>가 될 수 있습니다. 이는 단순한 정보 전달을 넘어, 공감을 이끌어내고 연대의 지평을 넓히는 중요한 실천입니다.
           </motion.p>
@@ -705,7 +705,7 @@ export default function GuidePage() {
           viewport={{ once: true, amount: 0.05, margin: "0px 0px 100px 0px" }}
         >
           {/* h2에 ID 추가 */}
-          <motion.h2 variants={fadeIn} className={h2Style}>{sections[5].title}: 위계 없이 자유롭게, 서로 도우며 함께 성장하기</motion.h2>
+          <motion.h2 id={sections[5].id} variants={fadeIn} className={h2Style}>{sections[5].title}: 위계 없이 자유롭게, 서로 도우며 함께 성장하기</motion.h2>
           <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
             "아나키즘"이라는 단어가 조금 낯설거나 과격하게 들릴 수도 있습니다. 하지만 여기서 말하는 아나키즘적 실천은 거창한 이념 투쟁이 아니라, 우리가 현장에서 관계 맺고 함께 작업하는 방식에 대한 <strong>근본적인 질문이자 대안적인 태도</strong>입니다. 이는 권위적인 명령이나 위계적인 질서 대신, <strong>개인의 자율성과 상호 존중, 그리고 자발적인 협력(<span className="text-yellow-500">상호부조</span>)</strong>을 바탕으로 모두가 평등하고 자유롭게 연대하고 창조하는 방식을 모색하는 것입니다. <strong className="text-yellow-500">현장 연대</strong>는 종종 기존 사회의 불평등한 권력 관계에 맞서는 일이기에, 우리의 연대 방식 자체에서부터 평등과 자유의 가치를 실현하려는 노력은 매우 중요합니다.
           </motion.p>
@@ -837,7 +837,7 @@ export default function GuidePage() {
           viewport={{ once: true, amount: 0.05, margin: "0px 0px 100px 0px" }}
         >
           {/* h2에 ID 추가 */}
-          <motion.h2 variants={fadeIn} className={h2Style}>{sections[6].title}: 홀로 외롭지 않게, 함께 멀리 가기 위하여</motion.h2>
+          <motion.h2 id={sections[6].id} variants={fadeIn} className={h2Style}>{sections[6].title}: 홀로 외롭지 않게, 함께 멀리 가기 위하여</motion.h2>
           <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
             한두 명의 열정적인 예술가만으로는 <strong className="text-yellow-500">현장 연대</strong>를 지속하기 어렵습니다. 더 많은 예술가들이 서로에게 배우고, 의지하며, 함께 성장할 수 있는 <strong>지지적인 문화와 커뮤니티를 만드는 것</strong>이 중요합니다. 이는 단지 활동의 효율성을 높이는 것을 넘어, 예술가들이 고립되지 않고 오랫동안 지치지 않으며 연대의 길을 걸어갈 수 있도록 돕는 안전망이자 자양분입니다. 아나키즘적 가치를 바탕으로 한 자율적이고 협력적인 예술 생태계를 함께 가꾸어 나가는 과정입니다.
           </motion.p>
@@ -961,7 +961,7 @@ export default function GuidePage() {
           viewport={{ once: true, amount: 0.05, margin: "0px 0px 100px 0px" }}
         >
           {/* h2에 ID 추가 */}
-          <motion.h2 variants={fadeIn} className={h3Style}>{sections[7].title}: 예술과 투쟁의 경계에서, 당신의 자리를 찾아서</motion.h2>
+          <motion.h2 id={sections[7].id} variants={fadeIn} className={h3Style}>{sections[7].title}: 예술과 투쟁의 경계에서, 당신의 자리를 찾아서</motion.h2>
           <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
             지금까지 현장 연대라는 낯설지만 의미 있는 길에 대해 길게 이야기 나누었습니다. 이 가이드가 제시한 내용들이 때로는 너무 이상적이거나 어렵게 느껴졌을 수도 있습니다. 어쩌면 ‘과연 내가 할 수 있을까?’ 하는 두려움이나 망설임이 여전히 남아있을지도 모릅니다.
           </motion.p>
