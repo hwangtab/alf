@@ -13,6 +13,16 @@ const nextConfig = {
         hostname: 'img.youtube.com',
         pathname: '/vi/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'img.stibee.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img2.stibee.com',
+        pathname: '/**',
+      },
     ],
   },
   compress: true,

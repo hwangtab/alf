@@ -77,12 +77,17 @@ async function main() {
         } else {
           delete entry.highlights;
         }
+        if (payload.thumbnail) {
+          entry.thumbnail = payload.thumbnail;
+        } else {
+          delete entry.thumbnail;
+        }
       }
 
       console.log(
         `완료 (${payload.summary.length}자${
           payload.highlights.length ? `, highlights: ${payload.highlights.length}` : ""
-        })`
+        }${payload.thumbnail ? ", thumbnail" : ""})`
       );
       await sleep(WAIT_MS);
     } catch (error) {
@@ -122,10 +127,12 @@ function parseNewsletter(html) {
   );
 
   const highlights = extractHighlights(email);
+  const thumbnail = extractThumbnail(email);
 
   return {
     summary,
     highlights,
+    thumbnail,
   };
 }
 
@@ -183,6 +190,21 @@ function extractHighlights($doc) {
   });
 
   return highlights.slice(0, 5);
+}
+
+function extractThumbnail($doc) {
+  const images = $doc("img");
+  if (images.length === 0) return "";
+
+  const pick = (start) => {
+    for (let i = start; i < images.length; i += 1) {
+      const src = normalizeUrl($doc(images[i]).attr("src"));
+      if (src) return src;
+    }
+    return "";
+  };
+
+  return pick(1) || pick(0);
 }
 
 async function fetchHtml(url, attempts = 3) {
@@ -267,6 +289,13 @@ function isHighlightCandidate(text = "") {
   );
 
   return numbered || colonSeparated || keywords;
+}
+
+function normalizeUrl(src = "") {
+  if (!src) return "";
+  if (src.startsWith("//")) return `https:${src}`;
+  if (/^https?:\/\//i.test(src)) return src;
+  return "";
 }
 
 function sleep(ms) {
