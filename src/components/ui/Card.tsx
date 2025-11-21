@@ -21,6 +21,7 @@ interface CardProps {
   lineClamp?: number;
   children?: React.ReactNode;
   href?: string;
+  useLazyMotion?: boolean; // LazyMotion 사용 여부 (기본값: true)
 }
 
 const CardComponent: React.FC<CardProps> = ({
@@ -39,6 +40,7 @@ const CardComponent: React.FC<CardProps> = ({
   lineClamp = 2,
   href,
   children,
+  useLazyMotion = true,
 }) => {
   const cardContent = (
     <>
@@ -108,45 +110,49 @@ const CardComponent: React.FC<CardProps> = ({
   const isInternalLink = href && href.startsWith('/');
   const isExternalLink = href && href.startsWith('http');
 
-  return (
-    <LazyMotion features={domAnimation}>
-      <m.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.1, margin: "0px 0px -100px 0px" }}
-        transition={{
-          duration: 0.5,
-          delay: index * 0.1,
-          ease: "easeOut"
-        }}
-        className="group bg-neutral-800 border border-neutral-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full hover:-translate-y-1"
-      >
-        {isInternalLink ? (
-          <Link href={href} className="flex flex-col h-full">
-            {cardContent}
-          </Link>
-        ) : isExternalLink ? (
-          <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-col h-full"
-          >
-            {cardContent}
-          </a>
-        ) : href ? (
-          <a
-            href={href}
-            className="flex flex-col h-full"
-          >
-            {cardContent}
-          </a>
-        ) : (
-          cardContent
-        )}
-      </m.div>
-    </LazyMotion>
+  const cardMotion = (
+    <m.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1, margin: "0px 0px -100px 0px" }}
+      transition={{
+        duration: 0.5,
+        delay: Math.min(index * 0.1, 0.5), // 최대 0.5초로 제한
+        ease: "easeOut"
+      }}
+      className="group bg-neutral-800 border border-neutral-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full hover:-translate-y-1"
+    >
+      {isInternalLink ? (
+        <Link href={href} className="flex flex-col h-full">
+          {cardContent}
+        </Link>
+      ) : isExternalLink ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-col h-full"
+        >
+          {cardContent}
+        </a>
+      ) : href ? (
+        <a
+          href={href}
+          className="flex flex-col h-full"
+        >
+          {cardContent}
+        </a>
+      ) : (
+        cardContent
+      )}
+    </m.div>
   );
+
+  return useLazyMotion ? (
+    <LazyMotion features={domAnimation}>
+      {cardMotion}
+    </LazyMotion>
+  ) : cardMotion;
 };
 
 export const Card = memo(CardComponent);
