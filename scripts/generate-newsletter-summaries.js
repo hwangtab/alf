@@ -179,20 +179,22 @@ function collectContentBlocks($doc) {
 function extractHighlights($doc) {
   const highlights = [];
   const seen = new Set();
-  const selectors = "span,strong,h1,h2,h3,td,p";
+  const candidates = gatherHeadingNodes($doc);
 
-  $doc(selectors)
-    .toArray()
-    .filter((el) => isHeadingByStyle(el))
-    .forEach((el) => {
-      const text = cleanText($doc(el).text());
-      const key = createHighlightKey(text);
-      if (!text || seen.has(key)) return;
-      if (isHighlightCandidate(text)) {
-        highlights.push(text);
-        seen.add(key);
-      }
-    });
+  candidates.forEach((el) => {
+    const text = cleanText($doc(el).text());
+    const key = createHighlightKey(text);
+    if (!text || seen.has(key)) return;
+    if (isHighlightCandidate(text, { forceHeading: true })) {
+      highlights.push(text);
+      seen.add(key);
+    }
+  });
+
+  if (highlights.length === 0) {
+    const fallbackBlocks = collectContentBlocks($doc);
+    return fallbackBlocks.slice(0, 3);
+  }
 
   return highlights.slice(0, 5);
 }
@@ -310,35 +312,19 @@ function isHighlightCandidate(text = "", options = {}) {
   return colonSeparated && keywords;
 }
 
-function isHeadingByStyle(el) {
-  if (!el) return false;
-  const tagName = el.name ? el.name.toLowerCase() : "";
-  if (["h1", "h2", "h3"].includes(tagName)) return true;
-  if (
-    el.children?.some(
-      (node) => node.type === "tag" && node.name !== "br" && node.name !== "a"
-    )
-  ) {
-    return false;
-  }
-
-  const { fontSize, fontWeight } = collectFontMetrics(el);
-  return fontSize >= HEADING_FONT_SIZE || fontWeight >= HEADING_FONT_WEIGHT;
-}
-
-function collectFontMetrics(node) {
-  let fontSize = 0;
-  let fontWeight = 0;
-  let current = node;
-  for (let depth = 0; depth < 3 && current; depth += 1) {
-    const styleAttr = current.attribs?.style || "";
-    if (styleAttr) {
-      fontSize = Math.max(fontSize, parseFontSize(styleAttr));
-      fontWeight = Math.max(fontWeight, parseFontWeight(styleAttr));
+function gatherHeadingNodes($doc) {
+  const nodes = [];
+  $doc("h1, h2, h3, h4").each((_, el) => nodes.push(el));
+  $doc("[style*='font-size']").each((_, el) => {
+    const style = el.attribs?.style || "";
+    const fontSize = parseFontSize(style);
+    const fontWeight = parseFontWeight(style);
+    if (fontSize >= 26 || (fontSize >= HEADING_FONT_SIZE && fontWeight >= 500)) {
+      nodes.push(el);
     }
-    current = current.parent && current.parent.type !== "root" ? current.parent : null;
-  }
-  return { fontSize, fontWeight };
+  });
+
+  return nodes;
 }
 
 function parseFontSize(style = "") {
