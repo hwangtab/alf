@@ -192,8 +192,14 @@ function extractHighlights($doc) {
   });
 
   if (highlights.length === 0) {
-    const fallbackBlocks = collectContentBlocks($doc);
-    return fallbackBlocks.slice(0, 3);
+    const numbered = extractNumberedHighlights($doc);
+    if (numbered.length > 0) {
+      return numbered.slice(0, 5);
+    }
+    return collectContentBlocks($doc)
+      .map(summarizeForHighlight)
+      .filter(Boolean)
+      .slice(0, 3);
   }
 
   return highlights.slice(0, 5);
@@ -325,6 +331,34 @@ function gatherHeadingNodes($doc) {
   });
 
   return nodes;
+}
+
+function extractNumberedHighlights($doc) {
+  const results = [];
+  const seen = new Set();
+  $doc("span,strong,p,td").each((_, el) => {
+    const text = cleanText($doc(el).text());
+    if (!/^\d+[\.\)]/.test(text)) return;
+    if (text.length < 4 || text.length > 120) return;
+    const key = createHighlightKey(text);
+    if (seen.has(key)) return;
+    results.push(text);
+    seen.add(key);
+  });
+  return results;
+}
+
+function summarizeForHighlight(text = "") {
+  if (!text) return "";
+  const candidate = text
+    .split(/(?<=[.!?])\s+|(?<=다)\s+/)
+    .map((sentence) => sentence.trim())
+    .find((sentence) => sentence.length >= 15 && sentence.length <= 120);
+  if (candidate) return candidate;
+  if (text.length > 120) {
+    return `${text.slice(0, 117).trim()}…`;
+  }
+  return text;
 }
 
 function parseFontSize(style = "") {
