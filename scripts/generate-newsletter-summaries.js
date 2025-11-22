@@ -179,15 +179,22 @@ function collectContentBlocks($doc) {
 function extractHighlights($doc) {
   const highlights = [];
   const seen = new Set();
+  const seenNumbers = new Set();
   const candidates = gatherHeadingNodes($doc);
 
   candidates.forEach((el) => {
     const text = cleanText($doc(el).text());
     const key = createHighlightKey(text);
     if (!text || seen.has(key)) return;
+    const numberMatch = text.match(/^\d+/);
+    const numberKey = numberMatch ? numberMatch[0] : null;
+    if (numberKey && seenNumbers.has(numberKey)) return;
     if (isHighlightCandidate(text, { forceHeading: true })) {
       highlights.push(text);
       seen.add(key);
+      if (numberKey) {
+        seenNumbers.add(numberKey);
+      }
     }
   });
 
@@ -302,6 +309,10 @@ function isHighlightCandidate(text = "", options = {}) {
   }
   if (!/[A-Za-z가-힣]/.test(normalized)) return false;
   if (/^[-•·◦]/.test(normalized)) return false;
+  if (/^\d{1,2}:\d{2}/.test(normalized)) return false;
+  if (/^[\p{Extended_Pictographic}\u2600-\u27BF]/u.test(normalized)) {
+    return false;
+  }
 
   if (options.forceHeading) {
     return true;
@@ -330,26 +341,51 @@ function gatherHeadingNodes($doc) {
     }
   });
 
+  if (nodes.length === 0) {
+    $doc("span,strong").each((_, el) => {
+      const style = el.attribs?.style || "";
+      const fontWeight = parseFontWeight(style);
+      const text = cleanText($doc(el).text());
+      if (fontWeight >= 600 && /^\d+[\.\)]/.test(text)) {
+        nodes.push(el);
+      }
+    });
+  }
+
   return nodes;
 }
 
 function extractNumberedHighlights($doc) {
   const results = [];
-  const seen = new Set();
-  $doc("span,strong,p,td").each((_, el) => {
+  const seenNumbers = new Set();
+  const seenValues = new Set();
+  $doc("span,strong,p,td,li").each((_, el) => {
     const text = cleanText($doc(el).text());
     if (!/^\d+[\.\)]/.test(text)) return;
     if (text.length < 4 || text.length > 120) return;
-    const key = createHighlightKey(text);
-    if (seen.has(key)) return;
+    if (HIGHLIGHT_EXCLUSION_PATTERNS.some((pattern) => pattern.test(text))) {
+      return;
+    }
+    const numberMatch = text.match(/^\d+/);
+    const numberKey = numberMatch ? numberMatch[0] : text;
+    const normalized = createHighlightKey(text);
+    if (seenNumbers.has(numberKey) || seenValues.has(normalized)) return;
     results.push(text);
-    seen.add(key);
+    seenNumbers.add(numberKey);
+    seenValues.add(normalized);
   });
   return results;
 }
 
 function summarizeForHighlight(text = "") {
   if (!text) return "";
+  if (HIGHLIGHT_STOPWORDS.some((pattern) => pattern.test(text))) return "";
+  if (HIGHLIGHT_EXCLUSION_PATTERNS.some((pattern) => pattern.test(text))) {
+    return "";
+  }
+  if (/^\d{1,2}:\d{2}/.test(text) || /^[\p{Extended_Pictographic}\u2600-\u27BF]/u.test(text)) {
+    return "";
+  }
   const candidate = text
     .split(/(?<=[.!?])\s+|(?<=다)\s+/)
     .map((sentence) => sentence.trim())
