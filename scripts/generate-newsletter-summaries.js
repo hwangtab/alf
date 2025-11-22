@@ -181,16 +181,18 @@ function extractHighlights($doc) {
   const seen = new Set();
   const selectors = "span,strong,h1,h2,h3,td,p";
 
-  $doc(selectors).each((_, el) => {
-    const text = cleanText($doc(el).text());
-    const key = createHighlightKey(text);
-    if (!text || seen.has(key)) return;
-    const headingByStyle = isHeadingByStyle($doc, el);
-    if (isHighlightCandidate(text, { forceHeading: headingByStyle })) {
-      highlights.push(text);
-      seen.add(key);
-    }
-  });
+  $doc(selectors)
+    .toArray()
+    .filter((el) => isHeadingByStyle(el))
+    .forEach((el) => {
+      const text = cleanText($doc(el).text());
+      const key = createHighlightKey(text);
+      if (!text || seen.has(key)) return;
+      if (isHighlightCandidate(text)) {
+        highlights.push(text);
+        seen.add(key);
+      }
+    });
 
   return highlights.slice(0, 5);
 }
@@ -308,10 +310,17 @@ function isHighlightCandidate(text = "", options = {}) {
   return colonSeparated && keywords;
 }
 
-function isHeadingByStyle($doc, el) {
+function isHeadingByStyle(el) {
   if (!el) return false;
   const tagName = el.name ? el.name.toLowerCase() : "";
   if (["h1", "h2", "h3"].includes(tagName)) return true;
+  if (
+    el.children?.some(
+      (node) => node.type === "tag" && node.name !== "br" && node.name !== "a"
+    )
+  ) {
+    return false;
+  }
 
   const { fontSize, fontWeight } = collectFontMetrics(el);
   return fontSize >= HEADING_FONT_SIZE || fontWeight >= HEADING_FONT_WEIGHT;
