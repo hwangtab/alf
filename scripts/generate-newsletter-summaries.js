@@ -180,6 +180,7 @@ function extractHighlights($doc) {
   const highlights = [];
   const seen = new Set();
   const seenNumbers = new Set();
+  const seenBases = new Set();
   const candidates = gatherHeadingNodes($doc);
 
   candidates.forEach((el) => {
@@ -189,11 +190,16 @@ function extractHighlights($doc) {
     const numberMatch = text.match(/^\d+/);
     const numberKey = numberMatch ? numberMatch[0] : null;
     if (numberKey && seenNumbers.has(numberKey)) return;
+    const baseKey = createHighlightBase(text);
+    if (baseKey && seenBases.has(baseKey)) return;
     if (isHighlightCandidate(text, { forceHeading: true })) {
       highlights.push(text);
       seen.add(key);
       if (numberKey) {
         seenNumbers.add(numberKey);
+      }
+      if (baseKey) {
+        seenBases.add(baseKey);
       }
     }
   });
@@ -203,13 +209,13 @@ function extractHighlights($doc) {
     if (numbered.length > 0) {
       return numbered.slice(0, 5);
     }
-    return collectContentBlocks($doc)
+    const sentences = collectContentBlocks($doc)
       .map(summarizeForHighlight)
-      .filter(Boolean)
-      .slice(0, 3);
+      .filter(Boolean);
+    return dedupeHighlights(sentences).slice(0, 3);
   }
 
-  return highlights.slice(0, 5);
+  return dedupeHighlights(highlights).slice(0, 5);
 }
 
 function extractThumbnail($doc) {
@@ -348,6 +354,8 @@ function gatherHeadingNodes($doc) {
       const text = cleanText($doc(el).text());
       if (fontWeight >= 600 && /^\d+[\.\)]/.test(text)) {
         nodes.push(el);
+      } else if (fontWeight >= 600 && /^(삶의 터전|현장의 심장|연대의 노래)/.test(text)) {
+        nodes.push(el);
       }
     });
   }
@@ -359,6 +367,7 @@ function extractNumberedHighlights($doc) {
   const results = [];
   const seenNumbers = new Set();
   const seenValues = new Set();
+  const seenBases = new Set();
   $doc("span,strong,p,td,li").each((_, el) => {
     const text = cleanText($doc(el).text());
     if (!/^\d+[\.\)]/.test(text)) return;
@@ -369,12 +378,22 @@ function extractNumberedHighlights($doc) {
     const numberMatch = text.match(/^\d+/);
     const numberKey = numberMatch ? numberMatch[0] : text;
     const normalized = createHighlightKey(text);
-    if (seenNumbers.has(numberKey) || seenValues.has(normalized)) return;
+    const baseKey = createHighlightBase(text);
+    if (
+      seenNumbers.has(numberKey) ||
+      seenValues.has(normalized) ||
+      (baseKey && seenBases.has(baseKey))
+    ) {
+      return;
+    }
     results.push(text);
     seenNumbers.add(numberKey);
     seenValues.add(normalized);
+    if (baseKey) {
+      seenBases.add(baseKey);
+    }
   });
-  return results;
+  return dedupeHighlights(results);
 }
 
 function summarizeForHighlight(text = "") {
@@ -397,6 +416,18 @@ function summarizeForHighlight(text = "") {
   return text;
 }
 
+function dedupeHighlights(list) {
+  const result = [];
+  const bases = new Set();
+  list.forEach((text) => {
+    const base = createHighlightBase(text);
+    if (base && bases.has(base)) return;
+    if (base) bases.add(base);
+    result.push(text);
+  });
+  return result;
+}
+
 function parseFontSize(style = "") {
   const match = style.match(/font-size\s*:\s*([0-9.]+)px/i);
   return match ? Number(match[1]) : 0;
@@ -410,11 +441,19 @@ function parseFontWeight(style = "") {
 }
 
 function createHighlightKey(text = "") {
-  return text
+  const truncated = text.split(/[,，:：]/)[0];
+  return truncated
     .toLowerCase()
     .replace(/[\s"'.,!?-]/g, "")
     .replace(/동지$/i, "")
     .trim();
+}
+
+function createHighlightBase(text = "") {
+  return text
+    .toLowerCase()
+    .replace(/[\s0-9"'.,!?-]/g, "")
+    .slice(0, 8);
 }
 
 function normalizeUrl(src = "") {
