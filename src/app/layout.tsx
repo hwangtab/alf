@@ -24,6 +24,41 @@ const sfHambak = localFont({
   preload: true,
 });
 
+const organizationStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "예술해방전선",
+  alternateName: "Art Liberation Front",
+  url: "https://alf.seoul.kr",
+  logo: "https://alf.seoul.kr/images/logo.webp",
+  sameAs: [
+    "https://www.facebook.com/artliberationfront",
+    "https://www.youtube.com/@artliberationfront",
+    "https://open.kakao.com/me/Alfseoul"
+  ],
+  foundingDate: "2019",
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      email: "alf.seoul.kr@gmail.com",
+      contactType: "customer service",
+      availableLanguage: ["ko"]
+    }
+  ],
+};
+
+const websiteStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "예술해방전선",
+  url: "https://alf.seoul.kr",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: "https://www.google.com/search?q=site:alf.seoul.kr+{search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+};
+
 export const metadata: Metadata = {
   // 기본 정보
   title: {
@@ -105,6 +140,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className="scroll-smooth">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([organizationStructuredData, websiteStructuredData]),
+          }}
+        />
+      </head>
       <body className={`${gmarketSans.variable} ${sfHambak.variable} antialiased flex flex-col min-h-screen relative bg-black text-white font-sans`}>
         <FontLoader />
         
