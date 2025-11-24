@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import './lightbox-custom.css';
@@ -34,22 +35,22 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
       {/* Image Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {images.map((image, idx) => (
-          <div
-            key={idx}
-            className="aspect-square overflow-hidden rounded-md group cursor-pointer bg-gray-800"
-            onClick={() => openLightbox(idx)} // 0부터 시작하는 인덱스 전달
-        >
-          {/* 더 간단한 접근 - absolute 제거, 일반 block 요소로 변경 */}
-          <img
-            src={image.src}
-            alt={image.alt}
-            className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 block"
-            loading={idx < 12 ? "eager" : "lazy"}
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-            }}
-          />
-        </div>
+          <button
+            key={`${image.src}-${idx}`}
+            type="button"
+            className="relative aspect-square overflow-hidden rounded-md group cursor-pointer bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-red"
+            onClick={() => openLightbox(idx)}
+            aria-label={`이미지 확대 보기: ${image.alt}`}
+          >
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
+              className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+              priority={idx < 10}
+            />
+          </button>
         ))}
       </div>
 

@@ -3,6 +3,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: "음반/작품 | 예술해방전선",
   description: "사회적 메시지를 담은 예술해방전선의 음반과 작품들을 만나보세요.",
+  alternates: {
+    canonical: '/albums',
+  },
   openGraph: {
     title: "음반/작품 | 예술해방전선",
     description: "사회적 메시지를 담은 예술해방전선의 음반과 작품들을 만나보세요.",

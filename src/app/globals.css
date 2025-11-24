@@ -44,17 +44,26 @@ html.fonts-loaded body {
 .page-transition {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
-}
-
-.page-transition-exit {
-  opacity: 0;
-  transform: translateY(-10px);
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+  position: relative;
+  will-change: opacity, transform;
 }
 
 .page-transition-enter {
   opacity: 0;
   transform: translateY(10px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition {
+    transition: none;
+    transform: none;
+  }
+
+  .page-transition-enter {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Card 애니메이션 - Framer Motion 대체 */

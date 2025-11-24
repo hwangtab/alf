@@ -3,6 +3,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: "갤러리 | 예술해방전선",
   description: "예술해방전선의 활동 모습을 담은 사진들을 감상하세요.",
+  alternates: {
+    canonical: '/gallery',
+  },
   openGraph: {
     title: "갤러리 | 예술해방전선",
     description: "예술해방전선의 활동 모습을 담은 사진들을 감상하세요.",

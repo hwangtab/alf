@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   // URL 및 기본 경로
   metadataBase: new URL('https://alf.seoul.kr'),
   alternates: {
-    canonical: 'https://alf.seoul.kr',
+    canonical: '/',
   },
 
   // 검색엔진 제어
@@ -75,6 +75,8 @@ export const metadata: Metadata = {
   // 트위터 공유
   twitter: {
     card: 'summary_large_image',
+    title: "예술해방전선 | 예술로 세상을 바꾸다",
+    description: "예술을 통해 사회적 불평등에 저항하고, 소외된 이들과 연대합니다.",
     images: ['/images/social-thumbnail.webp'],
   },
 

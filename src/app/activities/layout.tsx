@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "활동 | 예술해방전선",
   description: "음반 발매, 공연, 현장 연대, 네트워크 활동, 아티스트 지원, 전시회 개최 등 예술해방전선의 다양한 활동들을 소개합니다.",
   keywords: ["예술해방전선", "활동", "음반발매", "공연", "현장연대", "네트워크", "아티스트지원", "전시회"],
+  alternates: {
+    canonical: '/activities',
+  },
   openGraph: {
     title: "활동 | 예술해방전선",
     description: "음반 발매, 공연, 현장 연대, 네트워크 활동, 아티스트 지원, 전시회 개최 등 예술해방전선의 다양한 활동들을 소개합니다.",

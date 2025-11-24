@@ -3,6 +3,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: "뉴스레터 | 예술해방전선",
   description: "예술해방전선의 최신 소식과 활동 내용을 담은 뉴스레터를 확인하세요.",
+  alternates: {
+    canonical: '/news',
+  },
   openGraph: {
     title: "뉴스레터 | 예술해방전선",
     description: "예술해방전선의 최신 소식과 활동 내용을 담은 뉴스레터를 확인하세요.",

@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "비디오 | 예술해방전선",
   description: "예술해방전선의 활동과 메시지를 담은 영상들을 시청하세요. 현장의 목소리와 예술을 통한 연대의 순간들을 영상으로 만나보세요.",
   keywords: ["예술해방전선", "비디오", "영상", "다큐멘터리", "현장", "메시지", "연대"],
+  alternates: {
+    canonical: '/videos',
+  },
   openGraph: {
     title: "비디오 | 예술해방전선",
     description: "예술해방전선의 활동과 메시지를 담은 영상들을 시청하세요. 현장의 목소리와 예술을 통한 연대의 순간들을 영상으로 만나보세요.",

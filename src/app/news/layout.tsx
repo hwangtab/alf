@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "뉴스레터 | 예술해방전선",
   description: "예술해방전선의 소식과 활동 소식을 담은 뉴스레터를 확인하세요. 최신 활동 소식과 연대 현장의 이야기들을 전해드립니다.",
   keywords: ["예술해방전선", "뉴스레터", "소식", "활동소식", "연대현장", "이야기"],
+  alternates: {
+    canonical: '/news',
+  },
   openGraph: {
     title: "뉴스레터 | 예술해방전선",
     description: "예술해방전선의 소식과 활동 소식을 담은 뉴스레터를 확인하세요. 최신 활동 소식과 연대 현장의 이야기들을 전해드립니다.",
