@@ -30,7 +30,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   fill = false,
   className = '',
   priority = false,
-  quality = 80,
+  quality = 75, // 80 → 75로 낮춰서 비용 절감 (품질은 거의 동일)
   sizes = '100vw',
   placeholder = 'empty',
   blurDataURL,
@@ -92,7 +92,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         onLoad={handleLoad}
         onError={handleError}
       />
-      
+
       {/* 로딩 인디케이터 - 옵션으로 제어 */}
       {showLoadingSpinner && !imageLoaded && (
         <div className="absolute inset-0 bg-neutral-800 flex items-center justify-center">
