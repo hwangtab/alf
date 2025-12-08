@@ -12,7 +12,7 @@ const routes: Array<{
   { path: '/activities', changeFrequency: 'weekly', priority: 0.8 },
   { path: '/albums', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/gallery', changeFrequency: 'weekly', priority: 0.8 },
-  { path: '/guide', changeFrequency: 'monthly', priority: 0.6 },
+  { path: '/guide', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/news', changeFrequency: 'weekly', priority: 0.7 },
   { path: '/videos', changeFrequency: 'weekly', priority: 0.6 },
 ];

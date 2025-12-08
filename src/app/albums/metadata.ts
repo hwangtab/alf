@@ -15,11 +15,11 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/social-thumbnail.jpg',
+        url: '/images/social-thumbnail.webp',
         width: 1200,
         height: 630,
         alt: '예술해방전선 음반/작품',
-        type: 'image/jpeg',
+        type: 'image/webp',
       }
     ],
   },
@@ -27,6 +27,6 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "음반/작품 | 예술해방전선",
     description: "사회적 메시지를 담은 예술해방전선의 음반과 작품들을 만나보세요.",
-    images: ['/images/social-thumbnail.jpg'],
+    images: ['/images/social-thumbnail.webp'],
   },
 };
