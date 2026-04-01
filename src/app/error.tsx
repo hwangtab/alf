@@ -1,10 +1,8 @@
 "use client";
 
 import React from "react";
-import { motion } from 'framer-motion';
 
 export default function Error({
-  error,
   reset,
 }: {
   error: Error & { digest?: string };
@@ -12,12 +10,7 @@ export default function Error({
 }) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16">
-      <motion.div
-        className="text-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+      <div className="text-center">
         <h1 className="text-6xl md:text-8xl font-black mb-6 font-serif">
           <span className="text-gradient-art">오류</span>
         </h1>
@@ -27,15 +20,13 @@ export default function Error({
         <p className="text-neutral-400 max-w-md mx-auto mb-8">
           페이지를 로드하는 중 오류가 발생했습니다. 다시 시도해 주세요.
         </p>
-        <motion.button
+        <button
           onClick={() => reset()}
-          className="btn-revolution inline-block"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          className="btn-revolution inline-block transition-transform duration-150 hover:scale-105 active:scale-95"
         >
           다시 시도하기
-        </motion.button>
-      </motion.div>
+        </button>
+      </div>
     </div>
   );
 }

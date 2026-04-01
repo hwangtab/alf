@@ -1,10 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import './lightbox-custom.css';
+
+const Lightbox = dynamic(() => import('yet-another-react-lightbox'), {
+  ssr: false,
+});
 
 interface GalleryImage {
   src: string;
@@ -25,10 +29,14 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
   }
 
   // yet-another-react-lightbox용 슬라이드 배열
-  const slides = images.map(image => ({
-    src: image.src,
-    alt: image.alt
-  }));
+  const slides = useMemo(
+    () =>
+      images.map((image) => ({
+        src: image.src,
+        alt: image.alt,
+      })),
+    [images]
+  );
 
   return (
     <>
@@ -55,23 +63,25 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
       </div>
 
       {/* yet-another-react-lightbox Component */}
-      <Lightbox
-        open={isOpen}
-        close={() => setIsOpen(false)}
-        slides={slides}
-        index={currentIndex}
-        controller={{ closeOnBackdropClick: true }}
-        styles={{
-          root: { 
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 9999
-          }
-        }}
-      />
+      {isOpen && (
+        <Lightbox
+          open={isOpen}
+          close={() => setIsOpen(false)}
+          slides={slides}
+          index={currentIndex}
+          controller={{ closeOnBackdropClick: true }}
+          styles={{
+            root: {
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 9999,
+            },
+          }}
+        />
+      )}
     </>
   );
 }

@@ -1,24 +1,12 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 // import Image from 'next/image'; // 사용 안 함
 // import { motion } from 'framer-motion'; // 사용 안 함
 
 import Button from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card'; // Card 컴포넌트 임포트
 import activitiesData from '@/data/activities.json';
-
-// 변경된 활동 타입 정의 (date 제거)
-type Activity = {
-  id: number;
-  title: string;
-  // date: string;
-  description: string;
-  image: string;
-
-  tags: string[];
-};
 
 const LatestActivities = () => {
   // 처음 3개 활동 유형 가져오기

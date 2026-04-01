@@ -1,9 +1,8 @@
-'use client';
+/* eslint-disable react/no-unescaped-entities */
 
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image'; // Image 컴포넌트 임포트
+import Image from 'next/image';
+import ScrollToButton from '@/components/ui/ScrollToButton';
 
 // 섹션 데이터 정의 (사이드바 및 ID 생성용)
 const sections = [
@@ -52,99 +51,15 @@ const sections = [
   { id: 'epilogue', title: '마무리' },
 ];
 
-// 스크롤 다운 버튼 컴포넌트
-const ScrollDownButton = ({ targetId }: { targetId: string }) => (
-  <motion.button
-    className="relative mt-8 mb-16 flex justify-center mx-auto p-2 cursor-pointer"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1, y: [0, 10, 0] }}
-    transition={{ delay: 1, duration: 1.5, repeat: Infinity }}
-    onClick={() => {
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }}
-    aria-label="Scroll down"
-  >
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 5L12 19M12 19L19 12M12 19L5 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  </motion.button>
-);
-
-import type { Metadata } from 'next';
-import { metadata } from './metadata';
-
 export default function GuidePage() {
-  const [activeSection, setActiveSection] = useState<string | null>(null);
-  const observer = useRef<IntersectionObserver | null>(null);
-  // sectionRefs는 이제 h2와 h3 요소 모두를 참조합니다.
-  const sectionRefs = useRef<Map<string, HTMLElement | null>>(new Map());
-
-  // 애니메이션 변수
-  const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
-  const staggerContainer = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } } };
-
   // 스타일 변수
   const sectionStyle = "mb-16 bg-neutral-800 rounded-xl p-8 shadow-lg scroll-mt-40"; // scroll-margin 추가
-  const sectionNoBgStyle = "mb-16 scroll-mt-40"; // 배경 없는 섹션 스타일
   const h2Style = "text-3xl font-bold mb-8 text-white font-serif"; // scroll-mt 제거
   const h3Style = "text-2xl font-semibold mb-6 text-white font-serif"; // scroll-mt 제거
   const pStyle = "text-neutral-300 leading-relaxed text-lg mb-6 font-sans";
   const ulStyle = "list-disc list-outside text-neutral-300 space-y-3 text-lg mb-6 pl-5 font-sans"; // list-inside -> list-outside, pl-5 추가
   const quoteStyle = "border-l-4 border-yellow-500 pl-4 italic text-neutral-300 my-8 text-lg bg-neutral-900 p-6 rounded-md font-sans";
   const highlightBoxStyle = "bg-neutral-700 p-6 rounded-lg my-8 border-l-4 border-red-500 text-neutral-200 font-sans";
-
-  // Intersection Observer 설정
-  useEffect(() => {
-    const options = {
-      rootMargin: '-20% 0px -75% 0px', // 뷰포트 상단 20% ~ 25% 영역 기준으로 활성화
-      threshold: 0
-    };
-
-    observer.current = new IntersectionObserver((entries) => {
-      // isIntersecting 상태인 첫 번째 항목을 활성 섹션으로 설정
-      const intersectingEntry = entries.find(entry => entry.isIntersecting);
-      if (intersectingEntry) {
-        setActiveSection(intersectingEntry.target.id);
-      }
-    }, options);
-
-    // 모든 섹션 요소 관찰 시작 (h2, h3 모두 관찰)
-    const elementsToObserve = document.querySelectorAll('h2[id], h3[id]');
-    elementsToObserve.forEach((el) => {
-      sectionRefs.current.set(el.id, el as HTMLElement);
-      observer.current?.observe(el);
-    });
-
-    // 컴포넌트 언마운트 시 관찰 중지
-    return () => {
-      sectionRefs.current.forEach((el) => {
-        if (el && observer.current) { // observer.current null 체크 추가
-          observer.current.unobserve(el);
-        }
-      });
-    };
-  }, []); // 빈 배열로 의존성 설정
-
-  // 현재 활성 섹션 또는 그 상위 섹션 ID 찾기 (하위 섹션 활성화 시 상위 섹션도 활성화)
-  const currentActiveOrParentId = useMemo(() => {
-    if (!activeSection) return sections[0]?.id; // 기본값으로 첫 섹션 ID
-
-    // 현재 활성 섹션이 하위 섹션인지 확인하고 상위 섹션 ID 반환
-    for (const section of sections) {
-      if (section.subSections?.some(sub => sub.id === activeSection)) {
-        return section.id;
-      }
-    }
-    // 현재 활성 섹션이 상위 섹션이거나 하위 섹션이 없는 경우 그대로 반환
-    if (sections.some(section => section.id === activeSection)) {
-      return activeSection;
-    }
-
-    return sections[0]?.id; // 어떤 경우에도 해당하지 않으면 첫 섹션 ID 반환
-  }, [activeSection]);
 
 
   return (
@@ -159,15 +74,8 @@ export default function GuidePage() {
               <li key={section.id}>
                 <Link
                   href={`#${section.id}`}
-                  className={`block text-sm font-medium transition-colors ${currentActiveOrParentId === section.id ? 'text-yellow-500 font-semibold' : 'text-neutral-400 hover:text-white'
-                    }`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const targetEl = document.getElementById(section.id);
-                    if (targetEl) {
-                      targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                  }}
+                  className="block text-sm font-medium text-neutral-400 hover:text-white transition-colors"
+                  
                 >
                   {section.title}
                 </Link>
@@ -180,11 +88,8 @@ export default function GuidePage() {
       {/* 메인 콘텐츠 */}
       <main className="flex-1 min-w-0">
         {/* 제목과 부제목 */}
-        <motion.div
+        <div
           className="mb-20 text-center"
-          initial="hidden"
-          animate="visible"
-          variants={fadeIn}
         >
           <h1 className="text-5xl font-bold mb-6 text-white font-giants-inline">
             현장 연대를 위한 예술가 가이드
@@ -192,37 +97,33 @@ export default function GuidePage() {
           <p className="text-xl text-neutral-300 max-w-3xl mx-auto font-sans">
             투쟁과 창조, 그 경계에서 함께 걷는 길
           </p>
-        </motion.div>
+        </div>
 
         {/* 들어가며 */}
-        <motion.section
+        <section
           id={sections[0].id} // 섹션에 ID 추가
           className={sectionStyle}
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05, margin: "0px 0px 100px 0px" }}
         >
           {/* 소개 페이지처럼 그리드 레이아웃 적용 */}
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               {/* h2에 ID 추가 */}
-              <motion.h2 id={sections[0].id} variants={fadeIn} className={h3Style}>{sections[0].title}: 예술, 침묵을 깨고 세상 속으로</motion.h2>
-              <motion.p variants={fadeIn} className={pStyle}>
+              <h2 id={sections[0].id} className={h3Style}>{sections[0].title}: 예술, 침묵을 깨고 세상 속으로</h2>
+              <p className={pStyle}>
                 혹시 이런 마음을 품어본 적 없으신가요? 캔버스 앞에서, 악기 앞에서, 혹은 빈 종이 앞에서 문득 느껴지는 막막함. "내가 하는 이 작업이 세상과 무슨 상관이 있을까?", "아름다움을 추구하는 것만으로 충분할까?", "저 바깥의 외침과 고통 앞에서 내 예술은 너무 무력한 건 아닐까?" 많은 예술가들이 한 번쯤은 품어봤을 법한 질문이자, 어쩌면 떨쳐내기 어려운 불안일지도 모릅니다.
-              </motion.p>
-              <motion.p variants={fadeIn} className={pStyle}>
+              </p>
+              <p className={pStyle}>
                 특히 우리 사회 곳곳에서 벌어지는 부당함 – 일터에서 쫓겨난 노동자들의 절규, 삶의 터전을 송두리째 빼앗길 위기에 놓인 주민들의 눈물, 파괴되는 자연 앞에서 미래를 걱정하는 목소리들 – 을 마주할 때, 예술가로서의 고민은 더욱 깊어집니다. ‘예술’이라는 이름 아래 안전한 작업실에 머물러야 할지, 아니면 저 현장의 일부가 되어야 할지 망설이게 됩니다.
-              </motion.p>
-              <motion.p variants={fadeIn} className={pStyle}>
+              </p>
+              <p className={pStyle}>
                 <strong className="text-yellow-500">현장 연대</strong>는 이 망설임과 질문에 대한 하나의 대답이자, 예술가로서 세상과 관계 맺는 또 다른 방식입니다. 이는 단순히 ‘사회 문제에 참여하는 착한 예술가’가 되는 것을 의미하지 않습니다. 오히려, 예술의 본질적인 힘 – 공감하고, 질문하고, 기존의 질서를 낯설게 보게 만들고, 보이지 않던 것을 드러내는 힘 – 을 가장 절실한 삶의 현장에서 발견하고 발휘하는 과정입니다.
-              </motion.p>
-              <motion.p variants={fadeIn} className={pStyle}>
+              </p>
+              <p className={pStyle}>
                 이 가이드는 당신이 어떤 장르의 예술가이든, <strong className="text-yellow-500">현장 연대</strong>라는 여정에 조금 더 용기를 내어 발을 디딜 수 있도록 돕기 위해 쓰였습니다. 당신이 가진 예술가로서의 감수성과 표현력이 얼마나 소중한 연대의 자원이 될 수 있는지, 그리고 그 과정에서 당신의 예술과 삶이 어떻게 더 깊어지고 확장될 수 있는지 함께 탐색하고자 합니다. 두려워하지 마세요. 완벽한 준비나 정답은 없습니다. 다만, 열린 마음과 배우려는 자세, 그리고 함께하려는 진심만 있다면 충분합니다. 지금부터 그 여정을 위한 구체적인 안내를 시작합니다.
-              </motion.p>
+              </p>
             </div>
             {/* 이미지 추가 */}
-            <motion.div variants={fadeIn} className="relative h-[32rem] w-full overflow-hidden rounded-lg">
+            <div className="relative h-[32rem] w-full overflow-hidden rounded-lg">
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
               <Image
                 src="/images/gallery/DSC05755.webp" // 이미지 경로 변경
@@ -230,31 +131,26 @@ export default function GuidePage() {
                 fill
                 className="object-cover transition-transform duration-700 hover:scale-105"
               />
-            </motion.div>
+            </div>
           </div>
-        </motion.section>
-
-        <ScrollDownButton targetId={sections[1].id} /> {/* 다음 섹션 ID 전달 */}
+        </section>
+        <ScrollToButton targetId={sections[1].id} ariaLabel="다음 섹션으로 스크롤" />
 
         <hr className="border-neutral-700 my-16" />
 
         {/* 1. 첫 만남 */}
-        <motion.section
+        <section
           id={sections[1].id} // 섹션에 ID 추가
           className={sectionStyle}
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05, margin: "0px 0px 100px 0px" }}
         >
           {/* h2에 ID 추가 */}
-          <motion.h2 id={sections[1].id} variants={fadeIn} className={h2Style}>{sections[1].title}: 낯선 문턱을 넘어, 마음으로 다가가기</motion.h2>
-          <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
+          <h2 id={sections[1].id} className={h2Style}>{sections[1].title}: 낯선 문턱을 넘어, 마음으로 다가가기</h2>
+          <p className={`${pStyle} mb-10`}>
             현장은 낯설고, 때로는 두렵게 느껴질 수 있습니다. 하지만 그 문턱을 넘어서는 첫걸음이 중요합니다. 조심스럽지만 진솔하게 다가가는 방법을 알아봅니다.
-          </motion.p>
+          </p>
 
           {/* 전체 너비 이미지 */}
-          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg mb-10">
+          <div className="relative h-[24rem] w-full overflow-hidden rounded-lg mb-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/IMG_0034.webp"
@@ -262,9 +158,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn}>
+          <div>
             {/* h3에 ID 추가 */}
             <h3 id={sections[1].subSections![0].id} className={h3Style}><span className="mr-2">🧐</span>{sections[1].subSections![0].title}: 아는 만큼 보이고, 존중하는 만큼 열립니다</h3>
             <p className={pStyle}>
@@ -289,9 +185,9 @@ export default function GuidePage() {
               <li><strong>나의 선입견 돌아보기:</strong> 이 투쟁이나 관련 이슈에 대해 내가 이미 가지고 있는 생각이나 편견은 무엇인가? 미디어를 통해 형성된 이미지는 아닐까?</li>
               <li><strong>나의 기대와 두려움:</strong> 현장에서 무엇을 얻고 싶은가? 혹은 무엇이 걱정되는가? (예: 내가 도움이 안 될까 봐, 거부당할까 봐, 감정적으로 힘들까 봐 등) 자신의 마음을 솔직하게 들여다보는 것이 중요합니다.</li>
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+          <div className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/DSC08525.webp"
@@ -299,9 +195,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="mt-12">
+          <div className="mt-12">
             {/* h3에 ID 추가 */}
             <h3 id={sections[1].subSections![1].id} className={h3Style}><span className="mr-2">🤝</span>{sections[1].subSections![1].title}: 예술가 이전에 한 사람의 이웃으로</h3>
             <p className={pStyle}>
@@ -320,32 +216,28 @@ export default function GuidePage() {
               <li><strong>경청의 중요성:</strong> 사람들이 자신의 이야기를 할 때, 판단하거나 평가하지 않고 진심으로 귀 기울여 들어주세요. 질문은 상대방이 편안하게 느낄 때, 조심스럽게 시작하는 것이 좋습니다. “괜찮으시다면, 조금 더 자세히 이야기해주실 수 있을까요?” 와 같은 방식으로 상대방의 의사를 존중하며 대화를 이어가세요.</li>
               <li><strong>꾸준함과 인내:</strong> 신뢰는 하루아침에 쌓이지 않습니다. 한 번의 방문으로 모든 것을 이해하거나 관계를 맺으려 하기보다, 꾸준히 관심을 가지고 다시 찾아가는 것이 중요합니다. 때로는 거절당하거나 오해받을 수도 있습니다. 실망하지 않고 진정성 있는 태도를 유지하는 것이 필요합니다.</li>
             </ul>
-          </motion.div>
-          <motion.blockquote variants={fadeIn} className={quoteStyle}>
+          </div>
+          <blockquote className={quoteStyle}>
             <strong>&lt;핵심 질문&gt;</strong> 나는 지금 현장의 이야기를 들으러 왔는가, 아니면 내 이야기를 하러 왔는가? 나의 존재가 그들에게 부담이 되지는 않는가?
-          </motion.blockquote>
-        </motion.section>
-        <ScrollDownButton targetId={sections[2].id} />
+          </blockquote>
+        </section>
+        <ScrollToButton targetId={sections[2].id} ariaLabel="다음 섹션으로 스크롤" />
 
         <hr className="border-neutral-700 my-16" />
 
         {/* 2. 예술가로서 더 깊어지기 (배경 제거) */}
-        <motion.section
+        <section
           id={sections[2].id} // 섹션에 ID 추가
           className={sectionStyle} // 배경 스타일 다시 적용
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05, margin: "0px 0px 100px 0px" }}
         >
           {/* h2에 ID 추가 */}
-          <motion.h2 id={sections[2].id} variants={fadeIn} className={h2Style}>{sections[2].title}: 연대는 나를 성장시키는 또 다른 작업실</motion.h2>
-          <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
+          <h2 id={sections[2].id} className={h2Style}>{sections[2].title}: 연대는 나를 성장시키는 또 다른 작업실</h2>
+          <p className={`${pStyle} mb-10`}>
             <strong className="text-yellow-500">현장 연대</strong>는 당신의 예술적 감수성과 표현력을 필요로 하지만, 동시에 당신에게 예술적 영감과 성찰의 기회를 제공하는 살아있는 작업실이 될 수 있습니다. 소진되지 않고 이 관계를 지속하며 함께 성장하는 방법을 고민해봅니다.
-          </motion.p>
+          </p>
 
           {/* 전체 너비 이미지 */}
-          <motion.div variants={fadeIn} className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
+          <div className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/IMG_3829.webp"
@@ -353,9 +245,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn}>
+          <div>
             {/* h3에 ID 추가 */}
             <h3 id={sections[2].subSections![0].id} className={h3Style}><span className="mr-2">✍️</span>{sections[2].subSections![0].title}: 창작의 살아있는 텍스트가 되다</h3>
             <p className={pStyle}>
@@ -379,9 +271,9 @@ export default function GuidePage() {
               <li><strong>새로운 형식 실험:</strong> 현장의 경험은 기존의 정형화된 예술 형식에 담기 어려울 수 있습니다. 현장 자체를 활용한 설치나 퍼포먼스, 다큐멘터리적 요소와 허구적 상상력을 결합한 글쓰기, 현장의 소리를 이용한 사운드 아트, 참여자들과 함께 만드는 워크숍 기반 작업 등 새로운 형식을 탐색하고 실험해보세요.</li>
               <li><strong>은유와 상징 찾기:</strong> 현장의 구체적인 사건이나 인물을 넘어서, 그 안에 담긴 보편적인 의미(예: 부당함에 대한 저항, 인간 존엄성, 연대의 가치, 상실과 치유 등)를 포착하고 이를 예술적 은유나 상징으로 표현하는 방법을 고민해보세요.</li>
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+          <div className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/IMG_9946.webp"
@@ -389,9 +281,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="mt-12">
+          <div className="mt-12">
             {/* h3에 ID 추가 */}
             <h3 id={sections[2].subSections![1].id} className={h3Style}><span className="mr-2">🦋</span>{sections[2].subSections![1].title}: 경계를 넘어 확장되다</h3>
             <p className={pStyle}>
@@ -402,9 +294,9 @@ export default function GuidePage() {
               <li><strong>다중적인 역할 수용하기:</strong> 현장에서 예술가는 때로는 창작자, 때로는 기록자, 때로는 워크숍 진행자, 때로는 집회 참가자, 때로는 그저 이야기를 들어주는 친구가 될 수 있습니다. 이 다양한 역할 사이를 유연하게 오가며, ‘예술가’라는 고정된 정체성에 갇히지 않고 상황에 따라 필요한 역할을 수행하는 법을 배우게 됩니다. 이는 예술가로서의 역량을 확장시키는 기회가 됩니다.</li>
               <li><strong>협업, 다름 속에서 배우기:</strong> 다른 배경을 가진 예술가, 활동가, 현장 당사자들과의 협업은 필연적으로 갈등과 조율의 과정을 동반합니다. 하지만 서로 다른 관점과 기술이 만나 부딪히고 융합되는 과정에서 예상치 못한 창의적인 결과가 탄생하기도 합니다. 타인의 목소리에 귀 기울이고, 자신의 아이디어를 설득하며, 함께 목표를 향해 나아가는 경험은 예술가로서뿐 아니라 한 인간으로서 성장하는 소중한 기회입니다.</li>
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+          <div className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/DSC03211.webp"
@@ -412,9 +304,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="mt-12">
+          <div className="mt-12">
             {/* h3에 ID 추가 */}
             <h3 id={sections[2].subSections![2].id} className={h3Style}><span className="mr-2">❤️‍🩹</span>{sections[2].subSections![2].title}: 나를 태우지 않고 불을 지피는 법</h3>
             <p className={pStyle}>
@@ -427,42 +319,38 @@ export default function GuidePage() {
               <li><strong>의식적인 휴식:</strong> 현장의 긴장감에서 벗어나 재충전하는 시간을 의식적으로 가지세요. 예술 작업 외에 자신을 즐겁게 하는 활동(취미, 운동, 친구 만나기 등)을 통해 에너지 균형을 맞추는 것이 중요합니다.</li>
             </ul>
             {/* 강조 블록 예시 */}
-            <motion.div variants={fadeIn} className={highlightBoxStyle}>
+            <div className={highlightBoxStyle}>
               <p className="font-semibold mb-2">기억하세요:</p>
               <p>자신의 에너지와 한계를 존중하고 '아니오'라고 말할 용기를 가지는 것은 이기적인 것이 아니라, 오래도록 지치지 않고 함께하기 위한 책임감 있는 태도입니다.</p>
-            </motion.div>
+            </div>
             <p className={`${pStyle} font-semibold text-white`}>함께 지키는 지속가능성:</p>
             <ul className={ulStyle}>
               <li><strong>역할 분담과 협력:</strong> 모든 짐을 혼자 지려 하지 마세요. 함께하는 동료 예술가나 활동가들과 솔직하게 어려움을 나누고 역할을 분담하세요. 서로의 강점을 활용하고 약점을 보완하는 협력 체계를 만드는 것이 중요합니다.</li>
               <li><strong>정기적인 소통과 점검:</strong> 함께 연대하는 그룹 내에서 정기적으로 만나 서로의 안부를 묻고 활동을 평가하며 앞으로의 계획을 논의하는 시간을 가지세요. 감정적인 어려움을 터놓고 이야기하고 지지받을 수 있는 안전한 공간을 확보하는 것이 중요합니다.</li>
               <li><strong>작은 성공 축하하기:</strong> 투쟁은 길고 지루한 싸움일 수 있습니다. 그 과정에서 얻는 작은 성과나 긍정적인 변화들을 함께 나누고 축하하며 서로를 격려하는 것이 지속적인 동기 부여에 도움이 됩니다.</li>
             </ul>
-          </motion.div>
-          <motion.blockquote variants={fadeIn} className={quoteStyle}>
+          </div>
+          <blockquote className={quoteStyle}>
             <strong>&lt;핵심 질문&gt;</strong> 나의 연대 활동은 나 자신과 동료들에게 에너지를 주는가, 아니면 고갈시키는가? 어떻게 하면 더 건강하고 지속 가능하게 함께할 수 있을까?
-          </motion.blockquote>
-        </motion.section>
-        <ScrollDownButton targetId={sections[3].id} />
+          </blockquote>
+        </section>
+        <ScrollToButton targetId={sections[3].id} ariaLabel="다음 섹션으로 스크롤" />
 
         <hr className="border-neutral-700 my-16" />
 
         {/* 3. 공동 창조 */}
-        <motion.section
+        <section
           id={sections[3].id} // 섹션에 ID 추가
           className={sectionStyle}
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05, margin: "0px 0px 100px 0px" }}
         >
           {/* h2에 ID 추가 */}
-          <motion.h2 id={sections[3].id} variants={fadeIn} className={h2Style}>{sections[3].title}: 예술, 투쟁의 언어가 되고 투쟁, 예술의 영감이 되다</motion.h2>
-          <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
+          <h2 id={sections[3].id} className={h2Style}>{sections[3].title}: 예술, 투쟁의 언어가 되고 투쟁, 예술의 영감이 되다</h2>
+          <p className={`${pStyle} mb-10`}>
             <strong className="text-yellow-500">현장 연대</strong> 예술의 진정한 의미는 예술가가 일방적으로 무언가를 ‘선사’하는 것이 아니라, 현장의 당사자들과 <strong>함께 새로운 의미와 형식을 빚어가는 공동 창조</strong>의 과정에 있습니다. 이는 예술과 투쟁이 서로에게 영감을 주고 영향을 미치며 함께 성장하는 역동적인 과정입니다.
-          </motion.p>
+          </p>
 
           {/* 전체 너비 이미지 */}
-          <motion.div variants={fadeIn} className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
+          <div className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/DSC05730.webp"
@@ -470,9 +358,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn}>
+          <div>
             {/* h3에 ID 추가 */}
             <h3 id={sections[3].subSections![0].id} className={h3Style}><span className="mr-2">🎨</span>{sections[3].subSections![0].title}: 모두가 예술가 되는 순간</h3>
             <p className={pStyle}>
@@ -493,9 +381,9 @@ export default function GuidePage() {
               <li><strong>결과보다 관계:</strong> 최종 결과물의 미적 완성도에만 집착하기보다, 함께 만들어가는 과정에서 형성되는 관계, 나누는 대화, 서로에게 미치는 긍정적인 영향에 더 큰 의미를 두세요. 그 과정 자체가 이미 공동체의 힘을 키우고 투쟁에 활력을 불어넣는 예술적 실천일 수 있습니다.</li>
               <li><strong>과정의 기록과 공유:</strong> 함께 작업하는 모습, 나누는 이야기, 만들어지는 중간 결과물들을 사진이나 영상, 글로 기록하고 공유하는 것은 참여자들에게 성취감을 주고 연대 의식을 높이는 좋은 방법입니다. 이 기록물 자체가 또 다른 예술 작품이 될 수도 있습니다.</li>
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+          <div className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/IMG_5937.webp"
@@ -503,9 +391,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="mt-12">
+          <div className="mt-12">
             {/* h3에 ID 추가 */}
             <h3 id={sections[3].subSections![1].id} className={h3Style}><span className="mr-2">🗣️</span>{sections[3].subSections![1].title}: 발견하고 증폭하기</h3>
             <p className={pStyle}>
@@ -527,9 +415,9 @@ export default function GuidePage() {
               <li><strong>낯설게 하기:</strong> 현장에서 발견한 요소들을 새로운 맥락에 배치하거나 다른 형식과 결합하여 익숙한 것을 낯설게 보이게 함으로써, 문제의 본질에 대해 다시 한번 생각하게 만들 수 있습니다. (예: 투쟁 구호를 클래식 음악 형식으로 편곡하기, 폐품을 이용해 투쟁의 상징물을 만들기)</li>
               <li><strong>의미 증폭하기:</strong> 현장의 언어와 이미지를 활용하여, 그 안에 담긴 의미(예: 저항, 희망, 연대, 존엄)를 더욱 강력하고 감동적으로 전달하는 예술 작품을 창조할 수 있습니다.</li>
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+          <div className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/DSC01928.webp"
@@ -537,9 +425,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="mt-12">
+          <div className="mt-12">
             {/* h3에 ID 추가 */}
             <h3 id={sections[3].subSections![2].id} className={h3Style}><span className="mr-2">🎉</span>{sections[3].subSections![2].title}: 함께 만드는 축제</h3>
             <p className={pStyle}>
@@ -561,32 +449,28 @@ export default function GuidePage() {
               <li><strong>시작과 끝:</strong> 공연이나 예술 활동 전후로 함께 음식을 나누거나 차를 마시며 자연스럽게 이야기를 나눌 수 있는 시간을 마련합니다. 이를 통해 서로의 마음을 나누고 관계를 다지는 중요한 계기를 만듭니다.</li>
               <li><strong>지속적인 만남:</strong> 일회성 이벤트로 끝나지 않고, 정기적인 문화제나 워크숍, 소모임 등을 통해 만남을 이어가며 연대의 끈을 더욱 단단하게 만듭니다.</li>
             </ul>
-          </motion.div>
-          <motion.blockquote variants={fadeIn} className={quoteStyle}>
+          </div>
+          <blockquote className={quoteStyle}>
             <strong>&lt;핵심 질문&gt;</strong> 나의 예술 활동은 현장의 에너지를 끌어올리고 사람들을 연결하는가? 아니면 일방적인 보여주기에 그치는가? 어떻게 하면 더 많은 사람이 즐겁게 참여하고 주인이 될 수 있을까?
-          </motion.blockquote>
-        </motion.section>
-        <ScrollDownButton targetId={sections[4].id} />
+          </blockquote>
+        </section>
+        <ScrollToButton targetId={sections[4].id} ariaLabel="다음 섹션으로 스크롤" />
 
         <hr className="border-neutral-700 my-16" />
 
         {/* 4. 투쟁의 기록과 확산 (배경 제거) */}
-        <motion.section
+        <section
           id={sections[4].id} // 섹션에 ID 추가
           className={sectionStyle} // 배경 스타일 다시 적용
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05, margin: "0px 0px 100px 0px" }}
         >
           {/* h2에 ID 추가 */}
-          <motion.h2 id={sections[4].id} variants={fadeIn} className={h2Style}>{sections[4].title}: 목소리 없는 이들의 목소리가 되어</motion.h2>
-          <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
+          <h2 id={sections[4].id} className={h2Style}>{sections[4].title}: 목소리 없는 이들의 목소리가 되어</h2>
+          <p className={`${pStyle} mb-10`}>
             예술은 현장의 생생한 경험과 절실한 목소리를 기록하고, 그 울림을 현장 너머의 세상으로 <strong>확산시키는 강력한 매체</strong>가 될 수 있습니다. 이는 사람들의 공감을 이끌어내고 연대의 지평을 넓히는 중요한 실천입니다.
-          </motion.p>
+          </p>
 
           {/* 전체 너비 이미지 */}
-          <motion.div variants={fadeIn} className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
+          <div className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/IMG_9984.webp"
@@ -594,9 +478,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn}>
+          <div>
             {/* h3에 ID 추가 */}
             <h3 id={sections[4].subSections![0].id} className={h3Style}><span className="mr-2">💾</span>{sections[4].subSections![0].title}: 사라지는 것들을 붙잡아 미래에게</h3>
             <p className={pStyle}>
@@ -619,9 +503,9 @@ export default function GuidePage() {
               <li><strong>체계적인 정리:</strong> 수집된 기록물을 주제별, 시간별 등으로 분류하고 설명(메타데이터)을 덧붙여 체계적으로 정리합니다. 이는 이후의 활용을 용이하게 합니다.</li>
               <li><strong>접근성 높이기:</strong> 정리된 기록물을 온라인 아카이브, 블로그, 독립 출판물, 전시, 상영회 등 다양한 형태로 가공하여 더 많은 사람이 쉽게 접하고 활용할 수 있도록 합니다. 저작권 및 이용 정책을 명확히 설정하는 것이 중요합니다.</li>
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+          <div className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/DSC02821.webp"
@@ -629,9 +513,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="mt-12">
+          <div className="mt-12">
             {/* h3에 ID 추가 */}
             <h3 id={sections[4].subSections![1].id} className={h3Style}><span className="mr-2">🌐</span>{sections[4].subSections![1].title}: 고립된 섬들을 연결하는 다리 놓기</h3>
             <p className={pStyle}>
@@ -653,9 +537,9 @@ export default function GuidePage() {
               <li><strong>일회성이 아닌 꾸준함:</strong> 한 번의 공연이나 전시로 끝나지 않고, 꾸준히 새로운 작업물을 발표하고 소식을 전하며 사람들의 관심과 참여를 지속적으로 유도하는 것이 중요합니다.</li>
               <li><strong>피드백과 대화:</strong> 작품이나 활동에 대한 사람들의 반응과 질문에 귀 기울이고 적극적으로 소통하며 대화를 이어가려는 노력이 필요합니다. 이를 통해 오해를 해소하고 이해의 깊이를 더할 수 있습니다.</li>
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+          <div className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/DSC02808.webp"
@@ -663,9 +547,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="mt-12">
+          <div className="mt-12">
             {/* h3에 ID 추가 */}
             <h3 id={sections[4].subSections![2].id} className={h3Style}><span className="mr-2">📢</span>{sections[4].subSections![2].title}: 보이지 않던 이야기의 힘</h3>
             <p className={pStyle}>
@@ -686,32 +570,28 @@ export default function GuidePage() {
               <li><strong>피해자를 넘어 주체로:</strong> 어려움 속에서도 좌절하지 않고 자신의 존엄성을 지키며 저항하는 이들의 능동적인 모습, 서로 돕고 의지하며 공동체를 이루어가는 과정을 그림으로써, 동정심을 넘어 존경과 연대의 마음을 이끌어냅니다.</li>
               <li><strong>대안적 상상력:</strong> 현실의 문제를 고발하는 것을 넘어, 우리가 꿈꾸는 더 나은 세상의 모습, 대안적인 관계와 삶의 방식을 예술적 상상력을 통해 제시함으로써 희망의 가능성을 보여줍니다.</li>
             </ul>
-          </motion.div>
-          <motion.blockquote variants={fadeIn} className={quoteStyle}>
+          </div>
+          <blockquote className={quoteStyle}>
             <strong>&lt;핵심 질문&gt;</strong> 나의 예술은 어떤 이야기를 누구의 목소리로 전하고 있는가? 혹시 나도 모르게 주류의 시각을 답습하고 있지는 않은가? 어떻게 하면 가려진 진실과 목소리를 더 효과적으로 드러낼 수 있을까?
-          </motion.blockquote>
-        </motion.section>
-        <ScrollDownButton targetId={sections[5].id} />
+          </blockquote>
+        </section>
+        <ScrollToButton targetId={sections[5].id} ariaLabel="다음 섹션으로 스크롤" />
 
         <hr className="border-neutral-700 my-16" />
 
         {/* 5. 아나키즘적 예술 실천 */}
-        <motion.section
+        <section
           id={sections[5].id} // 섹션에 ID 추가
           className={sectionStyle}
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05, margin: "0px 0px 100px 0px" }}
         >
           {/* h2에 ID 추가 */}
-          <motion.h2 id={sections[5].id} variants={fadeIn} className={h2Style}>{sections[5].title}: 위계 없이 자유롭게, 서로 도우며 함께 성장하기</motion.h2>
-          <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
+          <h2 id={sections[5].id} className={h2Style}>{sections[5].title}: 위계 없이 자유롭게, 서로 도우며 함께 성장하기</h2>
+          <p className={`${pStyle} mb-10`}>
             "아나키즘"이라는 단어가 조금 낯설거나 과격하게 들릴 수도 있습니다. 하지만 여기서 말하는 아나키즘적 실천은 거창한 이념 투쟁이 아니라, 우리가 현장에서 관계 맺고 함께 작업하는 방식에 대한 <strong>근본적인 질문이자 대안적인 태도</strong>입니다. 이는 권위적인 명령이나 위계적인 질서 대신, <strong>개인의 자율성과 상호 존중, 그리고 자발적인 협력(<span className="text-yellow-500">상호부조</span>)</strong>을 바탕으로 모두가 평등하고 자유롭게 연대하고 창조하는 방식을 모색하는 것입니다. <strong className="text-yellow-500">현장 연대</strong>는 종종 기존 사회의 불평등한 권력 관계에 맞서는 일이기에, 우리의 연대 방식 자체에서부터 평등과 자유의 가치를 실현하려는 노력은 매우 중요합니다.
-          </motion.p>
+          </p>
 
           {/* 전체 너비 이미지 */}
-          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg mb-10">
+          <div className="relative h-[24rem] w-full overflow-hidden rounded-lg mb-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/DSC04644.webp"
@@ -719,9 +599,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn}>
+          <div>
             {/* h3에 ID 추가 */}
             <h3 id={sections[5].subSections![0].id} className={h3Style}><span className="mr-2">⚖️</span>{sections[5].subSections![0].title}: '리더' 없이 모두가 주인이 되는 길</h3>
             <p className={pStyle}>
@@ -741,13 +621,13 @@ export default function GuidePage() {
               <li><strong>‘암묵적 위계’ 경계하기:</strong> 공식적인 직책이 없더라도 경력, 나이, 성별, 학력, 발언 능력 등에 따라 보이지 않는 위계가 형성될 수 있습니다. 이러한 역학 관계를 민감하게 인식하고, 평등한 소통을 위해 의식적으로 노력해야 합니다.</li>
             </ul>
             {/* 강조 블록 예시 */}
-            <motion.div variants={fadeIn} className={highlightBoxStyle}>
+            <div className={highlightBoxStyle}>
               <p className="font-semibold mb-2">중요한 점:</p>
               <p>수평적 관계는 때로 비효율적이고 어려울 수 있습니다. 완벽함보다는 더 평등한 관계를 향해 끊임없이 성찰하고 소통하려는 지속적인 노력이 중요합니다.</p>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
-          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+          <div className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/IMG_9949.webp"
@@ -755,9 +635,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="mt-12">
+          <div className="mt-12">
             {/* h3에 ID 추가 */}
             <h3 id={sections[5].subSections![1].id} className={h3Style}><span className="mr-2">🤲</span>{sections[5].subSections![1].title}: 경쟁 대신 협력으로, 각자도생 대신 함께 살기로</h3>
             <p className={pStyle}>
@@ -782,9 +662,9 @@ export default function GuidePage() {
               <li><strong>공동 기금 마련:</strong> 작은 회비를 모으거나 공동 프로젝트 수익금 등으로 공동 기금을 마련하여, 긴급한 필요(벌금, 치료비, 활동비 등)가 발생했을 때 지원하는 방안도 고려해볼 수 있습니다.</li>
               <li><strong>정기적인 돌봄 모임:</strong> 활동 공유뿐 아니라, 서로의 안부를 묻고 정서적 지지를 나누는 모임을 정기적으로 가지는 것이 좋습니다.</li>
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+          <div className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/DSC02826.webp"
@@ -792,9 +672,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="mt-12">
+          <div className="mt-12">
             {/* h3에 ID 추가 */}
             <h3 id={sections[5].subSections![2].id} className={h3Style}><span className="mr-2">🌱</span>{sections[5].subSections![2].title}: 우리가 꿈꾸는 세상을 지금 여기서 살아내기</h3>
             <p className={pStyle}>
@@ -818,32 +698,28 @@ export default function GuidePage() {
             <p className={pStyle}>
               <strong className="text-yellow-500">프리피규레이션</strong>은 거창한 것이 아닐 수 있습니다. 회의를 민주적으로 진행하는 방식, 함께 식사를 준비하고 나누는 방식, 서로의 실수를 너그럽게 받아들이는 방식 등, 우리가 일상적으로 관계 맺고 활동하는 모든 순간에 우리가 원하는 미래의 가치를 담으려는 의식적인 노력이 바로 <strong className="text-yellow-500">프리피규레이션</strong>의 시작입니다.
             </p>
-          </motion.div>
-          <motion.blockquote variants={fadeIn} className={quoteStyle}>
+          </div>
+          <blockquote className={quoteStyle}>
             <strong>&lt;핵심 질문&gt;</strong> 우리의 연대와 예술 활동 방식은 단지 목표를 위한 수단인가, 아니면 그 자체가 우리가 만들고 싶은 세상의 작은 조각인가? 우리의 관계와 과정 속에 우리가 비판하는 사회의 모습이 반복되고 있지는 않은가?
-          </motion.blockquote>
-        </motion.section>
-        <ScrollDownButton targetId={sections[6].id} />
+          </blockquote>
+        </section>
+        <ScrollToButton targetId={sections[6].id} ariaLabel="다음 섹션으로 스크롤" />
 
         <hr className="border-neutral-700 my-16" />
 
         {/* 6. 지속가능한 연대 문화 만들기 (배경 제거) */}
-        <motion.section
+        <section
           id={sections[6].id} // 섹션에 ID 추가
           className={sectionStyle} // 배경 스타일 다시 적용
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05, margin: "0px 0px 100px 0px" }}
         >
           {/* h2에 ID 추가 */}
-          <motion.h2 id={sections[6].id} variants={fadeIn} className={h2Style}>{sections[6].title}: 홀로 외롭지 않게, 함께 멀리 가기 위하여</motion.h2>
-          <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
+          <h2 id={sections[6].id} className={h2Style}>{sections[6].title}: 홀로 외롭지 않게, 함께 멀리 가기 위하여</h2>
+          <p className={`${pStyle} mb-10`}>
             한두 명의 열정적인 예술가만으로는 <strong className="text-yellow-500">현장 연대</strong>를 지속하기 어렵습니다. 더 많은 예술가들이 서로에게 배우고, 의지하며, 함께 성장할 수 있는 <strong>지지적인 문화와 커뮤니티를 만드는 것</strong>이 중요합니다. 이는 단지 활동의 효율성을 높이는 것을 넘어, 예술가들이 고립되지 않고 오랫동안 지치지 않으며 연대의 길을 걸어갈 수 있도록 돕는 안전망이자 자양분입니다. 아나키즘적 가치를 바탕으로 한 자율적이고 협력적인 예술 생태계를 함께 가꾸어 나가는 과정입니다.
-          </motion.p>
+          </p>
 
           {/* 전체 너비 이미지 */}
-          <motion.div variants={fadeIn} className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
+          <div className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/DSC08066.webp"
@@ -851,9 +727,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn}>
+          <div>
             {/* h3에 ID 추가 */}
             <h3 id={sections[6].subSections![0].id} className={h3Style}><span className="mr-2">🔗</span>{sections[6].subSections![0].title}: 점들을 이어 별자리를 그리다</h3>
             <p className={pStyle}>
@@ -879,9 +755,9 @@ export default function GuidePage() {
               <li><strong>갈등 다루기:</strong> 서로 다른 의견이나 관점을 가질 수 있습니다. 갈등이 발생했을 때 회피하거나 비난하기보다, 솔직하게 대화하고 서로의 입장을 이해하려 노력하며 건설적으로 해결해나가는 방법을 함께 연습합니다.</li>
               <li><strong>환대의 문화:</strong> 새로운 사람이 네트워크에 들어왔을 때 따뜻하게 환영하고, 쉽게 적응하고 참여할 수 있도록 돕는 문화를 만듭니다.</li>
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+          <div className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/IMG_1960.webp"
@@ -889,9 +765,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="mt-12">
+          <div className="mt-12">
             {/* h3에 ID 추가 */}
             <h3 id={sections[6].subSections![1].id} className={h3Style}><span className="mr-2">🧑‍🤝‍🧑</span>{sections[6].subSections![1].title}: 경험을 나누고 미래를 함께 열기</h3>
             <p className={pStyle}>
@@ -911,9 +787,9 @@ export default function GuidePage() {
               <li><strong>열린 기록과 공유:</strong> 과거 연대 활동의 자료(사진, 영상, 글, 작품 등)를 잘 아카이빙하고 쉽게 접근할 수 있도록 하여, 새로운 세대가 과거의 경험으로부터 배울 수 있도록 돕습니다.</li>
               <li><strong>세대 간 대화의 자리:</strong> 서로 다른 세대의 예술가들이 편안하게 만나 각자의 경험, 고민, 예술적 언어를 나누고 서로를 이해하는 자리를 의식적으로 마련합니다.</li>
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
+          <div className="relative h-[24rem] w-full overflow-hidden rounded-lg my-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/DSC02878.webp"
@@ -921,9 +797,9 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeIn} className="mt-12">
+          <div className="mt-12">
             {/* h3에 ID 추가 */}
             <h3 id={sections[6].subSections![2].id} className={h3Style}><span className="mr-2">➡️</span>{sections[6].subSections![2].title}: 마침표가 아닌 쉼표, 그리고 새로운 시작</h3>
             <p className={pStyle}>
@@ -942,32 +818,28 @@ export default function GuidePage() {
               <li><strong>일상적인 교류 유지:</strong> 공식적인 활동이 없더라도, 정기적으로 연락하고 만나며 서로의 삶을 나누는 친구이자 동료로서 관계를 이어갑니다. 명절이나 기념일 등 특별한 날을 함께 챙기거나, 기쁜 일과 슬픈 일을 나눌 수 있는 사이가 됩니다.</li>
               <li><strong>승리와 패배의 의미 함께 찾기:</strong> 투쟁의 결과를 함께 평가하고, 그 과정에서 얻은 교훈과 의미를 함께 정리하고 기록하는 작업을 통해 경험을 공유 자산으로 만듭니다. 승리했다면 그 기쁨을 함께 나누고 기록하며, 설령 패배했더라도 그 의미를 함께 성찰하며 다음을 기약합니다.</li>
             </ul>
-          </motion.div>
-          <motion.blockquote variants={fadeIn} className={quoteStyle}>
+          </div>
+          <blockquote className={quoteStyle}>
             <strong>&lt;핵심 질문&gt;</strong> 우리의 연대는 특정 이슈나 목표에만 묶여 있는가, 아니면 사람과 사람 사이의 깊은 관계로 발전하고 있는가? 투쟁 이후, 우리는 서로에게 어떤 존재가 될 수 있을까?
-          </motion.blockquote>
-        </motion.section>
-        <ScrollDownButton targetId={sections[7].id} />
+          </blockquote>
+        </section>
+        <ScrollToButton targetId={sections[7].id} ariaLabel="다음 섹션으로 스크롤" />
 
         <hr className="border-neutral-700 my-16" />
 
         {/* 마무리 */}
-        <motion.section
+        <section
           id={sections[7].id} // 섹션에 ID 추가
           className={sectionStyle}
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05, margin: "0px 0px 100px 0px" }}
         >
           {/* h2에 ID 추가 */}
-          <motion.h2 id={sections[7].id} variants={fadeIn} className={h3Style}>{sections[7].title}: 예술과 투쟁의 경계에서, 당신의 자리를 찾아서</motion.h2>
-          <motion.p variants={fadeIn} className={`${pStyle} mb-10`}>
+          <h2 id={sections[7].id} className={h3Style}>{sections[7].title}: 예술과 투쟁의 경계에서, 당신의 자리를 찾아서</h2>
+          <p className={`${pStyle} mb-10`}>
             지금까지 현장 연대라는 낯설지만 의미 있는 길에 대해 길게 이야기 나누었습니다. 이 가이드가 제시한 내용들이 때로는 너무 이상적이거나 어렵게 느껴졌을 수도 있습니다. 어쩌면 ‘과연 내가 할 수 있을까?’ 하는 두려움이나 망설임이 여전히 남아있을지도 모릅니다.
-          </motion.p>
+          </p>
 
           {/* 전체 너비 이미지 */}
-          <motion.div variants={fadeIn} className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
+          <div className="relative h-[28rem] w-full overflow-hidden rounded-lg mb-10">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 z-10"></div>
             <Image
               src="/images/gallery/DSC07756.webp"
@@ -975,26 +847,26 @@ export default function GuidePage() {
               fill
               className="object-cover"
             />
-          </motion.div>
-          <motion.p variants={fadeIn} className={pStyle}>
+          </div>
+          <p className={pStyle}>
             하지만 기억해주세요. <strong className="text-yellow-500">현장 연대</strong>는 완벽한 영웅이나 투사를 요구하는 것이 아닙니다. 정해진 매뉴얼이나 성공 공식이 있는 것도 아닙니다. 중요한 것은 <strong>세상의 아픔에 공감하는 마음, 불의에 함께 분노하고 연대하려는 의지, 그리고 예술가로서 자신이 가진 고유한 감수성과 표현력으로 기꺼이 그 여정에 동참하려는 용기</strong>입니다.
-          </motion.p>
-          <motion.p variants={fadeIn} className={pStyle}>
+          </p>
+          <p className={pStyle}>
             이 길은 분명 쉽지 않을 것입니다. 때로는 깊은 무력감과 좌절을 경험할 수도 있고, 예상치 못한 오해나 갈등에 부딪힐 수도 있습니다. 당신의 예술이 즉각적인 변화를 만들어내지 못하는 것처럼 보일 수도 있습니다.
-          </motion.p>
-          <motion.p variants={fadeIn} className={pStyle}>
+          </p>
+          <p className={pStyle}>
             그러나 그 모든 어려움에도 불구하고, <strong className="text-yellow-500">현장 연대</strong>는 당신에게 무엇과도 바꿀 수 없는 소중한 경험을 선사할 것입니다. 당신은 교과서나 뉴스에서는 결코 배울 수 없는 살아있는 삶의 이야기들을 만나게 될 것입니다. 당신의 예술은 상아탑을 벗어나 세상의 가장 절실한 목소리들과 공명하며 새로운 깊이와 울림을 얻게 될 것입니다. 그리고 무엇보다, 당신은 혼자가 아니라는 사실, 고통 속에서도 희망을 만들고 서로에게 기댈 어깨가 되어주는 사람들의 존재를 온몸으로 확인하게 될 것입니다.
-          </motion.p>
-          <motion.p variants={fadeIn} className={pStyle}>
+          </p>
+          <p className={pStyle}>
             이 가이드가 당신의 첫걸음을 위한 작은 디딤돌이 되기를 바랍니다. 처음부터 모든 것을 잘하려고 애쓰기보다, 작은 관심에서 시작하여 천천히, 꾸준히, 그리고 진솔하게 다가가 보세요. 당신의 예술이, 당신의 존재 자체가 누군가에게는 따뜻한 위로가 되고, 용기가 되고, 함께 꾸는 꿈이 될 수 있습니다.
-          </motion.p>
-          <motion.blockquote variants={fadeIn} className={`${quoteStyle} text-center font-semibold`}> {/* 강조 스타일 */}
+          </p>
+          <blockquote className={`${quoteStyle} text-center font-semibold`}> {/* 강조 스타일 */}
             "예술로 투쟁을 도와주는 게 아니라, 예술 자체가 투쟁이고, 그걸 함께 만드는 경험이 해방이다."
-          </motion.blockquote>
-          <motion.p variants={fadeIn} className={pStyle}>
+          </blockquote>
+          <p className={pStyle}>
             이 말처럼, 당신의 예술이 단지 투쟁의 '도구'가 아니라, 그 자체로 해방을 향한 여정의 일부가 되기를, 그리고 그 여정 속에서 당신 자신이 더욱 자유롭고 충만한 예술가로, 그리고 인간으로 성장하기를 진심으로 응원합니다. 이제, 당신의 자리에서, 당신만의 방식으로 연대의 첫걸음을 내딛어 보세요.
-          </motion.p>
-        </motion.section>
+          </p>
+        </section>
 
       </main> {/* 메인 콘텐츠 끝 */}
     </div>

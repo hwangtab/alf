@@ -1,31 +1,7 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 
 const Footer = () => {
-  // 애니메이션 변수
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5 }
-    }
-  };
-
   return (
     <footer className="relative bg-neutral-900 text-neutral-200 py-16 px-4 border-t border-neutral-800 overflow-hidden">
       {/* 배경 그라디언트 효과 */}
@@ -35,15 +11,9 @@ const Footer = () => {
       </div>
       
       <div className="container mx-auto relative z-10">
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 motion-element"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* 로고 및 소개 */}
-          <motion.div variants={itemVariants}>
+          <div>
             <h3 className="text-gradient text-2xl font-bold mb-4 font-test-serif">예술해방전선</h3>
             <p className="text-neutral-400 mb-6 font-test-sans">
               예술을 통해 사회적 불평등에 저항하고, 소외된 이들과 연대하며, 모두가 존엄하게 살아갈 수 있는 세상을 만들어갑니다.
@@ -72,10 +42,10 @@ const Footer = () => {
                 </svg>
               </a>
             </div>
-          </motion.div>
+          </div>
           
           {/* 빠른 링크 */}
-          <motion.div variants={itemVariants}>
+          <div>
             <h3 className="text-xl font-bold mb-4 text-white font-test-serif">바로가기</h3>
             <ul className="space-y-2">
               {[
@@ -97,10 +67,10 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
           
           {/* 연락처 */}
-          <motion.div variants={itemVariants}>
+          <div>
             <h3 className="text-xl font-bold mb-4 text-white font-test-serif">연락처</h3>
             <ul className="space-y-2 text-neutral-400 font-test-sans">
               <li className="flex items-start">
@@ -129,22 +99,16 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
         
         {/* 구분선 */}
         <div className="divider-art opacity-30 my-8"></div>
         
         {/* 저작권 */}
-        <motion.div 
-          className="text-center text-neutral-500 text-sm"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          viewport={{ once: true }}
-        >
+        <div className="text-center text-neutral-500 text-sm">
           &copy; {new Date().getFullYear()} 예술해방전선. All rights reserved.
-        </motion.div>
+        </div>
       </div>
     </footer>
   );

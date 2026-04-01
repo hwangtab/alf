@@ -1,8 +1,6 @@
 'use client'; // 클라이언트 컴포넌트로 지정
 
 import React from 'react';
-import Link from 'next/link'; // Link는 Button 컴포넌트 내부에서 처리되므로 제거 가능
-import { motion } from 'framer-motion';
 import Button from '@/components/ui/Button'; // Button 컴포넌트 임포트
 
 const SupportCTA = () => {

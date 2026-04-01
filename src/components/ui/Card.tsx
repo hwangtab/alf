@@ -3,7 +3,6 @@
 import React, { memo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, m, LazyMotion, domAnimation } from 'framer-motion';
 
 interface CardProps {
   imageUrl: string;
@@ -21,7 +20,7 @@ interface CardProps {
   lineClamp?: number;
   children?: React.ReactNode;
   href?: string;
-  useLazyMotion?: boolean; // LazyMotion 사용 여부 (기본값: true)
+  useLazyMotion?: boolean;
 }
 
 const CardComponent: React.FC<CardProps> = ({
@@ -42,6 +41,7 @@ const CardComponent: React.FC<CardProps> = ({
   children,
   useLazyMotion = true,
 }) => {
+  void useLazyMotion;
   const cardContent = (
     <>
       <div className="relative w-full" style={{ paddingTop: aspectRatio }}>
@@ -110,17 +110,10 @@ const CardComponent: React.FC<CardProps> = ({
   const isInternalLink = href && href.startsWith('/');
   const isExternalLink = href && href.startsWith('http');
 
-  const cardMotion = (
-    <m.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.1, margin: "0px 0px -100px 0px" }}
-      transition={{
-        duration: 0.5,
-        delay: Math.min(index * 0.1, 0.5), // 최대 0.5초로 제한
-        ease: "easeOut"
-      }}
+  return (
+    <div
       className="group bg-neutral-800 border border-neutral-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full hover:-translate-y-1"
+      style={{ transitionDelay: `${Math.min(index * 100, 500)}ms` }}
     >
       {isInternalLink ? (
         <Link href={href} className="flex flex-col h-full">
@@ -145,14 +138,8 @@ const CardComponent: React.FC<CardProps> = ({
       ) : (
         cardContent
       )}
-    </m.div>
+    </div>
   );
-
-  return useLazyMotion ? (
-    <LazyMotion features={domAnimation}>
-      {cardMotion}
-    </LazyMotion>
-  ) : cardMotion;
 };
 
 export const Card = memo(CardComponent);

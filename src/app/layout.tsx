@@ -1,11 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import localFont from 'next/font/local';
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import ClientNoiseBackground from "@/components/layout/ClientNoiseBackground";
-import PageTransition from "@/components/providers/PageTransition";
-import FontLoader from "@/components/providers/FontLoader";
+import NoiseBackground from "@/components/layout/NoiseBackground";
 
 // next/font/local을 사용한 폰트 최적화
 const gmarketSans = localFont({
@@ -122,7 +120,6 @@ export const metadata: Metadata = {
     shortcut: '/favicon-16x16.png',
     apple: '/apple-touch-icon.png',
   },
-  themeColor: '#000000',
 
   // 기타 최적화
   applicationName: '예술해방전선',
@@ -132,6 +129,10 @@ export const metadata: Metadata = {
       'naver-site-verification': '4ecf68d648f283081a2bbc8f9ee4a15e27c8626d',
     },
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#000000',
 };
 
 export default function RootLayout({
@@ -150,18 +151,14 @@ export default function RootLayout({
         />
       </head>
       <body className={`${gmarketSans.variable} ${sfHambak.variable} antialiased flex flex-col min-h-screen relative bg-black text-white font-sans`}>
-        <FontLoader />
-        
         {/* 노이즈 텍스처 배경 - 즉시 렌더링 */}
         <div className="fixed inset-0 bg-black z-0" />
-        <ClientNoiseBackground />
+        <NoiseBackground />
         
         {/* 메인 콘텐츠 */}
         <div className="flex flex-col min-h-screen relative z-[1]">
           <Header />
-          <PageTransition>
-            <main className="flex-grow">{children}</main>
-          </PageTransition>
+          <main className="flex-grow">{children}</main>
           <Footer />
         </div>
       </body>
