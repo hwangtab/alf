@@ -80,7 +80,11 @@ export default function NewsPage() {
                       </svg>
                     </div>
 
-                    {highlights.length > 0 ? (
+                    <p className="text-base text-neutral-200 leading-relaxed line-clamp-3">
+                      {summary}
+                    </p>
+
+                    {highlights.length > 0 && (
                       <ul className="list-disc pl-5 space-y-1 text-neutral-200">
                         {highlights.map((item, index) => (
                           <li key={`${newsletter.id}-highlight-${index}`}>
@@ -88,10 +92,6 @@ export default function NewsPage() {
                           </li>
                         ))}
                       </ul>
-                    ) : (
-                      <p className="text-base text-neutral-200 leading-relaxed line-clamp-3">
-                        {summary}
-                      </p>
                     )}
                   </div>
                 </div>

@@ -510,7 +510,6 @@ const HIGHLIGHT_STOPWORDS = [
   /^주제\s*:?$/i,
 ];
 const HEADING_FONT_SIZE = 18;
-const HEADING_FONT_WEIGHT = 600;
 const HIGHLIGHT_EXCLUSION_PATTERNS = [
   /^\d+(\.\d+)?\s*x\s*\d+(\.\d+)?$/i,
   /^이번 소식지 어떠셨나요/i,
