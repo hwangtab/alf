@@ -49,3 +49,6 @@ next-env.d.ts
 !public/images/thumbnail.jpg
 !public/images/social-thumbnail.jpg
 !public/images/og-image.jpg
+
+# Exception: Newsletter images
+!public/images/news/**
