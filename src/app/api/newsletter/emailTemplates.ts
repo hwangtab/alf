@@ -123,7 +123,6 @@ export type SupporterData = {
   phone: string;
   email: string;
   amount: string;
-  withdrawalDate: string;
   bank: string;
   accountNumber: string;
   accountHolder: string;
@@ -158,7 +157,6 @@ export function supporterNotifyEmail(data: SupporterData): { subject: string; ht
         <p style="margin:0 0 14px;font-size:13px;font-weight:700;color:#c2410c;letter-spacing:0.5px;">CMS 자동이체 정보</p>
         <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
           ${infoRow('월 후원금액', e(data.amount) + '원', true)}
-          ${infoRow('출금일', '매월 ' + e(data.withdrawalDate) + '일')}
           ${infoRow('은행', e(data.bank))}
           ${infoRow('계좌번호', e(data.accountNumber), true)}
           ${infoRow('예금주', e(data.accountHolder))}
@@ -183,7 +181,6 @@ export function supporterNotifyEmail(data: SupporterData): { subject: string; ht
       '',
       '[CMS 자동이체]',
       `월 후원금액: ${data.amount}원`,
-      `출금일: 매월 ${data.withdrawalDate}일`,
       `은행: ${data.bank}`,
       `계좌번호: ${data.accountNumber}`,
       `예금주: ${data.accountHolder}`,

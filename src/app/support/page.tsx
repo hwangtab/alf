@@ -41,7 +41,7 @@ export default function SupportPage() {
           {[
             { icon: '💳', title: '정기 자동이체', desc: '매월 지정한 날짜에 CMS 자동이체로 후원금이 출금됩니다.' },
             { icon: '📬', title: '활동 보고 수신', desc: '매달 예술해방전선의 활동 보고 뉴스레터를 받으실 수 있습니다.' },
-            { icon: '✉️', title: '직접 연락 가능', desc: '후원 내용은 단체가 직접 확인 후 CMS 등록을 진행합니다.' },
+            { icon: '✊', title: '연대', desc: '후원 회원이 되어 예술로 저항하고 소외된 이들과 연대하는 활동의 일원이 됩니다.' },
           ].map((item) => (
             <div key={item.title} className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-5 text-center">
               <div className="text-3xl mb-3">{item.icon}</div>

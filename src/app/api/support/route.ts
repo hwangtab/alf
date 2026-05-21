@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const {
       name, birthDate, phone, email,
-      amount, withdrawalDate, bank, accountNumber, accountHolder,
+      amount, bank, accountNumber, accountHolder,
       message,
       company, // honeypot
     } = body;
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: true });
     }
 
-    const required = { name, birthDate, phone, email, amount, withdrawalDate, bank, accountNumber };
+    const required = { name, birthDate, phone, email, amount, bank, accountNumber };
     if (Object.values(required).some((v) => !String(v ?? '').trim())) {
       return NextResponse.json({ error: '모든 필수 항목을 입력해주세요.' }, { status: 400 });
     }
@@ -40,7 +40,6 @@ export async function POST(request: Request) {
       phone: String(phone).trim(),
       email: String(email).trim(),
       amount: String(amount).trim(),
-      withdrawalDate: String(withdrawalDate).trim(),
       bank: String(bank).trim(),
       accountNumber: String(accountNumber).trim(),
       accountHolder: String(accountHolder || name).trim(),

@@ -8,7 +8,6 @@ type FormData = {
   phone: string;
   email: string;
   amount: string;
-  withdrawalDate: string;
   bank: string;
   accountNumber: string;
   accountHolder: string;
@@ -20,7 +19,7 @@ type FormData = {
 
 const INITIAL: FormData = {
   name: '', birthDate: '', phone: '', email: '',
-  amount: '', withdrawalDate: '', bank: '',
+  amount: '', bank: '',
   accountNumber: '', accountHolder: '', message: '',
   privacyConsent: false, cmsConsent: false, company: '',
 };
@@ -53,7 +52,7 @@ export default function SupportForm() {
       return;
     }
 
-    const required: (keyof FormData)[] = ['name', 'birthDate', 'phone', 'email', 'amount', 'withdrawalDate', 'bank', 'accountNumber'];
+    const required: (keyof FormData)[] = ['name', 'birthDate', 'phone', 'email', 'amount', 'bank', 'accountNumber'];
     for (const key of required) {
       if (!String(form[key]).trim()) {
         setStatus('error');
@@ -145,22 +144,10 @@ export default function SupportForm() {
 
       {/* 후원 정보 */}
       <p className={sectionTitleCls}>후원 정보</p>
-      <div className="grid md:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="amount" className={labelCls}>월 후원금액 * <span className="text-neutral-500 font-normal">(원)</span></label>
-          <input id="amount" name="amount" type="text" inputMode="numeric" value={form.amount} onChange={handleChange}
-            placeholder="10000" className={inputCls} disabled={status === 'submitting'} />
-        </div>
-        <div>
-          <label htmlFor="withdrawalDate" className={labelCls}>출금 희망일 *</label>
-          <select id="withdrawalDate" name="withdrawalDate" value={form.withdrawalDate} onChange={handleChange}
-            className={inputCls} disabled={status === 'submitting'}>
-            <option value="">선택해주세요</option>
-            {[5, 10, 15, 20, 25].map((d) => (
-              <option key={d} value={String(d)}>매월 {d}일</option>
-            ))}
-          </select>
-        </div>
+      <div>
+        <label htmlFor="amount" className={labelCls}>월 후원금액 * <span className="text-neutral-500 font-normal">(원)</span></label>
+        <input id="amount" name="amount" type="text" inputMode="numeric" value={form.amount} onChange={handleChange}
+          placeholder="10000" className={inputCls} disabled={status === 'submitting'} />
       </div>
 
       {/* 계좌 정보 */}
