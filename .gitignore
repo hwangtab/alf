@@ -52,3 +52,5 @@ next-env.d.ts
 
 # Exception: Newsletter images
 !public/images/news/**
+.env*.local
+.playwright-mcp/

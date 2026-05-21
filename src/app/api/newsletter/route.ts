@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
+import { Resend } from 'resend';
+import { welcomeEmail, notifyEmail } from './emailTemplates';
 
-const EMAILJS_ENDPOINT = 'https://api.emailjs.com/api/v1.0/email/send';
+const FROM = '예술해방전선 <noreply@alf.seoul.kr>';
+const ORG_INBOX = 'alf.seoul.kr@gmail.com';
 
 export async function POST(request: Request) {
   try {
@@ -10,34 +13,35 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: '이름과 이메일을 모두 입력해주세요.' }, { status: 400 });
     }
 
-    const serviceId = process.env.EMAILJS_SERVICE_ID;
-    const templateId = process.env.EMAILJS_TEMPLATE_ID;
-    const publicKey = process.env.EMAILJS_PUBLIC_KEY;
-
-    if (!serviceId || !templateId || !publicKey) {
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
       return NextResponse.json({ error: '이메일 서비스가 올바르게 구성되지 않았습니다.' }, { status: 500 });
     }
 
-    const emailResponse = await fetch(EMAILJS_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        service_id: serviceId,
-        template_id: templateId,
-        user_id: publicKey,
-        template_params: {
-          name,
-          email,
-        },
-      }),
+    const resend = new Resend(apiKey);
+    const notify = notifyEmail(name, email);
+
+    const result = await resend.emails.send({
+      from: FROM,
+      to: ORG_INBOX,
+      replyTo: email,
+      subject: notify.subject,
+      html: notify.html,
+      text: notify.text,
     });
 
-    if (!emailResponse.ok) {
-      const errorText = await emailResponse.text();
-      return NextResponse.json({ error: '이메일 전송에 실패했습니다.', details: errorText }, { status: 502 });
+    if (result.error) {
+      return NextResponse.json({ error: '이메일 전송에 실패했습니다.', details: result.error.message }, { status: 502 });
     }
+
+    const welcome = welcomeEmail(name);
+    await resend.emails.send({
+      from: FROM,
+      to: email,
+      subject: welcome.subject,
+      html: welcome.html,
+      text: welcome.text,
+    });
 
     return NextResponse.json({ success: true });
   } catch (error) {
