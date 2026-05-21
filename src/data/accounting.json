@@ -1,12 +1,24 @@
 {
   "2021-10": {
     "income": [
-      { "label": "CMS 정기후원", "amount": 165820 },
-      { "label": "이자", "amount": 15 }
+      {
+        "label": "CMS 정기후원",
+        "amount": 165820
+      },
+      {
+        "label": "이자",
+        "amount": 15
+      }
     ],
     "expense": [
-      { "label": "감사봉투 2종", "amount": 18000 },
-      { "label": "배송비", "amount": 2500 }
+      {
+        "label": "감사봉투 2종",
+        "amount": 18000
+      },
+      {
+        "label": "배송비",
+        "amount": 2500
+      }
     ],
     "totalIncome": 165835,
     "totalExpense": 20500,
@@ -16,14 +28,34 @@
   },
   "2021-11": {
     "income": [
-      { "label": "CMS 정기후원", "amount": 165820 },
-      { "label": "이자", "amount": 22 }
+      {
+        "label": "CMS 정기후원",
+        "amount": 165820
+      },
+      {
+        "label": "이자",
+        "amount": 22
+      }
     ],
     "expense": [
-      { "label": "LED 조명", "amount": 86900 },
-      { "label": "고 나세균 동지 조의금", "amount": 100000 },
-      { "label": "추모공연 거마비", "amount": 50000, "note": "맑은·건주·이산·경하세민·지누" },
-      { "label": "추모공연 거마비", "amount": 40000, "note": "황경하" }
+      {
+        "label": "LED 조명",
+        "amount": 86900
+      },
+      {
+        "label": "고 나세균 동지 조의금",
+        "amount": 100000
+      },
+      {
+        "label": "추모공연 거마비",
+        "amount": 50000,
+        "note": "맑은·건주·이산·경하세민·지누"
+      },
+      {
+        "label": "추모공연 거마비",
+        "amount": 40000,
+        "note": "황경하"
+      }
     ],
     "totalIncome": 165842,
     "totalExpense": 276900,
@@ -33,13 +65,31 @@
   },
   "2021-12": {
     "income": [
-      { "label": "CMS 정기후원", "amount": 165320 },
-      { "label": "후원금", "amount": 50000, "note": "동작서 정보과 형사" },
-      { "label": "입출금이자", "amount": 15 }
+      {
+        "label": "CMS 정기후원",
+        "amount": 165320
+      },
+      {
+        "label": "후원금",
+        "amount": 50000,
+        "note": "동작서 정보과 형사"
+      },
+      {
+        "label": "입출금이자",
+        "amount": 15
+      }
     ],
     "expense": [
-      { "label": "문화제 사례비", "amount": 30000, "note": "연영석·유동혁·김동산" },
-      { "label": "회식비", "amount": 155000, "note": "부산조직 흥 서울 상경모임" }
+      {
+        "label": "문화제 사례비",
+        "amount": 30000,
+        "note": "연영석·유동혁·김동산"
+      },
+      {
+        "label": "회식비",
+        "amount": 155000,
+        "note": "부산조직 흥 서울 상경모임"
+      }
     ],
     "totalIncome": 215335,
     "totalExpense": 185000,
@@ -47,13 +97,1005 @@
     "prevBalance": 209595,
     "currentBalance": 239930
   },
-  "2025-07": {
+  "2022-01": {
     "income": [
-      { "label": "CMS 정기후원", "amount": 76000 }
+      {
+        "label": "CMS",
+        "amount": 160620
+      },
+      {
+        "label": "특별 후원금",
+        "amount": 100000
+      },
+      {
+        "label": "이자",
+        "amount": 33
+      }
     ],
     "expense": [
-      { "label": "홍천 교통 과태료", "amount": 80000, "note": "풍천리 연대공연" },
-      { "label": "홍천 저녁 식재료비", "amount": 104000, "note": "풍천리 연대공연" }
+      {
+        "label": "문화제 사례비",
+        "amount": 60000,
+        "note": "박지휘, 유희, 고효경, 세민, 맑은, 박치치"
+      }
+    ],
+    "totalIncome": 260653,
+    "totalExpense": 60000,
+    "net": 200653,
+    "prevBalance": 239930,
+    "currentBalance": 440583
+  },
+  "2022-02": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 146420
+      },
+      {
+        "label": "이자",
+        "amount": 25
+      }
+    ],
+    "expense": [
+      {
+        "label": "문화제 사례비",
+        "amount": 60000,
+        "note": "고효경, 자이, 맑은"
+      },
+      {
+        "label": "문화제 사례비",
+        "amount": 30000,
+        "note": "장현호, 손현숙, 지누"
+      },
+      {
+        "label": "흥 공동 식비",
+        "amount": 200000
+      },
+      {
+        "label": "소성리 유류비",
+        "amount": 100000
+      },
+      {
+        "label": "소성리 식비",
+        "amount": 69000
+      }
+    ],
+    "totalIncome": 146445,
+    "totalExpense": 459000,
+    "net": -312555,
+    "prevBalance": 440583,
+    "currentBalance": 128028
+  },
+  "2022-03": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 137040
+      },
+      {
+        "label": "이자",
+        "amount": 7
+      }
+    ],
+    "expense": [
+      {
+        "label": "문화제 사례비",
+        "amount": 20000,
+        "note": "맑은"
+      },
+      {
+        "label": "문화제 사례비",
+        "amount": 20000,
+        "note": "고효경"
+      },
+      {
+        "label": "문화제 사례비",
+        "amount": 20000,
+        "note": "박지휘"
+      },
+      {
+        "label": "식대",
+        "amount": 138000,
+        "note": "황경하 대리 결제 후 이체"
+      },
+      {
+        "label": "재료비116.060",
+        "amount": 0,
+        "note": "박산들"
+      }
+    ],
+    "totalIncome": 137047,
+    "totalExpense": 198000,
+    "net": -60953,
+    "prevBalance": 128018,
+    "currentBalance": 67065
+  },
+  "2022-04": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 141740
+      },
+      {
+        "label": "이자",
+        "amount": 4
+      }
+    ],
+    "expense": [
+      {
+        "label": "박산들 재료비",
+        "amount": 116060,
+        "note": "선결제 치치"
+      },
+      {
+        "label": "사례금",
+        "amount": 20000,
+        "note": "천용성 사례금 오입금"
+      },
+      {
+        "label": "사례금",
+        "amount": 20000,
+        "note": "유동혁"
+      },
+      {
+        "label": "사례금",
+        "amount": 20000,
+        "note": "정진석"
+      }
+    ],
+    "totalIncome": 141744,
+    "totalExpense": 176060,
+    "net": -34316,
+    "prevBalance": 67075,
+    "currentBalance": 32759
+  },
+  "2022-05": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 141740
+      },
+      {
+        "label": "이자",
+        "amount": 8
+      }
+    ],
+    "expense": [
+      {
+        "label": "박산들 재료비",
+        "amount": 46787
+      }
+    ],
+    "totalIncome": 141748,
+    "totalExpense": 46787,
+    "net": 94961,
+    "prevBalance": 32759,
+    "currentBalance": 127720
+  },
+  "2022-06": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 141740
+      },
+      {
+        "label": "손소희",
+        "amount": 100000
+      },
+      {
+        "label": "이자",
+        "amount": 17
+      }
+    ],
+    "expense": [],
+    "totalIncome": 241757,
+    "totalExpense": 0,
+    "net": 241757,
+    "prevBalance": 127712,
+    "currentBalance": 369469
+  },
+  "2022-07": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 132040
+      },
+      {
+        "label": "이자",
+        "amount": 20
+      }
+    ],
+    "expense": [
+      {
+        "label": "숙박예약비",
+        "amount": 360000
+      }
+    ],
+    "totalIncome": 132060,
+    "totalExpense": 360000,
+    "net": -227940,
+    "prevBalance": 369477,
+    "currentBalance": 141537
+  },
+  "2022-08": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 87340
+      },
+      {
+        "label": "멤버십 트레이닝 숙소 환불",
+        "amount": 258000
+      },
+      {
+        "label": "이자",
+        "amount": 21
+      }
+    ],
+    "expense": [
+      {
+        "label": "김동산 롱플레이어 화재 위로금",
+        "amount": 200000
+      }
+    ],
+    "totalIncome": 345361,
+    "totalExpense": 200000,
+    "net": 145361,
+    "prevBalance": 141537,
+    "currentBalance": 286898
+  },
+  "2022-09": {
+    "income": [
+      {
+        "label": "장희진 상인 특별 후원금",
+        "amount": 100000,
+        "note": "블랙마켓 때 직접 전달"
+      },
+      {
+        "label": "CMS",
+        "amount": 135260
+      },
+      {
+        "label": "이자",
+        "amount": 25
+      }
+    ],
+    "expense": [
+      {
+        "label": "자이 문화제 사례금",
+        "amount": 20000
+      },
+      {
+        "label": "치치 문화제 사례금",
+        "amount": 20000
+      },
+      {
+        "label": "맑은 문화제 사례금",
+        "amount": 20000
+      },
+      {
+        "label": "세민 문화제 사례금",
+        "amount": 20000
+      },
+      {
+        "label": "고효경 문화제 사례금",
+        "amount": 20000
+      },
+      {
+        "label": "초라 문화제 사례금",
+        "amount": 40000
+      },
+      {
+        "label": "궁중족발 방문 축하 케익 구매",
+        "amount": 33000
+      },
+      {
+        "label": "식사비",
+        "amount": 292700
+      }
+    ],
+    "totalIncome": 235285,
+    "totalExpense": 465700,
+    "net": -230415,
+    "prevBalance": 286898,
+    "currentBalance": 56483
+  },
+  "2022-10": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 132020
+      },
+      {
+        "label": "이자",
+        "amount": 13
+      }
+    ],
+    "expense": [
+      {
+        "label": "앨범 제작비",
+        "amount": 180000,
+        "note": "물고기는 물이 없으면 죽어요'"
+      }
+    ],
+    "totalIncome": 132033,
+    "totalExpense": 180000,
+    "net": -47967,
+    "prevBalance": 56483,
+    "currentBalance": 8516
+  },
+  "2022-11": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 181720
+      },
+      {
+        "label": "이자",
+        "amount": 9
+      }
+    ],
+    "expense": [],
+    "totalIncome": 181729,
+    "totalExpense": 0,
+    "net": 181729,
+    "prevBalance": 8516,
+    "currentBalance": 190245
+  },
+  "2022-12": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 137020
+      },
+      {
+        "label": "이자",
+        "amount": 9
+      }
+    ],
+    "expense": [
+      {
+        "label": "노량진 후원주점 티켓",
+        "amount": 190000
+      }
+    ],
+    "totalIncome": 137029,
+    "totalExpense": 190000,
+    "net": -52971,
+    "prevBalance": 190245,
+    "currentBalance": 137274
+  },
+  "2023-01": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 141720
+      },
+      {
+        "label": "이자",
+        "amount": 18
+      }
+    ],
+    "expense": [
+      {
+        "label": "공연장 대관료",
+        "amount": 278994
+      }
+    ],
+    "totalIncome": 141738,
+    "totalExpense": 278994,
+    "net": -137256,
+    "prevBalance": 137274,
+    "currentBalance": 18
+  },
+  "2023-02": {
+    "income": [
+      {
+        "label": "박준 후원",
+        "amount": 25000
+      },
+      {
+        "label": "한국스마트협동조합",
+        "amount": 284363
+      },
+      {
+        "label": "CMS",
+        "amount": 123620
+      },
+      {
+        "label": "앨범 팔매",
+        "amount": 50000,
+        "note": "김동산"
+      },
+      {
+        "label": "발작 판매",
+        "amount": 20000,
+        "note": "후원"
+      },
+      {
+        "label": "이자",
+        "amount": 5
+      }
+    ],
+    "expense": [
+      {
+        "label": "공연장 대관료",
+        "amount": 503001
+      }
+    ],
+    "totalIncome": 502988,
+    "totalExpense": 503001,
+    "net": -13,
+    "prevBalance": 18,
+    "currentBalance": 5
+  },
+  "2023-03": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 137020
+      },
+      {
+        "label": "손소희 동지 후원",
+        "amount": 100000
+      },
+      {
+        "label": "이자",
+        "amount": 7
+      }
+    ],
+    "expense": [
+      {
+        "label": "0",
+        "amount": 0
+      }
+    ],
+    "totalIncome": 237027,
+    "totalExpense": 0,
+    "net": 237027,
+    "prevBalance": 18,
+    "currentBalance": 237045
+  },
+  "2023-04": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 87340
+      },
+      {
+        "label": "이자",
+        "amount": 19
+      }
+    ],
+    "expense": [
+      {
+        "label": "문화제 지누 음향 인건비",
+        "amount": 100000
+      },
+      {
+        "label": "문화제 단체 식사비용",
+        "amount": 136100
+      }
+    ],
+    "totalIncome": 87359,
+    "totalExpense": 236100,
+    "net": -148741,
+    "prevBalance": 237032,
+    "currentBalance": 88291
+  },
+  "2023-05": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 136740
+      },
+      {
+        "label": "이자",
+        "amount": 5
+      }
+    ],
+    "expense": [
+      {
+        "label": "문화제 식사비",
+        "amount": 88291
+      },
+      {
+        "label": "문화제 식사비",
+        "amount": 136740
+      }
+    ],
+    "totalIncome": 136745,
+    "totalExpense": 225031,
+    "net": -88286,
+    "prevBalance": 88291,
+    "currentBalance": 5
+  },
+  "2023-06": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 132040
+      },
+      {
+        "label": "이자",
+        "amount": 5
+      }
+    ],
+    "expense": [],
+    "totalIncome": 132045,
+    "totalExpense": 0,
+    "net": 132045,
+    "prevBalance": 5,
+    "currentBalance": 132050
+  },
+  "2023-07": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 141760
+      },
+      {
+        "label": "이자",
+        "amount": 15
+      }
+    ],
+    "expense": [
+      {
+        "label": "문화제 식비",
+        "amount": 82000
+      }
+    ],
+    "totalIncome": 141775,
+    "totalExpense": 82000,
+    "net": 59775,
+    "prevBalance": 132050,
+    "currentBalance": 191825
+  },
+  "2023-08": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 121000
+      }
+    ],
+    "expense": [
+      {
+        "label": "마이크 구입",
+        "amount": 185000,
+        "note": "문화제 마이크 업그레이드"
+      }
+    ],
+    "totalIncome": 121000,
+    "totalExpense": 185000,
+    "net": -64000,
+    "prevBalance": 191825,
+    "currentBalance": 127825
+  },
+  "2023-09": {
+    "income": [
+      {
+        "label": "09.22",
+        "amount": 132072,
+        "note": "CMS"
+      }
+    ],
+    "expense": [],
+    "totalIncome": 132072,
+    "totalExpense": 0,
+    "net": 132072,
+    "prevBalance": -64000,
+    "currentBalance": 68072
+  },
+  "2023-10": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 127360
+      }
+    ],
+    "expense": [
+      {
+        "label": "노량진 연대공연 뮤지션 식사비",
+        "amount": 112000
+      },
+      {
+        "label": "투쟁현장에 연대하는 예술가들의 밤샘파티 대관",
+        "amount": 230000
+      }
+    ],
+    "totalIncome": 127360,
+    "totalExpense": 342000,
+    "net": -214640,
+    "prevBalance": 68072,
+    "currentBalance": -146568
+  },
+  "2023-11": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 117660
+      }
+    ],
+    "expense": [
+      {
+        "label": "소성리지킴이 조현철 추모행사 후 궁중족발에서 식사비",
+        "amount": 292500
+      }
+    ],
+    "totalIncome": 117660,
+    "totalExpense": 292500,
+    "net": -174840,
+    "prevBalance": -146568,
+    "currentBalance": -321408
+  },
+  "2023-12": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 92940
+      }
+    ],
+    "expense": [
+      {
+        "label": "노량진수산시장 후원주점",
+        "amount": 300000
+      }
+    ],
+    "totalIncome": 92940,
+    "totalExpense": 300000,
+    "net": -207060,
+    "prevBalance": -321408,
+    "currentBalance": -528468
+  },
+  "2024-01": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 152060
+      }
+    ],
+    "expense": [],
+    "totalIncome": 152060,
+    "totalExpense": 0,
+    "net": 152060,
+    "prevBalance": -460396,
+    "currentBalance": -308336
+  },
+  "2024-02": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 105300
+      }
+    ],
+    "expense": [
+      {
+        "label": "전쟁을 끝내자 음반녹음 식사비",
+        "amount": 58000
+      },
+      {
+        "label": "전쟁을 끝내자 음반녹음 식사비",
+        "amount": 25000
+      }
+    ],
+    "totalIncome": 105300,
+    "totalExpense": 83000,
+    "net": 22300,
+    "prevBalance": -355096,
+    "currentBalance": -332796
+  },
+  "2024-03": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 164760
+      }
+    ],
+    "expense": [
+      {
+        "label": "궁중족발 폐업관련 예술가 식사모임",
+        "amount": 149500
+      },
+      {
+        "label": "전쟁을 끝내자 음반녹음 식사비",
+        "amount": 48000
+      }
+    ],
+    "totalIncome": 164760,
+    "totalExpense": 197500,
+    "net": -32740,
+    "prevBalance": -332796,
+    "currentBalance": -365536
+  },
+  "2024-04": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 86260
+      }
+    ],
+    "expense": [
+      {
+        "label": "세월호 10주기 기도회 식사비",
+        "amount": 141000
+      },
+      {
+        "label": "세종호텔 연대공연 식사비",
+        "amount": 45500
+      }
+    ],
+    "totalIncome": 86260,
+    "totalExpense": 186500,
+    "net": -100240,
+    "prevBalance": -365536,
+    "currentBalance": -465776
+  },
+  "2024-05": {
+    "income": [
+      {
+        "label": "후원금",
+        "amount": 148300
+      }
+    ],
+    "expense": [
+      {
+        "label": "최인기 작가님 출소기념 모임 뒷풀이",
+        "amount": 92000
+      },
+      {
+        "label": "이태원 참사 연대공연 후 식사",
+        "amount": 41000
+      }
+    ],
+    "totalIncome": 148300,
+    "totalExpense": 133000,
+    "net": 15300,
+    "prevBalance": -465776,
+    "currentBalance": -450476
+  },
+  "2024-06": {
+    "income": [
+      {
+        "label": "후원금",
+        "amount": 130080
+      }
+    ],
+    "expense": [
+      {
+        "label": "동서울터미널 연대공연 후 식사비",
+        "amount": 98408
+      }
+    ],
+    "totalIncome": 130080,
+    "totalExpense": 98408,
+    "net": 31672,
+    "prevBalance": -450476,
+    "currentBalance": -418804
+  },
+  "2024-07": {
+    "income": [
+      {
+        "label": "후원금",
+        "amount": 130060
+      }
+    ],
+    "expense": [
+      {
+        "label": "녹음 뮤지션 식사비",
+        "amount": 119000
+      },
+      {
+        "label": "딱따구리 포크 식사비",
+        "amount": 100000
+      }
+    ],
+    "totalIncome": 130060,
+    "totalExpense": 219000,
+    "net": -88940,
+    "prevBalance": -418804,
+    "currentBalance": -507744
+  },
+  "2024-08": {
+    "income": [
+      {
+        "label": "후원금",
+        "amount": 130060
+      }
+    ],
+    "expense": [
+      {
+        "label": "노량진회센타 개업식 식사비",
+        "amount": 185500
+      },
+      {
+        "label": "녹음 후 뮤지션 식사비",
+        "amount": 39000
+      }
+    ],
+    "totalIncome": 130060,
+    "totalExpense": 224500,
+    "net": -94440,
+    "prevBalance": -507744,
+    "currentBalance": -602184
+  },
+  "2024-09": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 125380
+      }
+    ],
+    "expense": [
+      {
+        "label": "<이름을 모르는 먼 곳의 그대에게> 녹음 뮤지션 식사비",
+        "amount": 70000
+      }
+    ],
+    "totalIncome": 125380,
+    "totalExpense": 70000,
+    "net": 55380,
+    "prevBalance": -602184,
+    "currentBalance": -546804
+  },
+  "2024-10": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 130380
+      }
+    ],
+    "expense": [],
+    "totalIncome": 130380,
+    "totalExpense": 0,
+    "net": 130380,
+    "prevBalance": -546804,
+    "currentBalance": -416424
+  },
+  "2024-11": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 120680
+      }
+    ],
+    "expense": [
+      {
+        "label": "노량진 회센타 음악가 식사비 지출",
+        "amount": 86500
+      }
+    ],
+    "totalIncome": 120680,
+    "totalExpense": 86500,
+    "net": 34180,
+    "prevBalance": -416424,
+    "currentBalance": -382244
+  },
+  "2024-12": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 125380
+      }
+    ],
+    "expense": [],
+    "totalIncome": 125380,
+    "totalExpense": 0,
+    "net": 125380,
+    "prevBalance": -382244,
+    "currentBalance": -256864
+  },
+  "2025-01": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 75680
+      }
+    ],
+    "expense": [],
+    "totalIncome": 75680,
+    "totalExpense": 0,
+    "net": 75680,
+    "prevBalance": -256864,
+    "currentBalance": -181184
+  },
+  "2025-02": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 70980
+      }
+    ],
+    "expense": [],
+    "totalIncome": 70980,
+    "totalExpense": 0,
+    "net": 70980,
+    "prevBalance": -181184,
+    "currentBalance": -110204
+  },
+  "2025-03": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 61600
+      }
+    ],
+    "expense": [
+      {
+        "label": "세종호텔 연대뮤지션과 연대동지들 식사비",
+        "amount": 115000
+      }
+    ],
+    "totalIncome": 61600,
+    "totalExpense": 115000,
+    "net": -53400,
+    "prevBalance": -110204,
+    "currentBalance": -163604
+  },
+  "2025-04": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 76000
+      }
+    ],
+    "expense": [
+      {
+        "label": "동서울터미널 연대공연 후 뮤지션 및 연대자 식사비",
+        "amount": 94000
+      }
+    ],
+    "totalIncome": 76000,
+    "totalExpense": 94000,
+    "net": -18000,
+    "prevBalance": -110204,
+    "currentBalance": -128204
+  },
+  "2025-05": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 73300
+      }
+    ],
+    "expense": [],
+    "totalIncome": 73300,
+    "totalExpense": 0,
+    "net": 73300,
+    "prevBalance": -128204,
+    "currentBalance": -54904
+  },
+  "2025-06": {
+    "income": [
+      {
+        "label": "CMS",
+        "amount": 76000
+      }
+    ],
+    "expense": [],
+    "totalIncome": 76000,
+    "totalExpense": 0,
+    "net": 76000,
+    "prevBalance": -54904,
+    "currentBalance": 21096
+  },
+  "2025-07": {
+    "income": [
+      {
+        "label": "CMS 정기후원",
+        "amount": 76000
+      }
+    ],
+    "expense": [
+      {
+        "label": "홍천 교통 과태료",
+        "amount": 80000,
+        "note": "풍천리 연대공연"
+      },
+      {
+        "label": "홍천 저녁 식재료비",
+        "amount": 104000,
+        "note": "풍천리 연대공연"
+      }
     ],
     "totalIncome": 76000,
     "totalExpense": 184000,
@@ -63,7 +1105,10 @@
   },
   "2025-08": {
     "income": [
-      { "label": "CMS 정기후원", "amount": 80700 }
+      {
+        "label": "CMS 정기후원",
+        "amount": 80700
+      }
     ],
     "expense": [],
     "totalIncome": 80700,
@@ -74,10 +1119,16 @@
   },
   "2025-09": {
     "income": [
-      { "label": "CMS 정기후원", "amount": 113700 }
+      {
+        "label": "CMS 정기후원",
+        "amount": 113700
+      }
     ],
     "expense": [
-      { "label": "CMS 수수료", "amount": 33000 }
+      {
+        "label": "CMS 수수료",
+        "amount": 33000
+      }
     ],
     "totalIncome": 113700,
     "totalExpense": 33000,
@@ -87,10 +1138,16 @@
   },
   "2025-10": {
     "income": [
-      { "label": "CMS 정기후원", "amount": 113700 }
+      {
+        "label": "CMS 정기후원",
+        "amount": 113700
+      }
     ],
     "expense": [
-      { "label": "CMS 수수료", "amount": 33000 }
+      {
+        "label": "CMS 수수료",
+        "amount": 33000
+      }
     ],
     "totalIncome": 113700,
     "totalExpense": 33000,
@@ -100,11 +1157,21 @@
   },
   "2025-12": {
     "income": [
-      { "label": "CMS 정기후원", "amount": 106000 }
+      {
+        "label": "CMS 정기후원",
+        "amount": 106000
+      }
     ],
     "expense": [
-      { "label": "CMS 수수료", "amount": 34000 },
-      { "label": "뮤지션 식사비", "amount": 70000, "note": "내란 1년 광진구 문화제" }
+      {
+        "label": "CMS 수수료",
+        "amount": 34000
+      },
+      {
+        "label": "뮤지션 식사비",
+        "amount": 70000,
+        "note": "내란 1년 광진구 문화제"
+      }
     ],
     "totalIncome": 106000,
     "totalExpense": 104000,
@@ -114,10 +1181,16 @@
   },
   "2026-02": {
     "income": [
-      { "label": "CMS 정기후원", "amount": 61300 }
+      {
+        "label": "CMS 정기후원",
+        "amount": 61300
+      }
     ],
     "expense": [
-      { "label": "CMS 수수료", "amount": 33000 }
+      {
+        "label": "CMS 수수료",
+        "amount": 33000
+      }
     ],
     "totalIncome": 61300,
     "totalExpense": 33000,
