@@ -126,6 +126,7 @@ export type SupporterData = {
   bank: string;
   accountNumber: string;
   accountHolder: string;
+  accountHolderPhone: string;
   message?: string;
 };
 
@@ -160,6 +161,7 @@ export function supporterNotifyEmail(data: SupporterData): { subject: string; ht
           ${infoRow('은행', e(data.bank))}
           ${infoRow('계좌번호', e(data.accountNumber), true)}
           ${infoRow('예금주', e(data.accountHolder))}
+          ${infoRow('예금주 연락처', e(data.accountHolderPhone))}
         </table>
       </td></tr>
     </table>
@@ -184,6 +186,7 @@ export function supporterNotifyEmail(data: SupporterData): { subject: string; ht
       `은행: ${data.bank}`,
       `계좌번호: ${data.accountNumber}`,
       `예금주: ${data.accountHolder}`,
+      `예금주 연락처: ${data.accountHolderPhone}`,
       ...(data.message ? ['', `메모: ${data.message}`] : []),
       '',
       '이 메일에 회신하면 신청자에게 바로 답장됩니다.',

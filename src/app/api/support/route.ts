@@ -11,7 +11,8 @@ export async function POST(request: Request) {
     const body = await request.json();
     const {
       name, birthDate, phone, email,
-      amount, bank, accountNumber, accountHolder,
+      amount, bank, accountNumber,
+      holderSameAsApplicant, accountHolder, accountHolderPhone,
       message,
       company, // honeypot
     } = body;
@@ -29,6 +30,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: '이메일 주소가 올바르지 않습니다.' }, { status: 400 });
     }
 
+    const sameHolder = holderSameAsApplicant !== false;
+    if (!sameHolder) {
+      if (!String(accountHolder ?? '').trim() || !String(accountHolderPhone ?? '').trim()) {
+        return NextResponse.json({ error: '예금주 이름과 연락처를 입력해주세요.' }, { status: 400 });
+      }
+    }
+
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) {
       return NextResponse.json({ error: '이메일 서비스가 올바르게 구성되지 않았습니다.' }, { status: 500 });
@@ -42,7 +50,8 @@ export async function POST(request: Request) {
       amount: String(amount).trim(),
       bank: String(bank).trim(),
       accountNumber: String(accountNumber).trim(),
-      accountHolder: String(accountHolder || name).trim(),
+      accountHolder: sameHolder ? String(name).trim() : String(accountHolder).trim(),
+      accountHolderPhone: sameHolder ? String(phone).trim() : String(accountHolderPhone).trim(),
       message: message ? String(message).trim() : undefined,
     };
 

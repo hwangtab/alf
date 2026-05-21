@@ -10,7 +10,9 @@ type FormData = {
   amount: string;
   bank: string;
   accountNumber: string;
+  holderSameAsApplicant: boolean;
   accountHolder: string;
+  accountHolderPhone: string;
   message: string;
   privacyConsent: boolean;
   cmsConsent: boolean;
@@ -20,7 +22,8 @@ type FormData = {
 const INITIAL: FormData = {
   name: '', birthDate: '', phone: '', email: '',
   amount: '', bank: '',
-  accountNumber: '', accountHolder: '', message: '',
+  accountNumber: '', holderSameAsApplicant: true,
+  accountHolder: '', accountHolderPhone: '', message: '',
   privacyConsent: false, cmsConsent: false, company: '',
 };
 
@@ -61,6 +64,14 @@ export default function SupportForm() {
       }
     }
 
+    if (!form.holderSameAsApplicant) {
+      if (!form.accountHolder.trim() || !form.accountHolderPhone.trim()) {
+        setStatus('error');
+        setErrorMessage('예금주 이름과 연락처를 입력해주세요.');
+        return;
+      }
+    }
+
     setStatus('submitting');
     try {
       const res = await fetch('/api/support', {
@@ -68,7 +79,8 @@ export default function SupportForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...form,
-          accountHolder: form.accountHolder.trim() || form.name.trim(),
+          accountHolder: form.holderSameAsApplicant ? form.name.trim() : form.accountHolder.trim(),
+          accountHolderPhone: form.holderSameAsApplicant ? form.phone.trim() : form.accountHolderPhone.trim(),
         }),
       });
 
@@ -165,10 +177,33 @@ export default function SupportForm() {
             placeholder="000000-00-000000" className={inputCls} disabled={status === 'submitting'} />
         </div>
         <div className="md:col-span-2">
-          <label htmlFor="accountHolder" className={labelCls}>예금주 <span className="text-neutral-500 font-normal">(이름과 동일하면 비워두세요)</span></label>
-          <input id="accountHolder" name="accountHolder" type="text" value={form.accountHolder} onChange={handleChange}
-            placeholder={form.name || '예금주 이름'} className={inputCls} disabled={status === 'submitting'} />
+          <label className="flex items-center gap-2 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              name="holderSameAsApplicant"
+              checked={form.holderSameAsApplicant}
+              onChange={handleChange}
+              className="w-4 h-4 rounded border-neutral-600 bg-neutral-800 accent-primary-red flex-shrink-0"
+              disabled={status === 'submitting'}
+            />
+            <span className="text-sm text-neutral-300">예금주가 신청자 본인과 동일합니다</span>
+          </label>
         </div>
+
+        {!form.holderSameAsApplicant && (
+          <>
+            <div>
+              <label htmlFor="accountHolder" className={labelCls}>예금주 이름 *</label>
+              <input id="accountHolder" name="accountHolder" type="text" value={form.accountHolder} onChange={handleChange}
+                placeholder="예금주 이름" className={inputCls} disabled={status === 'submitting'} />
+            </div>
+            <div>
+              <label htmlFor="accountHolderPhone" className={labelCls}>예금주 연락처 * <span className="text-neutral-500 font-normal">(CMS 본인확인)</span></label>
+              <input id="accountHolderPhone" name="accountHolderPhone" type="tel" value={form.accountHolderPhone} onChange={handleChange}
+                placeholder="010-0000-0000" className={inputCls} disabled={status === 'submitting'} />
+            </div>
+          </>
+        )}
       </div>
 
       {/* 메시지 */}
@@ -181,7 +216,7 @@ export default function SupportForm() {
       <div className="bg-neutral-800/60 border border-neutral-700 rounded-lg p-4 text-xs text-neutral-400 leading-relaxed mt-6">
         <p className="font-semibold text-neutral-300 mb-2">개인정보 수집·이용 고지</p>
         <ul className="space-y-1 list-disc pl-4">
-          <li><span className="text-neutral-300">수집 항목:</span> 이름, 생년월일, 연락처, 이메일, 은행명, 계좌번호, 예금주</li>
+          <li><span className="text-neutral-300">수집 항목:</span> 이름, 생년월일, 연락처, 이메일, 은행명, 계좌번호, 예금주, 예금주 연락처(예금주가 다를 경우)</li>
           <li><span className="text-neutral-300">수집·이용 목적:</span> 후원 회원 관리, CMS 자동이체 신청, 활동 보고 발송</li>
           <li><span className="text-neutral-300">보유·이용 기간:</span> 후원 종료 후 즉시 파기</li>
           <li>동의를 거부하실 수 있으나, 거부 시 후원 회원 가입이 불가합니다.</li>
