@@ -117,6 +117,113 @@ export function welcomeEmail(name: string): { subject: string; html: string; tex
   };
 }
 
+export type SupporterData = {
+  name: string;
+  birthDate: string;
+  phone: string;
+  email: string;
+  amount: string;
+  withdrawalDate: string;
+  bank: string;
+  accountNumber: string;
+  accountHolder: string;
+  message?: string;
+};
+
+function infoRow(label: string, value: string, highlight = false): string {
+  return `<tr>
+    <td style="font-size:13px;color:#6b7280;padding-bottom:10px;width:110px;vertical-align:top;">${label}</td>
+    <td style="font-size:${highlight ? '16' : '15'}px;color:${highlight ? '#b91c1c' : '#111827'};font-weight:${highlight ? '700' : '600'};padding-bottom:10px;">${value}</td>
+  </tr>`;
+}
+
+export function supporterNotifyEmail(data: SupporterData): { subject: string; html: string; text: string } {
+  const e = escapeHtml;
+  const bodyHtml = `
+    <p style="margin:0 0 20px;font-size:17px;font-weight:600;color:#111827;">
+      새 후원 회원 가입 신청이 접수됐습니다.
+    </p>
+    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color:#f9fafb;border-radius:8px;margin:0 0 16px;">
+      <tr><td style="padding:20px 24px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+          ${infoRow('이름', e(data.name))}
+          ${infoRow('생년월일', e(data.birthDate))}
+          ${infoRow('연락처', e(data.phone))}
+          ${infoRow('이메일', e(data.email))}
+        </table>
+      </td></tr>
+    </table>
+    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color:#fff7ed;border-radius:8px;margin:0 0 16px;border:1px solid #fed7aa;">
+      <tr><td style="padding:20px 24px;">
+        <p style="margin:0 0 14px;font-size:13px;font-weight:700;color:#c2410c;letter-spacing:0.5px;">CMS 자동이체 정보</p>
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+          ${infoRow('월 후원금액', e(data.amount) + '원', true)}
+          ${infoRow('출금일', '매월 ' + e(data.withdrawalDate) + '일')}
+          ${infoRow('은행', e(data.bank))}
+          ${infoRow('계좌번호', e(data.accountNumber), true)}
+          ${infoRow('예금주', e(data.accountHolder))}
+        </table>
+      </td></tr>
+    </table>
+    ${data.message ? `<div style="background-color:#f9fafb;border-radius:8px;padding:16px 20px;margin:0 0 16px;font-size:14px;color:#374151;">${e(data.message)}</div>` : ''}
+    <p style="margin:0;font-size:14px;color:#6b7280;background-color:#fff7ed;border-left:3px solid #ff7b00;padding:12px 16px;border-radius:0 6px 6px 0;">
+      이 메일에 회신하면 신청자(${e(data.email)})에게 바로 답장됩니다.
+    </p>
+  `;
+  return {
+    subject: `새 후원 가입 신청: ${data.name} (${data.amount}원)`,
+    html: renderShell('후원 회원 신청 알림', bodyHtml),
+    text: [
+      '새 후원 회원 가입 신청',
+      '',
+      `이름: ${data.name}`,
+      `생년월일: ${data.birthDate}`,
+      `연락처: ${data.phone}`,
+      `이메일: ${data.email}`,
+      '',
+      '[CMS 자동이체]',
+      `월 후원금액: ${data.amount}원`,
+      `출금일: 매월 ${data.withdrawalDate}일`,
+      `은행: ${data.bank}`,
+      `계좌번호: ${data.accountNumber}`,
+      `예금주: ${data.accountHolder}`,
+      ...(data.message ? ['', `메모: ${data.message}`] : []),
+      '',
+      '이 메일에 회신하면 신청자에게 바로 답장됩니다.',
+    ].join('\n'),
+  };
+}
+
+export function supporterWelcomeEmail(name: string): { subject: string; html: string; text: string } {
+  const safeName = escapeHtml(name);
+  const bodyHtml = `
+    <p style="margin:0 0 16px;font-size:22px;font-weight:700;color:#111827;line-height:1.4;">
+      ${safeName}님, 신청해 주셔서 감사합니다
+    </p>
+    <p style="margin:0 0 14px;color:#374151;">
+      예술해방전선 후원 회원 가입 신청이 접수됐습니다.
+    </p>
+    <p style="margin:0 0 14px;color:#374151;">
+      단체에서 가입 내용을 확인하고 CMS 자동이체를 등록해 드리겠습니다.
+      문의가 있으시면 <a href="mailto:alf.seoul.kr@gmail.com" style="color:#ff5a1f;">alf.seoul.kr@gmail.com</a>으로 연락해 주세요.
+    </p>
+    ${ctaButton(SITE, '웹사이트 둘러보기')}
+    ${navLinks()}
+  `;
+  return {
+    subject: '예술해방전선 후원 회원 가입 신청이 접수됐습니다',
+    html: renderShell('후원해 주셔서 감사합니다', bodyHtml),
+    text: [
+      `${name}님, 예술해방전선 후원 회원 가입 신청이 접수됐습니다.`,
+      '',
+      '단체에서 가입 내용을 확인하고 CMS 자동이체를 등록해 드리겠습니다.',
+      '문의: alf.seoul.kr@gmail.com',
+      '',
+      `웹사이트: ${SITE}`,
+    ].join('\n'),
+  };
+}
+
 export function notifyEmail(
   name: string,
   email: string,

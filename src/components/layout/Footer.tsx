@@ -55,7 +55,7 @@ const Footer = () => {
                 { href: '/gallery', label: '갤러리' },
                 { href: '/guide', label: '가이드' }, // 가이드 메뉴 추가
                 { href: '/news', label: '활동 보고' },
-                // { href: '/support', label: '후원하기' }, // 활동 종료로 제거
+                { href: '/support', label: '후원하기' },
               ].map((link) => (
                 <li key={link.href}>
                   <Link 

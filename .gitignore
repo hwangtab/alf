@@ -54,3 +54,4 @@ next-env.d.ts
 !public/images/news/**
 .env*.local
 .playwright-mcp/
+private/

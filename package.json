@@ -10,7 +10,9 @@
     "analyze": "ANALYZE=true next build",
     "build:prod": "next build && next export",
     "convert:gallery": "node scripts/convert-gallery.js",
-    "generate:newsletters": "node scripts/generate-newsletter-summaries.js"
+    "generate:newsletters": "node scripts/generate-newsletter-summaries.js",
+    "send:mailing": "node scripts/send-mailing.js",
+    "download:news-images": "node scripts/download-newsletter-images.js"
   },
   "dependencies": {
     "@next/font": "^14.2.15",
