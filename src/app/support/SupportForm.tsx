@@ -26,7 +26,7 @@ const INITIAL: FormData = {
 
 const inputCls = 'bg-neutral-800 border border-neutral-700 text-white placeholder-neutral-500 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-primary-red focus:border-transparent transition';
 const labelCls = 'block text-sm font-medium text-neutral-300 mb-1';
-const sectionTitleCls = 'text-base font-bold text-white mb-4 pt-6 border-t border-neutral-700';
+const sectionTitleCls = 'text-base font-bold text-white mb-4 mt-8 pt-6 border-t border-neutral-700';
 
 export default function SupportForm() {
   const [form, setForm] = useState<FormData>(INITIAL);
