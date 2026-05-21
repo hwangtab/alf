@@ -1,4 +1,52 @@
 {
+  "2021-10": {
+    "income": [
+      { "label": "CMS 정기후원", "amount": 165820 },
+      { "label": "이자", "amount": 15 }
+    ],
+    "expense": [
+      { "label": "감사봉투 2종", "amount": 18000 },
+      { "label": "배송비", "amount": 2500 }
+    ],
+    "totalIncome": 165835,
+    "totalExpense": 20500,
+    "net": 145335,
+    "prevBalance": 175318,
+    "currentBalance": 320653
+  },
+  "2021-11": {
+    "income": [
+      { "label": "CMS 정기후원", "amount": 165820 },
+      { "label": "이자", "amount": 22 }
+    ],
+    "expense": [
+      { "label": "LED 조명", "amount": 86900 },
+      { "label": "고 나세균 동지 조의금", "amount": 100000 },
+      { "label": "추모공연 거마비", "amount": 50000, "note": "맑은·건주·이산·경하세민·지누" },
+      { "label": "추모공연 거마비", "amount": 40000, "note": "황경하" }
+    ],
+    "totalIncome": 165842,
+    "totalExpense": 276900,
+    "net": -111058,
+    "prevBalance": 320653,
+    "currentBalance": 209595
+  },
+  "2021-12": {
+    "income": [
+      { "label": "CMS 정기후원", "amount": 165320 },
+      { "label": "후원금", "amount": 50000, "note": "동작서 정보과 형사" },
+      { "label": "입출금이자", "amount": 15 }
+    ],
+    "expense": [
+      { "label": "문화제 사례비", "amount": 30000, "note": "연영석·유동혁·김동산" },
+      { "label": "회식비", "amount": 155000, "note": "부산조직 흥 서울 상경모임" }
+    ],
+    "totalIncome": 215335,
+    "totalExpense": 185000,
+    "net": 30335,
+    "prevBalance": 209595,
+    "currentBalance": 239930
+  },
   "2025-07": {
     "income": [
       { "label": "CMS 정기후원", "amount": 76000 }

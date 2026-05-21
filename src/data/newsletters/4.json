@@ -72,9 +72,8 @@
     "text": "2. 11월 회계내역 보고"
   },
   {
-    "type": "image",
-    "src": "/images/news/4/08.webp",
-    "alt": ""
+    "type": "ledger",
+    "month": "2021-11"
   },
   {
     "type": "paragraph",

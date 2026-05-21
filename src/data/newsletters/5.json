@@ -200,9 +200,8 @@
     "text": "4. 12월 예술해방전선 회계보고"
   },
   {
-    "type": "image",
-    "src": "/images/news/5/13.webp",
-    "alt": ""
+    "type": "ledger",
+    "month": "2021-12"
   },
   {
     "type": "paragraph",
