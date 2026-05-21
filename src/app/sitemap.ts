@@ -1,4 +1,6 @@
 import type { MetadataRoute } from 'next';
+import newslettersData from '@/data/newsletters.json';
+import { migratedIds } from '@/data/newsletterContent';
 
 const baseUrl = 'https://alf.seoul.kr';
 
@@ -20,10 +22,22 @@ const routes: Array<{
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
-  return routes.map(({ path, changeFrequency, priority }) => ({
+  const staticRoutes = routes.map(({ path, changeFrequency, priority }) => ({
     url: `${baseUrl}${path}`,
     lastModified,
     changeFrequency,
     priority,
   }));
+
+  const newsletterRoutes = migratedIds.map((id) => {
+    const meta = (newslettersData as { id: number; publishDate: string }[]).find((n) => n.id === id);
+    return {
+      url: `${baseUrl}/news/${id}`,
+      lastModified: meta ? new Date(meta.publishDate) : lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    };
+  });
+
+  return [...staticRoutes, ...newsletterRoutes];
 }

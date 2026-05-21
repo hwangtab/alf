@@ -1,0 +1,80 @@
+{
+  "2025-07": {
+    "income": [
+      { "label": "CMS 정기후원", "amount": 76000 }
+    ],
+    "expense": [
+      { "label": "홍천 교통 과태료", "amount": 80000, "note": "풍천리 연대공연" },
+      { "label": "홍천 저녁 식재료비", "amount": 104000, "note": "풍천리 연대공연" }
+    ],
+    "totalIncome": 76000,
+    "totalExpense": 184000,
+    "net": -108000,
+    "prevBalance": 21096,
+    "currentBalance": -86904
+  },
+  "2025-08": {
+    "income": [
+      { "label": "CMS 정기후원", "amount": 80700 }
+    ],
+    "expense": [],
+    "totalIncome": 80700,
+    "totalExpense": 0,
+    "net": 80700,
+    "prevBalance": -86904,
+    "currentBalance": -6204
+  },
+  "2025-09": {
+    "income": [
+      { "label": "CMS 정기후원", "amount": 113700 }
+    ],
+    "expense": [
+      { "label": "CMS 수수료", "amount": 33000 }
+    ],
+    "totalIncome": 113700,
+    "totalExpense": 33000,
+    "net": 80700,
+    "prevBalance": -6204,
+    "currentBalance": 74496
+  },
+  "2025-10": {
+    "income": [
+      { "label": "CMS 정기후원", "amount": 113700 }
+    ],
+    "expense": [
+      { "label": "CMS 수수료", "amount": 33000 }
+    ],
+    "totalIncome": 113700,
+    "totalExpense": 33000,
+    "net": 80700,
+    "prevBalance": 74496,
+    "currentBalance": 155196
+  },
+  "2025-12": {
+    "income": [
+      { "label": "CMS 정기후원", "amount": 106000 }
+    ],
+    "expense": [
+      { "label": "CMS 수수료", "amount": 34000 },
+      { "label": "뮤지션 식사비", "amount": 70000, "note": "내란 1년 광진구 문화제" }
+    ],
+    "totalIncome": 106000,
+    "totalExpense": 104000,
+    "net": 2000,
+    "prevBalance": 231196,
+    "currentBalance": 233196
+  },
+  "2026-02": {
+    "income": [
+      { "label": "CMS 정기후원", "amount": 61300 }
+    ],
+    "expense": [
+      { "label": "CMS 수수료", "amount": 33000 }
+    ],
+    "totalIncome": 61300,
+    "totalExpense": 33000,
+    "net": 28300,
+    "prevBalance": 309196,
+    "currentBalance": 337496
+  }
+}

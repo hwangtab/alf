@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import newslettersData from "@/data/newsletters.json";
+import { migratedIds } from "@/data/newsletterContent";
 
 type Newsletter = {
   id: number;
@@ -30,6 +31,8 @@ export default function NewsPage() {
           const summary =
             newsletter.summary?.trim() || "이 뉴스레터의 요약은 준비 중입니다.";
           const highlights = newsletter.highlights?.filter(Boolean) ?? [];
+          const isMigrated = migratedIds.includes(newsletter.id);
+          const href = isMigrated ? `/news/${newsletter.id}` : newsletter.link;
 
           return (
             <article
@@ -37,11 +40,10 @@ export default function NewsPage() {
               className="border-b border-neutral-700 pb-8 group animate-fade-in-up"
             >
               <Link
-                href={newsletter.link}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={href}
+                {...(!isMigrated && { target: "_blank", rel: "noopener noreferrer" })}
                 prefetch={false}
-                aria-label={`${newsletter.title} 뉴스레터 새 창에서 열기`}
+                aria-label={`${newsletter.title} 뉴스레터 ${isMigrated ? "읽기" : "새 창에서 열기"}`}
                 className="block hover:bg-neutral-800 rounded-md p-5 transition-colors duration-200"
               >
                 <div className="flex flex-col md:flex-row gap-5">
@@ -64,20 +66,22 @@ export default function NewsPage() {
                       <h2 className="text-2xl font-semibold text-white group-hover:text-primary-red transition-colors duration-200 font-serif">
                         {newsletter.title}
                       </h2>
-                      <svg
-                        className="w-5 h-5 text-neutral-400 group-hover:text-primary-red transition-colors duration-200 flex-shrink-0 mt-1"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                        ></path>
-                      </svg>
+                      {!isMigrated && (
+                        <svg
+                          className="w-5 h-5 text-neutral-400 group-hover:text-primary-red transition-colors duration-200 flex-shrink-0 mt-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                          ></path>
+                        </svg>
+                      )}
                     </div>
 
                     <p className="text-base text-neutral-200 leading-relaxed line-clamp-3">
