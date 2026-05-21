@@ -22,14 +22,14 @@ export default function NewsPage() {
     <div className="container mx-auto pt-28 pb-20 px-4">
       <div className="text-center mb-16">
         <h1 className="text-5xl font-bold text-white font-giants-inline animate-fade-in-up">
-          예술해방전선 뉴스레터
+          예술해방전선 활동 보고
         </h1>
       </div>
 
       <div className="space-y-8 max-w-3xl mx-auto">
         {sortedNewsletters.map((newsletter) => {
           const summary =
-            newsletter.summary?.trim() || "이 뉴스레터의 요약은 준비 중입니다.";
+            newsletter.summary?.trim() || "이 활동 보고의 요약은 준비 중입니다.";
           const highlights = newsletter.highlights?.filter(Boolean) ?? [];
           const isMigrated = migratedIds.includes(newsletter.id);
           const href = isMigrated ? `/news/${newsletter.id}` : newsletter.link;
@@ -43,7 +43,7 @@ export default function NewsPage() {
                 href={href}
                 {...(!isMigrated && { target: "_blank", rel: "noopener noreferrer" })}
                 prefetch={false}
-                aria-label={`${newsletter.title} 뉴스레터 ${isMigrated ? "읽기" : "새 창에서 열기"}`}
+                aria-label={`${newsletter.title} 활동 보고 ${isMigrated ? "읽기" : "새 창에서 열기"}`}
                 className="block hover:bg-neutral-800 rounded-md p-5 transition-colors duration-200"
               >
                 <div className="flex flex-col md:flex-row gap-5">

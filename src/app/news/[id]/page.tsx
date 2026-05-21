@@ -47,11 +47,11 @@ export async function generateMetadata({
   const ogImage = meta.thumbnail || firstImage?.src || '/images/social-thumbnail.webp';
 
   return {
-    title: `${meta.title} | 예술해방전선 뉴스레터`,
+    title: `${meta.title} | 예술해방전선 활동 보고`,
     description: meta.summary || `예술해방전선 ${meta.title} 소식지를 확인하세요.`,
     alternates: { canonical: `/news/${id}` },
     openGraph: {
-      title: `${meta.title} | 예술해방전선 뉴스레터`,
+      title: `${meta.title} | 예술해방전선 활동 보고`,
       description: meta.summary || `예술해방전선 ${meta.title} 소식지`,
       url: `${baseUrl}/news/${id}`,
       siteName: '예술해방전선',
@@ -62,7 +62,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${meta.title} | 예술해방전선 뉴스레터`,
+      title: `${meta.title} | 예술해방전선 활동 보고`,
       description: meta.summary || `예술해방전선 ${meta.title} 소식지`,
       images: [ogImage.startsWith('/') ? `${baseUrl}${ogImage}` : ogImage],
     },
@@ -256,7 +256,7 @@ export default async function NewsletterDetailPage({
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
-          뉴스레터 목록
+          활동 보고 목록
         </Link>
 
         {/* 헤더 */}
@@ -295,7 +295,7 @@ export default async function NewsletterDetailPage({
         {/* 이전/다음 네비게이션 */}
         <nav
           className="mt-16 pt-8 border-t border-neutral-700 flex flex-col sm:flex-row justify-between gap-4"
-          aria-label="이전/다음 뉴스레터"
+          aria-label="이전/다음 활동 보고"
         >
           {prevMeta ? (
             <Link

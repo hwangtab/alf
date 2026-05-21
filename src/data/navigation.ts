@@ -11,6 +11,6 @@ export const navigationLinks: NavLink[] = [
   { href: '/videos', label: '비디오' }, // 비디오 메뉴 추가 (갤러리 앞으로 이동)
   { href: '/gallery', label: '갤러리' },
   { href: '/guide', label: '가이드' },
-  { href: '/news', label: '뉴스레터' },
+  { href: '/news', label: '활동 보고' },
   // { href: '/support', label: '후원하기' },
 ];
