@@ -1197,5 +1197,24 @@
     "net": 28300,
     "prevBalance": 309196,
     "currentBalance": 337496
+  },
+  "2021-09": {
+    "income": [
+      {
+        "label": "후원금",
+        "amount": 319315
+      }
+    ],
+    "expense": [
+      {
+        "label": "길가는밴드 후원의 밤 공연장비 대여비",
+        "amount": 100000
+      }
+    ],
+    "totalIncome": 319315,
+    "totalExpense": 100000,
+    "net": 219315,
+    "prevBalance": 0,
+    "currentBalance": 219315
   }
 }
