@@ -30,12 +30,12 @@
   },
   {
     "type": "image",
-    "src": "/images/news/50/01.jpg",
+    "src": "/images/news/50/01.webp",
     "alt": "동서울터미널 연대공연"
   },
   {
     "type": "image",
-    "src": "/images/news/50/02.jpg",
+    "src": "/images/news/50/02.webp",
     "alt": "동서울터미널 연대공연 현장"
   },
   {
@@ -74,17 +74,17 @@
   },
   {
     "type": "image",
-    "src": "/images/news/50/03.png",
+    "src": "/images/news/50/03.webp",
     "alt": "연대의 노래"
   },
   {
     "type": "image",
-    "src": "/images/news/50/04.png",
+    "src": "/images/news/50/04.webp",
     "alt": "연대의 노래 앨범"
   },
   {
     "type": "image",
-    "src": "/images/news/50/05.png",
+    "src": "/images/news/50/05.webp",
     "alt": "연대의 노래 현장"
   },
   {
@@ -118,7 +118,7 @@
   },
   {
     "type": "image",
-    "src": "/images/news/50/06.jpg",
+    "src": "/images/news/50/06.webp",
     "alt": "정수민 앨범 잔해"
   },
   {
