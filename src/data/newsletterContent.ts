@@ -1,4 +1,51 @@
 import type { NewsletterBlock } from '@/types/newsletter';
+import n1 from './newsletters/1.json';
+import n2 from './newsletters/2.json';
+import n3 from './newsletters/3.json';
+import n4 from './newsletters/4.json';
+import n5 from './newsletters/5.json';
+import n6 from './newsletters/6.json';
+import n7 from './newsletters/7.json';
+import n8 from './newsletters/8.json';
+import n9 from './newsletters/9.json';
+import n10 from './newsletters/10.json';
+import n11 from './newsletters/11.json';
+import n12 from './newsletters/12.json';
+import n13 from './newsletters/13.json';
+import n14 from './newsletters/14.json';
+import n15 from './newsletters/15.json';
+import n16 from './newsletters/16.json';
+import n17 from './newsletters/17.json';
+import n18 from './newsletters/18.json';
+import n19 from './newsletters/19.json';
+import n20 from './newsletters/20.json';
+import n21 from './newsletters/21.json';
+import n22 from './newsletters/22.json';
+import n23 from './newsletters/23.json';
+import n24 from './newsletters/24.json';
+import n25 from './newsletters/25.json';
+import n26 from './newsletters/26.json';
+import n27 from './newsletters/27.json';
+import n28 from './newsletters/28.json';
+import n29 from './newsletters/29.json';
+import n30 from './newsletters/30.json';
+import n31 from './newsletters/31.json';
+import n32 from './newsletters/32.json';
+import n33 from './newsletters/33.json';
+import n34 from './newsletters/34.json';
+import n35 from './newsletters/35.json';
+import n36 from './newsletters/36.json';
+import n37 from './newsletters/37.json';
+import n38 from './newsletters/38.json';
+import n39 from './newsletters/39.json';
+import n40 from './newsletters/40.json';
+import n41 from './newsletters/41.json';
+import n42 from './newsletters/42.json';
+import n43 from './newsletters/43.json';
+import n44 from './newsletters/44.json';
+import n45 from './newsletters/45.json';
+import n46 from './newsletters/46.json';
+import n47 from './newsletters/47.json';
 import n48 from './newsletters/48.json';
 import n49 from './newsletters/49.json';
 import n50 from './newsletters/50.json';
@@ -7,6 +54,53 @@ import n52 from './newsletters/52.json';
 import n53 from './newsletters/53.json';
 
 export const newsletterContent: Record<number, NewsletterBlock[]> = {
+  1: n1 as NewsletterBlock[],
+  2: n2 as NewsletterBlock[],
+  3: n3 as NewsletterBlock[],
+  4: n4 as NewsletterBlock[],
+  5: n5 as NewsletterBlock[],
+  6: n6 as NewsletterBlock[],
+  7: n7 as NewsletterBlock[],
+  8: n8 as NewsletterBlock[],
+  9: n9 as NewsletterBlock[],
+  10: n10 as NewsletterBlock[],
+  11: n11 as NewsletterBlock[],
+  12: n12 as NewsletterBlock[],
+  13: n13 as NewsletterBlock[],
+  14: n14 as NewsletterBlock[],
+  15: n15 as NewsletterBlock[],
+  16: n16 as NewsletterBlock[],
+  17: n17 as NewsletterBlock[],
+  18: n18 as NewsletterBlock[],
+  19: n19 as NewsletterBlock[],
+  20: n20 as NewsletterBlock[],
+  21: n21 as NewsletterBlock[],
+  22: n22 as NewsletterBlock[],
+  23: n23 as NewsletterBlock[],
+  24: n24 as NewsletterBlock[],
+  25: n25 as NewsletterBlock[],
+  26: n26 as NewsletterBlock[],
+  27: n27 as NewsletterBlock[],
+  28: n28 as NewsletterBlock[],
+  29: n29 as NewsletterBlock[],
+  30: n30 as NewsletterBlock[],
+  31: n31 as NewsletterBlock[],
+  32: n32 as NewsletterBlock[],
+  33: n33 as NewsletterBlock[],
+  34: n34 as NewsletterBlock[],
+  35: n35 as NewsletterBlock[],
+  36: n36 as NewsletterBlock[],
+  37: n37 as NewsletterBlock[],
+  38: n38 as NewsletterBlock[],
+  39: n39 as NewsletterBlock[],
+  40: n40 as NewsletterBlock[],
+  41: n41 as NewsletterBlock[],
+  42: n42 as NewsletterBlock[],
+  43: n43 as NewsletterBlock[],
+  44: n44 as NewsletterBlock[],
+  45: n45 as NewsletterBlock[],
+  46: n46 as NewsletterBlock[],
+  47: n47 as NewsletterBlock[],
   48: n48 as NewsletterBlock[],
   49: n49 as NewsletterBlock[],
   50: n50 as NewsletterBlock[],
@@ -15,4 +109,4 @@ export const newsletterContent: Record<number, NewsletterBlock[]> = {
   53: n53 as NewsletterBlock[],
 };
 
-export const migratedIds = Object.keys(newsletterContent).map(Number).sort((a, b) => a - b);
+export const migratedIds = Object.keys(newsletterContent).map(Number);

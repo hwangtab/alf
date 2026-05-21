@@ -1,29 +1,32 @@
 #!/usr/bin/env node
 /**
- * 스티비 뉴스레터 콘텐츠 추출 + 이미지 다운로드 스크립트
+ * 스티비 뉴스레터 콘텐츠 추출 + 이미지 다운로드 + WebP 변환 스크립트
  *
  * 사용법:
- *   node scripts/fetch-newsletter.js 53         # 단일 id
- *   node scripts/fetch-newsletter.js 48 49 50   # 여러 id
- *   node scripts/fetch-newsletter.js all        # 대상 id 전체 (48~53)
+ *   node scripts/fetch-newsletter.js 47           # 단일 id
+ *   node scripts/fetch-newsletter.js 44 45 46 47  # 여러 id
+ *   node scripts/fetch-newsletter.js all          # 미마이그레이션 전체 (1~47)
  *
  * 출력:
- *   src/data/newsletters/{id}.json  — 본문 블록 (초안, 검수 필요)
- *   public/images/news/{id}/        — 다운로드된 이미지
+ *   src/data/newsletters/{id}.json  — 본문 블록 (초안, 검수 권장)
+ *   public/images/news/{id}/*.webp  — WebP 변환된 이미지
  *   src/data/newsletters.json       — thumbnail 로컬 경로로 갱신
+ *   src/data/newsletterContent.ts   — migratedIds 자동 갱신
  */
 
 const fs = require('fs');
 const path = require('path');
+const sharp = require('sharp');
 
 const projectRoot = path.join(__dirname, '..');
 const NEWSLETTERS_JSON = path.join(projectRoot, 'src/data/newsletters.json');
 const CONTENT_DIR = path.join(projectRoot, 'src/data/newsletters');
 const IMAGES_DIR = path.join(projectRoot, 'public/images/news');
+const CONTENT_TS = path.join(projectRoot, 'src/data/newsletterContent.ts');
 
-const TARGET_IDS = [48, 49, 50, 51, 52, 53];
+const ALREADY_MIGRATED = [48, 49, 50, 51, 52, 53];
+const ALL_REMAINING = Array.from({ length: 47 }, (_, i) => i + 1);
 
-// 스티비 보일러플레이트 패턴 — 해당 텍스트 포함 셀은 건너뜀
 const BOILERPLATE_PATTERNS = [
   /수신거부/,
   /Unsubscribe/i,
@@ -43,8 +46,8 @@ function isBoilerplate(text) {
   return BOILERPLATE_PATTERNS.some((p) => p.test(text));
 }
 
-async function resolveShareUrl(stibeeLink) {
-  const res = await fetch(stibeeLink, {
+async function resolveUrl(link) {
+  const res = await fetch(link, {
     method: 'GET',
     redirect: 'follow',
     headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ALF-archiver/1.0)' },
@@ -68,6 +71,7 @@ function decodeEntities(str) {
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(parseInt(n, 10)))
     .replace(/ /g, ' ');
 }
 
@@ -87,13 +91,9 @@ function cellToText(cellHtml) {
 
 function extractBodyImages(html) {
   const SKIP_PATTERNS = [
-    'logo_stibee',
-    'icon_alert',
-    'icon_',
-    'sponsor',
-    '53555_1630137126', // ALF 로고
-    'facebook',
-    'youtube',
+    'logo_stibee', 'icon_alert', 'icon_', 'sponsor',
+    '53555_1630137126',
+    'facebook', 'youtube',
   ];
   const images = [];
   const seen = new Set();
@@ -101,10 +101,7 @@ function extractBodyImages(html) {
     const src = m[1];
     if (!src.includes('stibee.com')) continue;
     if (SKIP_PATTERNS.some((p) => src.includes(p))) continue;
-    if (!seen.has(src)) {
-      seen.add(src);
-      images.push(src);
-    }
+    if (!seen.has(src)) { seen.add(src); images.push(src); }
   }
   return images;
 }
@@ -128,19 +125,14 @@ function parseEmailHtml(html) {
   const blocks = [];
   const bodyImages = extractBodyImages(html);
   const cells = extractCells(html);
-
-  // 푸터 시작점: 후원회원 가입 링크부터 끝 처리
   let inFooter = false;
 
   for (const cell of cells) {
-    if (/후원회원 가입/i.test(cell)) {
-      inFooter = true;
-    }
+    if (/후원회원 가입/i.test(cell)) { inFooter = true; }
     if (inFooter) continue;
 
     const rawText = cellToText(cell);
 
-    // 이미지 처리 (텍스트 없거나 있어도 이미지가 있는 경우)
     const imgMatch = cell.match(/<img[^>]+src=["']([^"']+)["'][^>]*/i);
     if (imgMatch) {
       const src = imgMatch[1];
@@ -160,7 +152,6 @@ function parseEmailHtml(html) {
     } else if (hLevel === 3) {
       blocks.push({ type: 'heading', level: 3, text: rawText.replace(/\n/g, ' ') });
     } else {
-      // 긴 텍스트는 빈 줄 단위로 문단 분리
       const paras = rawText
         .split(/\n{2,}/)
         .map((p) => p.replace(/\n/g, ' ').trim())
@@ -172,12 +163,6 @@ function parseEmailHtml(html) {
   }
 
   return { blocks, bodyImages };
-}
-
-function getExtension(url) {
-  const clean = url.split('?')[0];
-  const ext = path.extname(clean).toLowerCase();
-  return ['.jpg', '.jpeg', '.png', '.gif', '.webp'].includes(ext) ? ext : '.jpg';
 }
 
 async function downloadImage(url, destPath) {
@@ -193,6 +178,23 @@ async function downloadImage(url, destPath) {
   return true;
 }
 
+async function toWebp(srcPath, destPath) {
+  try {
+    await sharp(srcPath).webp({ quality: 82 }).toFile(destPath);
+    fs.unlinkSync(srcPath);
+    return true;
+  } catch (e) {
+    console.warn(`  WebP 변환 실패: ${path.basename(srcPath)} — ${e.message}`);
+    return false;
+  }
+}
+
+function getExtension(url) {
+  const clean = url.split('?')[0];
+  const ext = path.extname(clean).toLowerCase();
+  return ['.jpg', '.jpeg', '.png', '.gif', '.webp'].includes(ext) ? ext : '.jpg';
+}
+
 async function processNewsletter(id, newslettersData) {
   const meta = newslettersData.find((n) => n.id === id);
   if (!meta) {
@@ -200,46 +202,68 @@ async function processNewsletter(id, newslettersData) {
     return null;
   }
 
+  if (!meta.link) {
+    console.warn(`id ${id}: 링크 없음, 건너뜀`);
+    return null;
+  }
+
+  const jsonPath = path.join(CONTENT_DIR, `${id}.json`);
+  if (fs.existsSync(jsonPath)) {
+    console.log(`id ${id}: 이미 존재(건너뜀) — ${meta.title}`);
+    // thumbnail이 stibee CDN이면 여전히 로컬 경로 반환 시도
+    const localCover = meta.thumbnail && !meta.thumbnail.startsWith('/')
+      ? null : meta.thumbnail;
+    return { id, localCover: localCover && localCover.startsWith('/') ? localCover : null };
+  }
+
   console.log(`\n=== id ${id}: ${meta.title} ===`);
   console.log(`  링크: ${meta.link}`);
 
-  const shareUrl = await resolveShareUrl(meta.link);
-  console.log(`  share URL: ${shareUrl}`);
+  const shareUrl = await resolveUrl(meta.link);
+  console.log(`  URL: ${shareUrl}`);
 
   const html = await fetchHtml(shareUrl);
-  console.log(`  HTML 크기: ${html.length} bytes`);
+  console.log(`  HTML: ${html.length} bytes`);
 
   const { blocks, bodyImages } = parseEmailHtml(html);
-  console.log(`  발견된 이미지: ${bodyImages.length}개, 파싱된 블록: ${blocks.length}개`);
+  console.log(`  이미지: ${bodyImages.length}개  블록: ${blocks.length}개`);
 
   const imgDir = path.join(IMAGES_DIR, String(id));
   fs.mkdirSync(imgDir, { recursive: true });
 
   const urlToLocal = new Map();
 
-  // 커버 이미지 다운로드
-  if (meta.thumbnail && meta.thumbnail.includes('stibee.com')) {
-    const coverExt = getExtension(meta.thumbnail);
-    const coverDest = path.join(imgDir, `cover${coverExt}`);
-    const localCover = `/images/news/${id}/cover${coverExt}`;
-    console.log(`  커버 다운로드: cover${coverExt}`);
-    await downloadImage(meta.thumbnail, coverDest);
-    urlToLocal.set(meta.thumbnail, localCover);
+  // 커버 이미지
+  if (meta.thumbnail && !meta.thumbnail.startsWith('/')) {
+    const rawExt = getExtension(meta.thumbnail);
+    const rawDest = path.join(imgDir, `cover${rawExt}`);
+    const webpDest = path.join(imgDir, 'cover.webp');
+    const ok = await downloadImage(meta.thumbnail, rawDest);
+    if (ok) {
+      const converted = await toWebp(rawDest, webpDest);
+      const localPath = `/images/news/${id}/${converted ? 'cover.webp' : `cover${rawExt}`}`;
+      urlToLocal.set(meta.thumbnail, localPath);
+      console.log(`  커버 → ${path.basename(localPath)}`);
+    }
   }
 
-  // 본문 이미지 다운로드
+  // 본문 이미지
   for (let i = 0; i < bodyImages.length; i++) {
     const url = bodyImages[i];
-    const ext = getExtension(url);
-    const filename = `${String(i + 1).padStart(2, '0')}${ext}`;
-    const destPath = path.join(imgDir, filename);
-    const localPath = `/images/news/${id}/${filename}`;
-    console.log(`  이미지 [${i + 1}/${bodyImages.length}]: ${filename}`);
-    const ok = await downloadImage(url, destPath);
-    if (ok) urlToLocal.set(url, localPath);
+    const rawExt = getExtension(url);
+    const filename = `${String(i + 1).padStart(2, '0')}`;
+    const rawDest = path.join(imgDir, `${filename}${rawExt}`);
+    const webpDest = path.join(imgDir, `${filename}.webp`);
+    const ok = await downloadImage(url, rawDest);
+    if (ok) {
+      const converted = await toWebp(rawDest, webpDest);
+      const localPath = `/images/news/${id}/${converted ? `${filename}.webp` : `${filename}${rawExt}`}`;
+      urlToLocal.set(url, localPath);
+    }
+    process.stdout.write(`  이미지 [${i + 1}/${bodyImages.length}]\r`);
   }
+  if (bodyImages.length > 0) console.log(`  이미지 ${bodyImages.length}개 완료`);
 
-  // 블록의 이미지 src를 로컬 경로로 치환
   const localizedBlocks = blocks.map((b) => {
     if (b.type === 'image') {
       const local = urlToLocal.get(b.src);
@@ -248,12 +272,38 @@ async function processNewsletter(id, newslettersData) {
     return b;
   });
 
-  const contentPath = path.join(CONTENT_DIR, `${id}.json`);
-  fs.writeFileSync(contentPath, JSON.stringify(localizedBlocks, null, 2), 'utf-8');
-  console.log(`  저장: src/data/newsletters/${id}.json (${localizedBlocks.length}개 블록)`);
+  fs.writeFileSync(jsonPath, JSON.stringify(localizedBlocks, null, 2), 'utf-8');
+  console.log(`  저장: ${id}.json (${localizedBlocks.length}블록)`);
 
   const localCover = meta.thumbnail ? urlToLocal.get(meta.thumbnail) : null;
   return { id, localCover };
+}
+
+function updateContentTs(allMigratedIds) {
+  const sorted = [...allMigratedIds].sort((a, b) => a - b);
+
+  const imports = sorted
+    .map((id) => `import n${id} from './newsletters/${id}.json';`)
+    .join('\n');
+
+  const entries = sorted.map((id) => `  ${id}: n${id} as NewsletterBlock[],`).join('\n');
+
+  const content = `import type { NewsletterBlock } from '@/types/newsletter';
+${imports}
+
+export const newsletterContent: Record<number, NewsletterBlock[]> = {
+${entries}
+};
+
+export const migratedIds = Object.keys(newsletterContent).map(Number);
+`;
+
+  fs.writeFileSync(CONTENT_TS, content, 'utf-8');
+  console.log(`\nnewsletterContent.ts 갱신 (${sorted.length}개 호)`);
+}
+
+async function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms));
 }
 
 async function main() {
@@ -265,15 +315,21 @@ async function main() {
 
   const ids =
     args[0] === 'all'
-      ? TARGET_IDS
+      ? ALL_REMAINING
       : args.map((a) => parseInt(a, 10)).filter((n) => !isNaN(n));
 
   const newslettersData = JSON.parse(fs.readFileSync(NEWSLETTERS_JSON, 'utf-8'));
-
   const coverUpdates = [];
-  for (const id of ids) {
-    const result = await processNewsletter(id, newslettersData);
-    if (result && result.localCover) coverUpdates.push(result);
+
+  for (let i = 0; i < ids.length; i++) {
+    const id = ids[i];
+    try {
+      const result = await processNewsletter(id, newslettersData);
+      if (result && result.localCover) coverUpdates.push(result);
+    } catch (e) {
+      console.error(`\nid ${id} 실패: ${e.message}`);
+    }
+    if (i < ids.length - 1) await sleep(400); // 요청 간 딜레이
   }
 
   if (coverUpdates.length > 0) {
@@ -285,8 +341,15 @@ async function main() {
     console.log(`\nnewsletters.json thumbnail ${coverUpdates.length}개 갱신`);
   }
 
+  // newsletterContent.ts 갱신
+  const existingJsons = fs.readdirSync(CONTENT_DIR)
+    .filter((f) => /^\d+\.json$/.test(f))
+    .map((f) => parseInt(f, 10))
+    .filter((n) => !isNaN(n));
+  updateContentTs(existingJsons);
+
   console.log('\n=== 추출 완료 ===');
-  console.log('다음: src/data/newsletters/{id}.json 파일을 열어 본문 블록을 검수·정리하세요.');
+  console.log('다음: src/data/newsletters/{id}.json 파일을 검수하세요.');
 }
 
 main().catch((err) => {

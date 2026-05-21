@@ -10,7 +10,7 @@
       "2. 박치치 - 사진으로 보는 예술해방전선 이야기",
       "3. 박산들 - 검은 숲"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1630156695.jpeg"
+    "thumbnail": "/images/news/1/01.webp"
   },
   {
     "id": 2,
@@ -18,7 +18,7 @@
     "publishDate": "2021-10-01",
     "summary": "안녕하세요, 예술해방전선의 두번째 소식지를 전해드리게 되어 기쁜 마음입니다. 날씨가 저녁에는 꽤 쌀쌀해졌습니다. 건강을 항상 잘 살피시길 당부드립니다.이번 달에도 현장 예술가들의 작업을 소식지를 통해서 전해드리고자 합니다. 코로나19로 인해 활동폭이…",
     "link": "https://stib.ee/rg44",
-    "thumbnail": "https://img.stibee.com/53555_1632930776.jpg",
+    "thumbnail": "/images/news/2/01.webp",
     "highlights": [
       "1. 세민 - 가져가세요",
       "2. 황경하 - 아현동 노점상 투쟁 이야기",
@@ -32,7 +32,7 @@
     "publishDate": "2021-11-01",
     "summary": "안녕하세요, 예술해방전선의 세번째 소식지를 전해드리게 되어 기쁩니다. 이번 달에도 현장 예술가들의 작업을 소식지를 통해서 전해드리고자 합니다. 이번 소식지에는 박산들 작가의 그림과 뮤지션 세민의 음악, 황경하의 사진, 그리고 다시 재개되는 노량진수산…",
     "link": "https://stib.ee/Rt64",
-    "thumbnail": "https://img.stibee.com/53555_1635747515.jpg",
+    "thumbnail": "/images/news/3/01.webp",
     "highlights": [
       "2. 세민 - 꽃가루",
       "3. 황경하 - 서울미래유산 구 노량진수산시장 이야기"
@@ -48,7 +48,7 @@
       "1. 11월 활동 사진자료",
       "2. 11월 회계내역 보고"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1638716005.jpeg"
+    "thumbnail": "/images/news/4/01.webp"
   },
   {
     "id": 5,
@@ -62,7 +62,7 @@
       "3. 12월 예술해방전선 활동보고",
       "4. 12월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1641044421.jpeg"
+    "thumbnail": "/images/news/5/01.webp"
   },
   {
     "id": 6,
@@ -76,7 +76,7 @@
       "3. 1월 예술해방전선 활동보고",
       "4. 1월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1643601554.jpeg"
+    "thumbnail": "/images/news/6/01.webp"
   },
   {
     "id": 7,
@@ -91,7 +91,7 @@
       "4. 2월 예술해방전선 활동보고",
       "5. 2월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1646131434.jpeg"
+    "thumbnail": "/images/news/7/01.webp"
   },
   {
     "id": 8,
@@ -105,7 +105,7 @@
       "3. 3월 예술해방전선 활동보고",
       "4. 3월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1648736547.jpeg"
+    "thumbnail": "/images/news/8/01.webp"
   },
   {
     "id": 9,
@@ -117,7 +117,7 @@
       "1. 노량진수산시장 역전이 이야기",
       "2. 맑은 - 물고기는 물이 없으면 죽어요"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1651291768.jpeg"
+    "thumbnail": "/images/news/9/01.webp"
   },
   {
     "id": 10,
@@ -129,7 +129,7 @@
       "1. <물고기는 물이 없으면 죽어요> 구 노량진수산시장 음반 작업기",
       "2. 경하와 세민 - 소명"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1654166744.jpeg"
+    "thumbnail": "/images/news/10/01.webp"
   },
   {
     "id": 11,
@@ -140,7 +140,7 @@
     "highlights": [
       "서촌 족발집 사장은 왜 손가락 네 개가 잘렸나"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1656823690.jpeg"
+    "thumbnail": "/images/news/11/01.webp"
   },
   {
     "id": 12,
@@ -153,7 +153,7 @@
       "2. 치치 - 마지막 인사",
       "3. 김천 사드배치 반대투쟁 이야기"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1659275034.jpeg"
+    "thumbnail": "/images/news/12/01.webp"
   },
   {
     "id": 13,
@@ -166,7 +166,7 @@
       "3. 박치치 <발작> 발매 소식",
       "4. 고효경의 보이는 라디오 - 빈민운동가/사진가 최인기 편"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1662269473.jpeg"
+    "thumbnail": "/images/news/13/01.webp"
   },
   {
     "id": 14,
@@ -180,7 +180,7 @@
       "3. 박산들 작가님의 회화작업 공개",
       "4. 고효경의 보이는 라디오 - 뮤지션 초륜 편"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1664628068.jpeg"
+    "thumbnail": "/images/news/14/01.webp"
   },
   {
     "id": 15,
@@ -195,7 +195,7 @@
       "4. 경하와 세민 - 소명",
       "5. 유동혁 - 반추"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1667317777.jpeg"
+    "thumbnail": "/images/news/15/01.webp"
   },
   {
     "id": 16,
@@ -210,7 +210,7 @@
       "4. 구)노량진수산시장 투쟁기금 마련을 위한 후원주점 소식",
       "5. 11월"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1667317777.jpeg"
+    "thumbnail": "/images/news/16/01.webp"
   },
   {
     "id": 17,
@@ -225,7 +225,7 @@
       "4. 콜트콜텍 기타노동자 밴드 - 고공",
       "5. 12월"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1669962028.jpeg"
+    "thumbnail": "/images/news/17/01.webp"
   },
   {
     "id": 18,
@@ -239,7 +239,7 @@
       "3. <우진상회> 박점엽 상인의 이야기",
       "4. 이태원 참사 추모문화제 연대계획"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1676361557.jpeg"
+    "thumbnail": "/images/news/18/01.webp"
   },
   {
     "id": 19,
@@ -254,7 +254,7 @@
       "4. 노량진수산시장 농성장 소식",
       "5. 2월 18일 이태원 참사 추모문화제 보고"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1678621885.jpg"
+    "thumbnail": "/images/news/19/01.webp"
   },
   {
     "id": 20,
@@ -268,7 +268,7 @@
       "3. 강정마을 축제 준비 소식",
       "4. 고효경과 재야의 고수들 - Jinu Konda 편"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1681651044.jpg"
+    "thumbnail": "/images/news/20/01.webp"
   },
   {
     "id": 21,
@@ -279,7 +279,7 @@
     "highlights": [
       "강정피스앤뮤직캠프"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1684071206.jpg"
+    "thumbnail": "/images/news/21/01.webp"
   },
   {
     "id": 22,
@@ -294,7 +294,7 @@
       "4. 6.16 (금) 노량진수산시장 문화제",
       "5. 박산들 작가의 개인전 <낯선 안개>"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1687235850.jpeg"
+    "thumbnail": "/images/news/22/01.webp"
   },
   {
     "id": 23,
@@ -306,7 +306,7 @@
       "2. 6.30 (금) 노량진수산시장 문화제",
       "3. 이서영 - 진심은 여기에 있다 (2023.6.28 @스튜디오 놀)"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1689570450.jpeg"
+    "thumbnail": "/images/news/23/01.webp"
   },
   {
     "id": 24,
@@ -320,7 +320,7 @@
       "3. Jinu Konda - Burn in Hell",
       "4. 남자애(CHILD B) _ 친애하는 우리에게(DEAR.X)"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1692515673.jpg"
+    "thumbnail": "/images/news/24/02.webp"
   },
   {
     "id": 25,
@@ -334,7 +334,7 @@
       "3. Jinu Konda X Alex - 종이 위의 숫자",
       "4. 세민 - 헤어지지 말아요"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1695455162.jpg"
+    "thumbnail": "/images/news/25/02.webp"
   },
   {
     "id": 26,
@@ -348,7 +348,7 @@
       "3. 투쟁현장에 연대하는 예술가들의 밤샘파티",
       "4. Jinu Konda - Burn in Hell"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1698670135.jpg"
+    "thumbnail": "/images/news/26/02.webp"
   },
   {
     "id": 27,
@@ -363,7 +363,7 @@
       "세민의 첫 정규 앨범 ‘어린 잎’, 젊은 음악가의 불안과 연대를 음악으로 그려내다.",
       "5. 10월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1701148593.jpg"
+    "thumbnail": "/images/news/27/02.webp"
   },
   {
     "id": 28,
@@ -378,7 +378,7 @@
       "3. 세민 <여린 잎> 앨범 다운로드",
       "4. 이서영 <곁의 소리> 공연실황"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1703493672.jpg"
+    "thumbnail": "/images/news/28/02.webp"
   },
   {
     "id": 29,
@@ -393,7 +393,7 @@
       "4. <평화운동가 조현철의 삶과 투쟁> 공연실황",
       "5. 노량진수산시장 상인 송년회"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1706350386.jpeg"
+    "thumbnail": "/images/news/29/02.webp"
   },
   {
     "id": 30,
@@ -408,7 +408,7 @@
       "4. 출장작곡가 김동산 - 통영생선구이 블루스",
       "5. 12월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1708849811.jfif"
+    "thumbnail": "/images/news/30/02.webp"
   },
   {
     "id": 31,
@@ -422,7 +422,7 @@
       "3. 3.15 노량진수산시장 음악회 개최",
       "4. 2월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1711449802.PNG"
+    "thumbnail": "/images/news/31/02.webp"
   },
   {
     "id": 32,
@@ -437,7 +437,7 @@
       "4. 쫓겨난 세종호텔 해고노동자들과 함께",
       "5. 3월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1714218284.jpg"
+    "thumbnail": "/images/news/32/02.webp"
   },
   {
     "id": 33,
@@ -451,7 +451,7 @@
       "3. 최인기 작가님 출소 환영회",
       "4. 4월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img.stibee.com/53555_1716788602.jpg"
+    "thumbnail": "/images/news/33/02.webp"
   },
   {
     "id": 34,
@@ -466,7 +466,7 @@
       "4. 이태원 참사 희생자에 대한 연대",
       "5. 5월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img2.stibee.com/53555_2259855_1719734149151635051.png"
+    "thumbnail": "/images/news/34/02.webp"
   },
   {
     "id": 35,
@@ -481,7 +481,7 @@
       "4. <노량진회센타> 개업소식",
       "5. 황경하 - 눈녹듯"
     ],
-    "thumbnail": "https://img2.stibee.com/53555_2266505_1722394467444787035.jpg"
+    "thumbnail": "/images/news/35/02.webp"
   },
   {
     "id": 36,
@@ -496,7 +496,7 @@
       "4. 두번째 공개 트랙 \"김동산과 블루이웃 - 물결\"",
       "5. 세번째 공개 트랙 \"모레도토요일 - We will sail for your freedom\""
     ],
-    "thumbnail": "https://img2.stibee.com/53555_2365590_1724818940384499832.jpeg"
+    "thumbnail": "/images/news/36/02.webp"
   },
   {
     "id": 37,
@@ -511,7 +511,7 @@
       "5. 동서울터미널 연대",
       "6. 9월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img2.stibee.com/53555_2408052_1726901049546192133.jpg"
+    "thumbnail": "/images/news/37/02.webp"
   },
   {
     "id": 38,
@@ -526,7 +526,7 @@
       "4. 전쟁의 상처를 노래하다 - 자이(Jai)와 HANASH의 '분홍색 패딩 소녀'",
       "5. 10월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img2.stibee.com/53555_2408052_1726901049546192133.jpg"
+    "thumbnail": "/images/news/38/02.webp"
   },
   {
     "id": 39,
@@ -541,7 +541,7 @@
       "4. 모레도토요일 - We will sail for your freedom 음원발매",
       "5. 11월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img2.stibee.com/53555_2527770_1732591724667654781.jpeg"
+    "thumbnail": "/images/news/39/02.webp"
   },
   {
     "id": 40,
@@ -556,7 +556,7 @@
       "4. 한국옵티컬하이테크 투쟁 연대공연",
       "5. 12월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img2.stibee.com/53555_2588008_1735540710938394607.jpg"
+    "thumbnail": "/images/news/40/02.webp"
   },
   {
     "id": 41,
@@ -571,7 +571,7 @@
       "4. 삼각전파사, <디스토피아 2025>로 전하는 우리의 이야기",
       "5. 12월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img2.stibee.com/53555_2632184_1738336947075632795.jpeg"
+    "thumbnail": "/images/news/41/02.webp"
   },
   {
     "id": 42,
@@ -586,7 +586,7 @@
       "4. 음악의 정치성은 어떻게 현재화될 수 있는가?",
       "5. 1월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img2.stibee.com/53555_2677716_1740887242114236828.jpg"
+    "thumbnail": "/images/news/42/02.webp"
   },
   {
     "id": 43,
@@ -601,7 +601,7 @@
       "3. 광장을 넘어, 현장으로: 어디에서 희망을 찾을 것인가",
       "4. 박찬울 프로듀서 인터뷰"
     ],
-    "thumbnail": "https://img2.stibee.com/53555_2724210_1743348982650478838.png"
+    "thumbnail": "/images/news/43/02.webp"
   },
   {
     "id": 44,
@@ -616,7 +616,7 @@
       "3. 장구 소리로 피어나는 궁중족발의 이야기",
       "장구 소리에 담긴 투쟁의 역사와 새로운 희망의 시작"
     ],
-    "thumbnail": "https://img2.stibee.com/53555_2771153_1745737309169465756.png"
+    "thumbnail": "/images/news/44/01.webp"
   },
   {
     "id": 45,
@@ -631,7 +631,7 @@
       "3. 장구 소리로 피어나는 궁중족발의 이야기",
       "장구 소리에 담긴 투쟁의 역사와 새로운 희망의 시작"
     ],
-    "thumbnail": "https://img2.stibee.com/53555_2814294_1748070890822523452.png"
+    "thumbnail": "/images/news/45/01.webp"
   },
   {
     "id": 46,
@@ -646,7 +646,7 @@
       "1. 강정 피스앤뮤직 캠프 성료",
       "제2회 강정피스앤뮤직캠프가 여러분과 함께 성공적으로 마무리되었습니다."
     ],
-    "thumbnail": "https://img2.stibee.com/53555_2814294_1748070890822523452.png"
+    "thumbnail": "/images/news/46/01.webp"
   },
   {
     "id": 47,
@@ -660,7 +660,7 @@
       "3. 삼각전파사 『디스토피아 2025』: 차가운 전자음, 뜨거운 저항의 언어로 시대를 해부하다",
       "4. 6월 예술해방전선 회계보고"
     ],
-    "thumbnail": "https://img2.stibee.com/53555_2907034_1753000186366481941.png"
+    "thumbnail": "/images/news/47/01.webp"
   },
   {
     "id": 48,
