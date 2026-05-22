@@ -1198,6 +1198,21 @@
     "prevBalance": 309196,
     "currentBalance": 337496
   },
+  "2026-03": {
+    "income": [
+      { "label": "CMS 정기후원", "amount": 61300 }
+    ],
+    "expense": [
+      { "label": "CMS 수수료", "amount": 33000 },
+      { "label": "이스라엘 대사관 앞 기도회 (3/19)", "amount": 59000, "note": "강가히말라야, 출장작곡가 김동산 동지 등" },
+      { "label": "홍천 풍천리 연대 (3/28)", "amount": 36000, "note": "자이, 삼각전파사, 황경하 동지 등" }
+    ],
+    "totalIncome": 61300,
+    "totalExpense": 128000,
+    "net": -66700,
+    "prevBalance": 337496,
+    "currentBalance": 270796
+  },
   "2021-09": {
     "income": [
       {
