@@ -131,6 +131,41 @@ node scripts/send-mailing.js <id> --send
 
 To add a new newsletter to the site: add `{id}.json`, add entry to `newsletters.json`, add import + entry to `newsletterContent.ts`.
 
+### Newsletter Block JSON 서식 (53호 기준, 반드시 준수)
+
+**구조 순서 및 heading level 규칙 — 어기면 안 됨:**
+
+1. **인사말** — heading 없이 paragraph 블록들로 시작. 첫 블록은 `"존경하는 예술해방전선 회원 및 투쟁동지 여러분께"` 단독 단락. 이후 각 단락은 별도 paragraph 블록 (줄바꿈 `\n` 사용 금지, 단락마다 쪼갤 것).
+2. **활동 섹션들** — **`level: 3` heading** → image(들) → paragraph(들) → link(있으면). 섹션 heading은 반드시 level 3.
+3. **회계보고** — **`level: 2` heading** (`"N월 회계보고"`) → ledger 블록 → 설명 paragraph 2~3개. level 2는 회계보고에만 사용.
+
+**금지 패턴:**
+- 인사말에 heading 붙이는 것
+- 여러 단락을 `\n`으로 이어붙여 하나의 paragraph 블록으로 만드는 것
+- 활동 섹션에 level 2 heading 사용
+- 회계보고에 ledger만 두고 설명 paragraph 생략
+
+**예시 골격:**
+```json
+[
+  { "type": "paragraph", "text": "존경하는 예술해방전선 회원 및 투쟁동지 여러분께" },
+  { "type": "paragraph", "text": "계절 인사..." },
+  { "type": "paragraph", "text": "활동 예고 및 마무리 인사. 함께 연대하며, 예술해방전선 드림" },
+
+  { "type": "heading", "level": 3, "text": "섹션 제목" },
+  { "type": "image", "src": "/images/news/{id}/01.webp", "alt": "설명" },
+  { "type": "paragraph", "text": "단락 1" },
+  { "type": "paragraph", "text": "단락 2" },
+  { "type": "link", "text": "링크 텍스트", "href": "https://..." },
+
+  { "type": "heading", "level": 2, "text": "N월 회계보고" },
+  { "type": "ledger", "month": "YYYY-MM" },
+  { "type": "paragraph", "text": "수입 설명..." },
+  { "type": "paragraph", "text": "지출 설명..." },
+  { "type": "paragraph", "text": "잔액 현황 및 감사 인사." }
+]
+```
+
 ## Full Newsletter Publishing Workflow (Notion → Deploy → Mailing)
 
 When the user provides a Notion page URL for a new 활동 보고:
