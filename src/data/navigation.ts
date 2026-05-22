@@ -12,5 +12,5 @@ export const navigationLinks: NavLink[] = [
   { href: '/gallery', label: '갤러리' },
   { href: '/guide', label: '가이드' },
   { href: '/news', label: '활동 보고' },
-  { href: '/support', label: '후원하기' },
+  { href: '/support', label: '회원 가입' },
 ];
