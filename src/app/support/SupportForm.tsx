@@ -64,6 +64,12 @@ export default function SupportForm() {
       }
     }
 
+    if (Number(form.amount) < 10000) {
+      setStatus('error');
+      setErrorMessage('월 후원금액은 10,000원 이상이어야 합니다.');
+      return;
+    }
+
     if (!form.holderSameAsApplicant) {
       if (!form.accountHolder.trim() || !form.accountHolderPhone.trim()) {
         setStatus('error');
@@ -154,10 +160,10 @@ export default function SupportForm() {
         </div>
       </div>
 
-      {/* 후원 정보 */}
-      <p className={sectionTitleCls}>후원 정보</p>
+      {/* 회비 정보 */}
+      <p className={sectionTitleCls}>회비 정보</p>
       <div>
-        <label htmlFor="amount" className={labelCls}>월 후원금액 * <span className="text-neutral-500 font-normal">(원)</span></label>
+        <label htmlFor="amount" className={labelCls}>월 회비 * <span className="text-neutral-500 font-normal">(원, 최소 10,000원)</span></label>
         <input id="amount" name="amount" type="text" inputMode="numeric" value={form.amount} onChange={handleChange}
           placeholder="10000" className={inputCls} disabled={status === 'submitting'} />
       </div>
@@ -217,9 +223,9 @@ export default function SupportForm() {
         <p className="font-semibold text-neutral-300 mb-2">개인정보 수집·이용 고지</p>
         <ul className="space-y-1 list-disc pl-4">
           <li><span className="text-neutral-300">수집 항목:</span> 이름, 생년월일, 연락처, 이메일, 은행명, 계좌번호, 예금주, 예금주 연락처(예금주가 다를 경우)</li>
-          <li><span className="text-neutral-300">수집·이용 목적:</span> 후원 회원 관리, CMS 자동이체 신청, 활동 보고 발송</li>
-          <li><span className="text-neutral-300">보유·이용 기간:</span> 후원 종료 후 즉시 파기</li>
-          <li>동의를 거부하실 수 있으나, 거부 시 후원 회원 가입이 불가합니다.</li>
+          <li><span className="text-neutral-300">수집·이용 목적:</span> 정기 회원 관리, CMS 자동이체 신청, 활동 보고 발송</li>
+          <li><span className="text-neutral-300">보유·이용 기간:</span> 회원 탈퇴 후 즉시 파기</li>
+          <li>동의를 거부하실 수 있으나, 거부 시 정기 회원 가입이 불가합니다.</li>
         </ul>
       </div>
 
@@ -236,7 +242,7 @@ export default function SupportForm() {
           <input type="checkbox" name="cmsConsent" checked={form.cmsConsent} onChange={handleChange}
             className="mt-0.5 w-4 h-4 rounded border-neutral-600 bg-neutral-800 accent-primary-red flex-shrink-0" />
           <span className="text-sm text-neutral-300 group-hover:text-white transition-colors">
-            <span className="text-primary-red font-semibold">[필수]</span> 위 계좌에서 매월 후원금이 자동이체(CMS 출금)되는 것에 동의합니다.
+            <span className="text-primary-red font-semibold">[필수]</span> 위 계좌에서 매월 회비가 자동이체(CMS 출금)되는 것에 동의합니다.
           </span>
         </label>
       </div>
@@ -247,7 +253,7 @@ export default function SupportForm() {
           disabled={status === 'submitting'}
           className="w-full bg-primary-red hover:bg-red-700 disabled:opacity-50 text-white font-bold py-4 px-8 rounded-lg transition-colors duration-200 text-base"
         >
-          {status === 'submitting' ? '처리 중...' : '후원 회원 가입 신청'}
+          {status === 'submitting' ? '처리 중...' : '정기 회원 가입 신청'}
         </button>
       </div>
     </form>

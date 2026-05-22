@@ -30,6 +30,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: '이메일 주소가 올바르지 않습니다.' }, { status: 400 });
     }
 
+    if (Number(amount) < 10000) {
+      return NextResponse.json({ error: '월 후원금액은 10,000원 이상이어야 합니다.' }, { status: 400 });
+    }
+
     const sameHolder = holderSameAsApplicant !== false;
     if (!sameHolder) {
       if (!String(accountHolder ?? '').trim() || !String(accountHolderPhone ?? '').trim()) {

@@ -141,7 +141,7 @@ export function supporterNotifyEmail(data: SupporterData): { subject: string; ht
   const e = escapeHtml;
   const bodyHtml = `
     <p style="margin:0 0 20px;font-size:17px;font-weight:600;color:#111827;">
-      새 후원 회원 가입 신청이 접수됐습니다.
+      새 정기 회원 가입 신청이 접수됐습니다.
     </p>
     <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color:#f9fafb;border-radius:8px;margin:0 0 16px;">
       <tr><td style="padding:20px 24px;">
@@ -155,9 +155,9 @@ export function supporterNotifyEmail(data: SupporterData): { subject: string; ht
     </table>
     <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color:#fff7ed;border-radius:8px;margin:0 0 16px;border:1px solid #fed7aa;">
       <tr><td style="padding:20px 24px;">
-        <p style="margin:0 0 14px;font-size:13px;font-weight:700;color:#c2410c;letter-spacing:0.5px;">CMS 자동이체 정보</p>
+        <p style="margin:0 0 14px;font-size:13px;font-weight:700;color:#c2410c;letter-spacing:0.5px;">CMS 자동이체 정보 (월 회비)</p>
         <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
-          ${infoRow('월 후원금액', e(data.amount) + '원', true)}
+          ${infoRow('월 회비', e(data.amount) + '원', true)}
           ${infoRow('은행', e(data.bank))}
           ${infoRow('계좌번호', e(data.accountNumber), true)}
           ${infoRow('예금주', e(data.accountHolder))}
@@ -171,10 +171,10 @@ export function supporterNotifyEmail(data: SupporterData): { subject: string; ht
     </p>
   `;
   return {
-    subject: `새 후원 가입 신청: ${data.name} (${data.amount}원)`,
-    html: renderShell('후원 회원 신청 알림', bodyHtml),
+    subject: `새 회원 가입 신청: ${data.name} (${data.amount}원)`,
+    html: renderShell('정기 회원 신청 알림', bodyHtml),
     text: [
-      '새 후원 회원 가입 신청',
+      '새 정기 회원 가입 신청',
       '',
       `이름: ${data.name}`,
       `생년월일: ${data.birthDate}`,
@@ -182,7 +182,7 @@ export function supporterNotifyEmail(data: SupporterData): { subject: string; ht
       `이메일: ${data.email}`,
       '',
       '[CMS 자동이체]',
-      `월 후원금액: ${data.amount}원`,
+      `월 회비: ${data.amount}원`,
       `은행: ${data.bank}`,
       `계좌번호: ${data.accountNumber}`,
       `예금주: ${data.accountHolder}`,
@@ -198,10 +198,10 @@ export function supporterWelcomeEmail(name: string): { subject: string; html: st
   const safeName = escapeHtml(name);
   const bodyHtml = `
     <p style="margin:0 0 16px;font-size:22px;font-weight:700;color:#111827;line-height:1.4;">
-      ${safeName}님, 신청해 주셔서 감사합니다
+      ${safeName}님, 가입 신청해 주셔서 감사합니다
     </p>
     <p style="margin:0 0 14px;color:#374151;">
-      예술해방전선 후원 회원 가입 신청이 접수됐습니다.
+      예술해방전선 정기 회원 가입 신청이 접수됐습니다.
     </p>
     <p style="margin:0 0 14px;color:#374151;">
       단체에서 가입 내용을 확인하고 CMS 자동이체를 등록해 드리겠습니다.
@@ -211,10 +211,10 @@ export function supporterWelcomeEmail(name: string): { subject: string; html: st
     ${navLinks()}
   `;
   return {
-    subject: '예술해방전선 후원 회원 가입 신청이 접수됐습니다',
-    html: renderShell('후원해 주셔서 감사합니다', bodyHtml),
+    subject: '예술해방전선 정기 회원 가입 신청이 접수됐습니다',
+    html: renderShell('가입 신청해 주셔서 감사합니다', bodyHtml),
     text: [
-      `${name}님, 예술해방전선 후원 회원 가입 신청이 접수됐습니다.`,
+      `${name}님, 예술해방전선 정기 회원 가입 신청이 접수됐습니다.`,
       '',
       '단체에서 가입 내용을 확인하고 CMS 자동이체를 등록해 드리겠습니다.',
       '문의: alf.seoul.kr@gmail.com',
