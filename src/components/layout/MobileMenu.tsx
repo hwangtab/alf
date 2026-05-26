@@ -14,6 +14,8 @@ export default function MobileMenu({ links }: MobileMenuProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const triggerButton = buttonRef.current;
+
     if (!isMenuOpen) {
       document.body.classList.remove('menu-open');
       return;
@@ -49,7 +51,7 @@ export default function MobileMenu({ links }: MobileMenuProps) {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.classList.remove('menu-open');
-      buttonRef.current?.focus();
+      triggerButton?.focus();
     };
   }, [isMenuOpen]);
 

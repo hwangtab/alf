@@ -80,8 +80,6 @@ for (const [idStr, month] of Object.entries(ID_TO_MONTH)) {
   // 변경 요약
   const beforeH = blocks.filter(b => b.type === 'heading').length;
   const afterH = newBlocks.filter(b => b.type === 'heading').length;
-  const hasLedger = newBlocks.some(b => b.type === 'ledger');
-
   fs.writeFileSync(p, JSON.stringify(newBlocks, null, 2), 'utf-8');
 
   results.push({
@@ -98,7 +96,7 @@ for (const [idStr, month] of Object.entries(ID_TO_MONTH)) {
 
 // 상세 검수용: 각 호의 H3 목록 출력
 console.log('\n===== 섹션 제목 목록 =====');
-for (const { id, month } of Object.entries(ID_TO_MONTH).map(([k, v]) => ({ id: parseInt(k), month: v }))) {
+for (const { id } of Object.entries(ID_TO_MONTH).map(([k]) => ({ id: parseInt(k) }))) {
   const p = path.join(DIR, `${id}.json`);
   const blocks = JSON.parse(fs.readFileSync(p, 'utf-8'));
   const heads = blocks.filter(b => b.type === 'heading').map(b => `H${b.level}:${(b.text || '').slice(0, 40)}`);

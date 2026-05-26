@@ -15,8 +15,6 @@ html {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transform: translateZ(0);
-  /* GPU 가속 */
-  will-change: transform;
 }
 
 /* Next.js localFont가 폰트를 처리하므로 중복 @font-face 제거 */

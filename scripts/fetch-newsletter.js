@@ -24,7 +24,6 @@ const CONTENT_DIR = path.join(projectRoot, 'src/data/newsletters');
 const IMAGES_DIR = path.join(projectRoot, 'public/images/news');
 const CONTENT_TS = path.join(projectRoot, 'src/data/newsletterContent.ts');
 
-const ALREADY_MIGRATED = [48, 49, 50, 51, 52, 53];
 const ALL_REMAINING = Array.from({ length: 47 }, (_, i) => i + 1);
 
 const BOILERPLATE_PATTERNS = [
