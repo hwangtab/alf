@@ -12,6 +12,7 @@ export default function NewsletterSignup() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setErrorMessage('');
 
     if (!email || !name) {
       setStatus('error');
@@ -38,10 +39,10 @@ export default function NewsletterSignup() {
       setStatus('success');
       setEmail('');
       setName('');
-    } catch (error) {
+    } catch (err) {
       setStatus('error');
-      setErrorMessage('구독 신청 중 오류가 발생했습니다. 다시 시도해주세요.');
-      console.error('Newsletter signup error:', error);
+      setErrorMessage(err instanceof Error ? err.message : '구독 신청 중 오류가 발생했습니다. 다시 시도해주세요.');
+      console.error('Newsletter signup error:', err);
     }
   };
 

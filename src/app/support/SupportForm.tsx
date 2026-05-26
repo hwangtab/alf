@@ -64,6 +64,27 @@ export default function SupportForm() {
       }
     }
 
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!EMAIL_RE.test(form.email)) {
+      setStatus('error');
+      setErrorMessage('이메일 주소 형식이 올바르지 않습니다.');
+      return;
+    }
+
+    const PHONE_RE = /^0\d{1,2}[-\s]?\d{3,4}[-\s]?\d{4}$/;
+    if (!PHONE_RE.test(form.phone.replace(/\s/g, ''))) {
+      setStatus('error');
+      setErrorMessage('전화번호 형식이 올바르지 않습니다. (예: 010-1234-5678)');
+      return;
+    }
+
+    const BIRTHDATE_RE = /^\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])$/;
+    if (!BIRTHDATE_RE.test(form.birthDate)) {
+      setStatus('error');
+      setErrorMessage('생년월일을 YYYY-MM-DD 형식으로 입력해주세요. (예: 1990-01-01)');
+      return;
+    }
+
     if (Number(form.amount) < 10000) {
       setStatus('error');
       setErrorMessage('월 후원금액은 10,000원 이상이어야 합니다.');

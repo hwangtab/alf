@@ -69,7 +69,11 @@ function loadEnv() {
   }
   for (const line of fs.readFileSync(envPath, 'utf8').split('\n')) {
     const m = line.match(/^([A-Z_][A-Z0-9_]*)=(.*)$/);
-    if (m) process.env[m[1]] = m[2].replace(/^['"]|['"]$/g, '');
+    if (m) {
+      const raw = m[2];
+      const quoted = raw.match(/^(['"])(.*)\1$/s);
+      process.env[m[1]] = quoted ? quoted[2] : raw.replace(/\s+#.*$/, '').trim();
+    }
   }
 }
 
@@ -330,6 +334,8 @@ async function main() {
 
   // ── 드라이런 ────────────────────────────────────────────────────────
   if (mode === 'preview') {
+    const privateDir = path.join(ROOT, 'private');
+    if (!fs.existsSync(privateDir)) fs.mkdirSync(privateDir, { recursive: true });
     const previewPath = path.join(ROOT, `private/preview-${id}.html`);
     fs.writeFileSync(previewPath, html, 'utf8');
     console.log(`\n[드라이런] 발송 안 함`);

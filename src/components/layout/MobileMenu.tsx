@@ -42,7 +42,7 @@ export default function MobileMenu({ links }: MobileMenuProps) {
       <button
         className="hamburger-button block md:hidden text-white p-2 focus:outline-none relative z-[110]"
         onClick={() => setIsMenuOpen((open) => !open)}
-        aria-label="메뉴 열기"
+        aria-label={isMenuOpen ? '메뉴 닫기' : '메뉴 열기'}
         type="button"
       >
         <div className="w-6 h-5 flex flex-col justify-between">
@@ -67,20 +67,6 @@ export default function MobileMenu({ links }: MobileMenuProps) {
       {isMenuOpen && (
         <div
           className="mobile-menu-overlay fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center"
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            height: '100dvh',
-            width: '100vw',
-            backgroundColor: '#000000',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
         >
           <nav className="flex flex-col items-center gap-8 text-center">
             {links.map((item, index) => (

@@ -171,7 +171,7 @@ export function supporterNotifyEmail(data: SupporterData): { subject: string; ht
     </p>
   `;
   return {
-    subject: `새 회원 가입 신청: ${data.name} (${data.amount}원)`,
+    subject: `새 회원 가입 신청: ${data.name.replace(/[\r\n]/g, ' ')} (${data.amount}원)`,
     html: renderShell('정기 회원 신청 알림', bodyHtml),
     text: [
       '새 정기 회원 가입 신청',
@@ -255,7 +255,7 @@ export function notifyEmail(
     </p>
   `;
   return {
-    subject: `새 소식 구독 신청: ${name}`,
+    subject: `새 소식 구독 신청: ${name.replace(/[\r\n]/g, ' ')}`,
     html: renderShell('관리자 알림', bodyHtml),
     text: [
       '새 소식 구독 신청',

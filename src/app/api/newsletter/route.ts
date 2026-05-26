@@ -31,17 +31,25 @@ export async function POST(request: Request) {
     });
 
     if (result.error) {
-      return NextResponse.json({ error: '이메일 전송에 실패했습니다.', details: result.error.message }, { status: 502 });
+      console.error('Newsletter send error:', result.error);
+      return NextResponse.json({ error: '이메일 전송에 실패했습니다. 잠시 후 다시 시도해주세요.' }, { status: 502 });
     }
 
     const welcome = welcomeEmail(name);
-    await resend.emails.send({
-      from: FROM,
-      to: email,
-      subject: welcome.subject,
-      html: welcome.html,
-      text: welcome.text,
-    });
+    try {
+      const welcomeResult = await resend.emails.send({
+        from: FROM,
+        to: email,
+        subject: welcome.subject,
+        html: welcome.html,
+        text: welcome.text,
+      });
+      if (welcomeResult.error) {
+        console.error('Welcome email failed (non-fatal):', welcomeResult.error);
+      }
+    } catch (welcomeError) {
+      console.error('Welcome email exception (non-fatal):', welcomeError);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
