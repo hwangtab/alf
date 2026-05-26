@@ -15,7 +15,6 @@
     "download:news-images": "node scripts/download-newsletter-images.js"
   },
   "dependencies": {
-    "@next/font": "^14.2.15",
     "@vercel/analytics": "^1.5.0",
     "cheerio": "^1.1.0",
     "framer-motion": "^11.18.2",

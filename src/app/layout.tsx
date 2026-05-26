@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import localFont from 'next/font/local';
+import { generateOrganizationSchema, generateWebsiteSchema } from '@/utils/structured-data';
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import NoiseBackground from "@/components/layout/NoiseBackground";
@@ -22,40 +23,6 @@ const sfHambak = localFont({
   preload: true,
 });
 
-const organizationStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "예술해방전선",
-  alternateName: "Art Liberation Front",
-  url: "https://alf.seoul.kr",
-  logo: "https://alf.seoul.kr/images/logo.webp",
-  sameAs: [
-    "https://www.facebook.com/artliberationfront",
-    "https://www.youtube.com/@artliberationfront",
-    "https://open.kakao.com/me/Alfseoul"
-  ],
-  foundingDate: "2019",
-  contactPoint: [
-    {
-      "@type": "ContactPoint",
-      email: "alf.seoul.kr@gmail.com",
-      contactType: "customer service",
-      availableLanguage: ["ko"]
-    }
-  ],
-};
-
-const websiteStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "예술해방전선",
-  url: "https://alf.seoul.kr",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: "https://www.google.com/search?q=site:alf.seoul.kr+{search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
-};
 
 export const metadata: Metadata = {
   // 기본 정보
@@ -146,7 +113,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify([organizationStructuredData, websiteStructuredData]),
+            __html: JSON.stringify([generateOrganizationSchema(), generateWebsiteSchema()]),
           }}
         />
       </head>

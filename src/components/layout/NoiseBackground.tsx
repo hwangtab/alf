@@ -17,7 +17,7 @@ export default function NoiseBackground() {
       aria-hidden="true"
       style={noiseStyle}
     >
-      <div className="w-full h-full animate-pulse" style={{ opacity: 0.7 }} />
+      <div className="w-full h-full animate-pulse motion-reduce:animate-none" style={{ opacity: 0.7 }} />
     </div>
   );
 }
