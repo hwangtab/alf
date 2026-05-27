@@ -207,8 +207,8 @@
     "totalIncome": 137047,
     "totalExpense": 198000,
     "net": -60953,
-    "prevBalance": 128018,
-    "currentBalance": 67065
+    "prevBalance": 128028,
+    "currentBalance": 67075
   },
   "2022-04": {
     "income": [
@@ -291,8 +291,8 @@
     "totalIncome": 241757,
     "totalExpense": 0,
     "net": 241757,
-    "prevBalance": 127712,
-    "currentBalance": 369469
+    "prevBalance": 127720,
+    "currentBalance": 369477
   },
   "2022-07": {
     "income": [
@@ -553,8 +553,8 @@
     "totalIncome": 237027,
     "totalExpense": 0,
     "net": 237027,
-    "prevBalance": 18,
-    "currentBalance": 237045
+    "prevBalance": 5,
+    "currentBalance": 237032
   },
   "2023-04": {
     "income": [
