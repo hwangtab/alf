@@ -102,11 +102,7 @@ export default function MobileMenu({ links }: MobileMenuProps) {
                 <Link
                   href={item.href}
                   onClick={closeMenu}
-                  className="text-white text-2xl font-bold py-3 px-6 block hover:text-red-400 transition-colors duration-200"
-                  style={{
-                    fontFamily:
-                      'system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
-                  }}
+                  className="text-white text-2xl font-bold py-3 px-6 block hover:text-red-400 transition-colors duration-200 font-sans"
                 >
                   {item.label}
                 </Link>

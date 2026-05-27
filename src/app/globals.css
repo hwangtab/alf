@@ -1,23 +1,31 @@
 @import "tailwindcss";
 
-/* Tailwind 4.x CSS 변수 직접 덮어쓰기 - CSS 변수 체인 문제 해결 */
+/* Tailwind 4.x @theme — 폰트 + 커스텀 색상 유틸 클래스 생성 */
 @theme {
   --font-sans: "__gmarketSans_a0970f", "__gmarketSans_Fallback_a0970f", "GmarketSans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   --font-serif: "__sfHambak_b90ef3", "__sfHambak_Fallback_b90ef3", "SF_HambakSnow", Georgia, "Times New Roman", serif;
+
+  /* 커스텀 색상 (text-primary-red, from-accent-purple 등 유틸 클래스 생성) */
+  --color-primary-red: #ff3d3d;
+  --color-primary-orange: #ff7b00;
+  --color-primary-yellow: #ffd600;
+  --color-accent-blue: #3d7fff;
+  --color-accent-purple: #9c3dff;
+  --color-accent-green: #3dff7b;
 }
 
-/* FOUC (Flash of Unstyled Content) 방지 */
+/* FOUC 방지 + 스크롤 최적화 (통합) */
 html {
-  /* 초기 배경색 설정으로 플래시 방지 */
   background-color: #000000;
   color: #ffffff;
-  /* 페이지 전환 시 깜빡임 방지 */
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transform: translateZ(0);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
-
-/* Next.js localFont가 폰트를 처리하므로 중복 @font-face 제거 */
 
 /* Giants-Inline 폰트 정의 */
 @font-face {
@@ -44,7 +52,6 @@ html.fonts-loaded body {
   transform: translateY(0);
   transition: opacity 0.2s ease-out, transform 0.2s ease-out;
   position: relative;
-  will-change: opacity, transform;
 }
 
 .page-transition-enter {
@@ -64,7 +71,7 @@ html.fonts-loaded body {
   }
 }
 
-/* Card 애니메이션 - Framer Motion 대체 */
+/* Card 애니메이션 */
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -80,40 +87,21 @@ html.fonts-loaded body {
   animation: fade-in-up 0.4s ease-out;
 }
 
-/* 특수 폰트 클래스만 유지 */
-
 .font-giants-inline {
   font-family: 'Giants-Inline', '__sfHambak_b90ef3', '__sfHambak_Fallback_b90ef3', 'SF_HambakSnow', Georgia, 'Times New Roman', serif;
 }
 
 /* iOS Safari 동적 뷰포트 높이 지원 */
 :root {
-  /* 동적 뷰포트 높이 CSS 변수 설정 */
   --vh: 1vh;
-  
-  /* 핵심 색상만 유지 - 사용하지 않는 색상 제거 */
   --background: #000000;
   --foreground: #ffffff;
-  
-  /* 주요 색상 */
-  --primary-red: #ff3d3d;
-  --primary-orange: #ff7b00;
-  --primary-yellow: #ffd600;
-  
-  /* 보조 색상 - 필수만 유지 */
-  --accent-blue: #3d7fff;
-  --accent-purple: #9c3dff;
-  --accent-green: #3dff7b;
-  
-  /* 중립 색상 - 자주 사용되는 것만 */
   --neutral-100: #f0f0f0;
   --neutral-200: #d0d0d0;
   --neutral-400: #707070;
   --neutral-600: #202020;
-  
-  /* 최적화된 그라디언트 - GPU 가속 고려 */
-  --gradient-revolution: linear-gradient(135deg, var(--primary-red), var(--primary-orange));
-  --gradient-art: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+  --gradient-revolution: linear-gradient(135deg, var(--color-primary-red), var(--color-primary-orange));
+  --gradient-art: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-blue));
 }
 
 @supports (height: 100dvh) {
@@ -122,45 +110,26 @@ html.fonts-loaded body {
   }
 }
 
-/* 스크롤 동작 최적화 */
-html {
-  scroll-behavior: smooth;
-  /* 모바일 스크롤 최적화 */
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: none;
-  /* 이중 스크롤바 방지 */
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
 * {
-  /* 모든 요소에 스크롤 마진 적용 */
   scroll-margin-top: 80px;
 }
 
-/* 글로벌 스타일 - 성능 최적화 적용 */
+/* 글로벌 스타일 */
 @layer base {
   body {
     background: var(--background);
     color: var(--foreground);
     font-family: var(--font-gmarket-sans), 'GmarketSans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-    /* 이중 스크롤바 방지 - html에서 처리하므로 제거 */
-    /* GPU 가속 및 폰트 렌더링 최적화 */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* 한글 줄바꿈 최적화 */
     word-break: keep-all;
     overflow-wrap: break-word;
-    /* 모바일 스크롤 최적화 */
     -webkit-overflow-scrolling: touch;
-    /* iOS Safari 100vh 문제 해결 */
     min-height: 100vh;
     min-height: calc(var(--vh) * 100);
-    /* 페이지 전환 시 레이아웃 시프트 방지 */
     contain: layout style paint;
   }
 
-  /* 페이지 로드 시 부드러운 전환 */
   body {
     transition: opacity 0.2s ease-out;
   }
@@ -174,20 +143,14 @@ html {
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* 모바일 환경에서 텍스트 최적화 */
   @media (max-width: 768px) {
     html {
-      /* 모바일에서 더 부드러운 스크롤 */
-      scroll-behavior: smooth;
-      /* iOS 뷰포트 안정화 */
       -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
     }
-    
+
     body {
-      /* 모바일에서 스크롤 성능 향상 */
       overscroll-behavior: none;
-      /* 터치 스크롤 최적화 */
       -webkit-overflow-scrolling: touch;
     }
   }

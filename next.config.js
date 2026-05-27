@@ -29,5 +29,3 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
-
-// Re-commit to trigger Vercel deployment

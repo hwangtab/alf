@@ -75,7 +75,7 @@ const CardComponent: React.FC<CardProps> = ({
 
         {description && (
           <p
-            className={`text-neutral-300 text-sm whitespace-normal font-test-sans ${tags && tags.length > 0 || footerContent ? 'mb-4' : 'mb-0'}`}
+            className={`text-neutral-300 text-sm whitespace-normal font-sans ${tags && tags.length > 0 || footerContent ? 'mb-4' : 'mb-0'}`}
             style={{
               display: '-webkit-box',
               WebkitLineClamp: lineClamp,

@@ -34,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   ...props
 }) => {
-  const baseClasses = "inline-block rounded-lg font-semibold transition-colors shadow hover:shadow-md disabled:opacity-50 border-2 font-test-sans";
+  const baseClasses = "inline-block rounded-lg font-semibold transition-colors shadow hover:shadow-md disabled:opacity-50 border-2 font-sans";
   const variantClasses: Record<ButtonVariant, string> = {
     primary: "bg-yellow-500 text-black border-yellow-400 hover:bg-yellow-400",
     secondary: "bg-red-500 text-white border-red-600 hover:bg-red-600",

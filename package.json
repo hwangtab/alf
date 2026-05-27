@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "analyze": "ANALYZE=true next build",
-    "build:prod": "next build && next export",
+    "build:prod": "next build",
     "convert:gallery": "node scripts/convert-gallery.js",
     "generate:newsletters": "node scripts/generate-newsletter-summaries.js",
     "send:mailing": "node scripts/send-mailing.js",
