@@ -48,11 +48,14 @@ const Button: React.FC<ButtonProps> = ({
   const finalClassName = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
 
   if ((as === 'a' || href) && href) {
+    const linkClass = `${finalClassName}${disabled ? ' opacity-50 pointer-events-none' : ''}`;
     if (href.startsWith('/')) {
       return (
         <Link
           href={href}
-          className={finalClassName}
+          className={linkClass}
+          aria-disabled={disabled || undefined}
+          tabIndex={disabled ? -1 : undefined}
           onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
         >
           {children}
@@ -63,7 +66,9 @@ const Button: React.FC<ButtonProps> = ({
     return (
       <a
         href={href}
-        className={finalClassName}
+        className={linkClass}
+        aria-disabled={disabled || undefined}
+        tabIndex={disabled ? -1 : undefined}
         onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
         {...props}
       >

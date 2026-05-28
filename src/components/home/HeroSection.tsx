@@ -16,9 +16,7 @@ const HeroSection = ({ title, subtitle }: HeroSectionProps) => {
         fill
         className="object-cover z-[-1] opacity-30"
         priority
-        quality={75} // 85 -> 75로 추가 최적화 (육안상 차이 미미)
-        placeholder="blur"
-        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
+        quality={75}
         sizes="100vw"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/55 to-black/80 z-[-1]" />

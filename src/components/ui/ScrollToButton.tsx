@@ -18,7 +18,8 @@ export default function ScrollToButton({
       onClick={() => {
         const targetElement = document.getElementById(targetId);
         if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          targetElement.scrollIntoView({ behavior: prefersReduced ? 'instant' : 'smooth', block: 'start' });
         }
       }}
       aria-label={ariaLabel}
