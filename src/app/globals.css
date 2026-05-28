@@ -36,16 +36,6 @@ html {
   font-display: swap;
 }
 
-/* 폰트 대체 시스템 - FOUT 방지 */
-html:not(.fonts-loaded) body {
-  opacity: 0.95;
-}
-
-html.fonts-loaded body {
-  opacity: 1;
-  transition: opacity 0.2s ease-in;
-}
-
 /* 페이지 전환 애니메이션 */
 .page-transition {
   opacity: 1;
@@ -89,6 +79,10 @@ html.fonts-loaded body {
 
 .font-giants-inline {
   font-family: 'Giants-Inline', '__sfHambak_b90ef3', '__sfHambak_Fallback_b90ef3', 'SF_HambakSnow', Georgia, 'Times New Roman', serif;
+}
+
+.divider-art {
+  border-top: 1px solid currentColor;
 }
 
 /* iOS Safari 동적 뷰포트 높이 지원 */
