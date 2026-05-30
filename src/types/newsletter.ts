@@ -3,6 +3,7 @@ export type NewsletterBlock =
   | { type: 'paragraph'; text: string }
   | { type: 'image'; src: string; alt: string }
   | { type: 'link'; text: string; href: string }
+  | { type: 'video'; url: string; title?: string }
   | { type: 'ledger'; month: string };
 
 export type LedgerEntry = { label: string; amount: number; note?: string };

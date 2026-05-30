@@ -6,8 +6,12 @@ import newslettersData from '@/data/newsletters.json';
 import { newsletterContent, migratedIds } from '@/data/newsletterContent';
 import type { NewsletterBlock, AccountingMonth } from '@/types/newsletter';
 import accountingData from '@/data/accounting.json';
+import { getYouTubeVideoId } from '@/utils/videos';
 
 const baseUrl = 'https://alf.seoul.kr';
+
+// 활동 보고 상세 페이지 최상단 히어로 이미지 — 모든 호 공통 브랜드 로고
+const HERO_IMAGE = '/images/gallery/예술해방전선로고정사각.webp';
 
 type NewsletterMeta = {
   id: number;
@@ -124,6 +128,30 @@ function BlockRenderer({ block }: { block: NewsletterBlock }) {
           </svg>
         </a>
       </p>
+    );
+  }
+
+  if (block.type === 'video') {
+    const videoId = getYouTubeVideoId(block.url);
+    if (!videoId) return null;
+    return (
+      <figure className="my-6">
+        <div className="relative w-full aspect-[16/9] rounded-lg overflow-hidden border border-neutral-800 bg-black">
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+            title={block.title || '예술해방전선 연대공연 영상'}
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            className="absolute inset-0 h-full w-full"
+          />
+        </div>
+        {block.title && (
+          <figcaption className="mt-2 text-center text-sm text-neutral-400">
+            {block.title}
+          </figcaption>
+        )}
+      </figure>
     );
   }
 
@@ -261,19 +289,17 @@ export default async function NewsletterDetailPage({
 
         {/* 헤더 */}
         <header className="mb-10 border-b border-neutral-700 pb-8">
-          {meta.thumbnail && (
-            <div className="relative w-full aspect-[2/1] rounded-lg overflow-hidden border border-neutral-800 mb-6 bg-neutral-900">
-              <Image
-                src={meta.thumbnail}
-                alt={`${meta.title} 썸네일`}
-                fill
-                priority
-                sizes="(min-width: 768px) 720px, 100vw"
-                className="object-cover"
-                quality={90}
-              />
-            </div>
-          )}
+          <div className="relative w-full aspect-[2/1] rounded-lg overflow-hidden border border-neutral-800 mb-6 bg-black">
+            <Image
+              src={HERO_IMAGE}
+              alt="예술해방전선"
+              fill
+              priority
+              sizes="(min-width: 768px) 720px, 100vw"
+              className="object-cover"
+              quality={90}
+            />
+          </div>
           <h1 className="text-4xl font-bold text-white font-giants-inline mb-3 animate-fade-in-up">
             {meta.title}
           </h1>

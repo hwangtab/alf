@@ -178,6 +178,12 @@ function fmtKRW(n) {
   return (n < 0 ? '-' : '') + Math.abs(n).toLocaleString('ko-KR') + '원';
 }
 
+// ── 유튜브 ID 추출 ────────────────────────────────────────────────────
+function youtubeId(url) {
+  const m = String(url).match(/^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/);
+  return m && m[2].length === 11 ? m[2] : null;
+}
+
 // ── 블록 → 이메일 HTML ────────────────────────────────────────────────
 function renderBlock(block, accounting) {
   switch (block.type) {
@@ -197,6 +203,24 @@ function renderBlock(block, accounting) {
 
     case 'link':
       return `<p style="margin:12px 0;"><a href="${esc(block.href)}" target="_blank" rel="noopener noreferrer" style="color:#ff5a1f;font-weight:600;font-size:14px;font-family:${FONT};">${esc(block.text)}</a></p>`;
+
+    case 'video': {
+      // 이메일 클라이언트는 iframe 임베드를 차단하므로, 유튜브 썸네일 + 재생 버튼 + 링크로 대체
+      const vid = youtubeId(block.url);
+      if (!vid) return '';
+      const thumb = `https://img.youtube.com/vi/${vid}/sddefault.jpg`;
+      const watch = `https://www.youtube.com/watch?v=${vid}`;
+      const caption = block.title
+        ? `<p style="font-family:${FONT};font-size:13px;color:#6b7280;text-align:center;margin:8px 0 0;">${esc(block.title)}</p>`
+        : '';
+      return `<div style="margin:20px 0;">
+  <a href="${watch}" target="_blank" rel="noopener noreferrer" style="display:block;border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;text-decoration:none;">
+    <img src="${thumb}" alt="${esc(block.title || '연대공연 영상')}" style="display:block;width:100%;max-width:100%;height:auto;">
+    <span style="display:block;background-color:#111827;color:#ffffff;font-family:${FONT};font-size:14px;font-weight:700;text-align:center;padding:13px;">&#9654;&nbsp;&nbsp;유튜브에서 영상 보기</span>
+  </a>
+  ${caption}
+</div>`;
+    }
 
     case 'ledger': {
       const data = accounting[block.month];
