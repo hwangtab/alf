@@ -26,6 +26,9 @@ const REPLY_TO   = 'alf.seoul.kr@gmail.com';
 const FONT       = "-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', sans-serif";
 const DELAY_MS   = 600; // Resend 레이트리밋 안전 마진 (~2 req/s)
 const EMAIL_RE   = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// 이메일 이미지 캐시 버스터 — Gmail 등 이미지 프록시가 과거 404(미배포 시점)를
+// 캐싱해 이미지가 깨지는 문제 방지. 발송 시각 기준으로 새 URL을 만들어 강제 재요청.
+const CACHE_BUST = Date.now();
 
 // ── 인자 파싱 ─────────────────────────────────────────────────────────
 const args = process.argv.slice(2);
@@ -197,7 +200,8 @@ function renderBlock(block, accounting) {
       return `<p style="font-family:${FONT};font-size:15px;color:#374151;line-height:1.8;margin:0 0 14px;">${esc(block.text).replace(/\n/g, '<br>')}</p>`;
 
     case 'image': {
-      const src = block.src.startsWith('http') ? block.src : `${SITE}${block.src}`;
+      const base = block.src.startsWith('http') ? block.src : `${SITE}${block.src}`;
+      const src = base + (base.includes('?') ? '&' : '?') + 'v=' + CACHE_BUST;
       return `<div style="margin:20px 0;border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;"><img src="${esc(src)}" alt="${esc(block.alt)}" style="display:block;width:100%;max-width:100%;height:auto;"></div>`;
     }
 
