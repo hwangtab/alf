@@ -84,8 +84,6 @@ export const metadata: Metadata = {
   // 아이콘 및 테마
   icons: {
     icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
   },
 
   // 기타 최적화
