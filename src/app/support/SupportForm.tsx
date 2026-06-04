@@ -30,6 +30,23 @@ const INITIAL: FormData = {
 const inputCls = 'bg-neutral-800 border border-neutral-700 text-white placeholder-neutral-500 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-primary-red focus:border-transparent transition';
 const labelCls = 'block text-sm font-medium text-neutral-300 mb-1';
 const sectionTitleCls = 'text-base font-bold text-white mb-4 mt-8 pt-6 border-t border-neutral-700';
+const AMOUNT_RE = /^\d+$/;
+
+function isValidBirthDate(value: string) {
+  const BIRTHDATE_RE = /^\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])$/;
+  if (!BIRTHDATE_RE.test(value)) return false;
+
+  const [year, month, day] = value.split('-').map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  const today = new Date();
+  const todayUtc = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
+  return (
+    date.getUTCFullYear() === year &&
+    date.getUTCMonth() === month - 1 &&
+    date.getUTCDate() === day &&
+    date.getTime() <= todayUtc
+  );
+}
 
 export default function SupportForm() {
   const [form, setForm] = useState<FormData>(INITIAL);
@@ -64,8 +81,9 @@ export default function SupportForm() {
       }
     }
 
+    const trimmedEmail = form.email.trim();
     const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!EMAIL_RE.test(form.email)) {
+    if (!EMAIL_RE.test(trimmedEmail)) {
       setStatus('error');
       setErrorMessage('이메일 주소 형식이 올바르지 않습니다.');
       return;
@@ -78,14 +96,15 @@ export default function SupportForm() {
       return;
     }
 
-    const BIRTHDATE_RE = /^\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])$/;
-    if (!BIRTHDATE_RE.test(form.birthDate)) {
+    if (!isValidBirthDate(form.birthDate)) {
       setStatus('error');
       setErrorMessage('생년월일을 YYYY-MM-DD 형식으로 입력해주세요. (예: 1990-01-01)');
       return;
     }
 
-    if (Number(form.amount) < 10000) {
+    const trimmedAmount = form.amount.trim();
+    const monthlyAmount = Number(trimmedAmount);
+    if (!AMOUNT_RE.test(trimmedAmount) || !Number.isFinite(monthlyAmount) || monthlyAmount < 10000) {
       setStatus('error');
       setErrorMessage('월 후원금액은 10,000원 이상이어야 합니다.');
       return;
@@ -97,6 +116,11 @@ export default function SupportForm() {
         setErrorMessage('예금주 이름과 연락처를 입력해주세요.');
         return;
       }
+      if (!PHONE_RE.test(form.accountHolderPhone.replace(/\s/g, ''))) {
+        setStatus('error');
+        setErrorMessage('예금주 연락처 형식이 올바르지 않습니다. (예: 010-1234-5678)');
+        return;
+      }
     }
 
     setStatus('submitting');
@@ -106,6 +130,8 @@ export default function SupportForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...form,
+          email: trimmedEmail,
+          amount: trimmedAmount,
           accountHolder: form.holderSameAsApplicant ? form.name.trim() : form.accountHolder.trim(),
           accountHolderPhone: form.holderSameAsApplicant ? form.phone.trim() : form.accountHolderPhone.trim(),
         }),
@@ -151,7 +177,11 @@ export default function SupportForm() {
       />
 
       {status === 'error' && (
-        <div className="bg-red-900/40 border border-red-700 text-red-300 p-4 rounded-lg text-sm">
+        <div
+          role="alert"
+          aria-live="assertive"
+          className="bg-red-900/40 border border-red-700 text-red-300 p-4 rounded-lg text-sm"
+        >
           {errorMessage}
         </div>
       )}

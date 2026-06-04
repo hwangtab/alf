@@ -4,13 +4,38 @@ import { welcomeEmail, notifyEmail } from './emailTemplates';
 
 const FROM = '예술해방전선 <noreply@alf.seoul.kr>';
 const ORG_INBOX = 'alf.seoul.kr@gmail.com';
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(request: Request) {
   try {
-    const { name, email } = await request.json();
+    let body;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json({ error: '요청 본문이 올바른 JSON 형식이 아닙니다.' }, { status: 400 });
+    }
+
+    if (!body || typeof body !== 'object') {
+      return NextResponse.json({ error: '요청 본문이 올바른 JSON 객체가 아닙니다.' }, { status: 400 });
+    }
+
+    const { name, email } = body;
 
     if (!name || !email) {
       return NextResponse.json({ error: '이름과 이메일을 모두 입력해주세요.' }, { status: 400 });
+    }
+    if (typeof name !== 'string' || typeof email !== 'string') {
+      return NextResponse.json({ error: '요청 항목 형식이 올바르지 않습니다.' }, { status: 400 });
+    }
+
+    const trimmedName = String(name).trim();
+    const trimmedEmail = String(email).trim();
+    if (!trimmedName || !trimmedEmail) {
+      return NextResponse.json({ error: '이름과 이메일을 모두 입력해주세요.' }, { status: 400 });
+    }
+
+    if (!EMAIL_RE.test(trimmedEmail)) {
+      return NextResponse.json({ error: '이메일 주소가 올바르지 않습니다.' }, { status: 400 });
     }
 
     const apiKey = process.env.RESEND_API_KEY;
@@ -19,12 +44,12 @@ export async function POST(request: Request) {
     }
 
     const resend = new Resend(apiKey);
-    const notify = notifyEmail(name, email);
+    const notify = notifyEmail(trimmedName, trimmedEmail);
 
     const result = await resend.emails.send({
       from: FROM,
       to: ORG_INBOX,
-      replyTo: email,
+      replyTo: trimmedEmail,
       subject: notify.subject,
       html: notify.html,
       text: notify.text,
@@ -35,11 +60,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: '이메일 전송에 실패했습니다. 잠시 후 다시 시도해주세요.' }, { status: 502 });
     }
 
-    const welcome = welcomeEmail(name);
+    const welcome = welcomeEmail(trimmedName);
     try {
       const welcomeResult = await resend.emails.send({
         from: FROM,
-        to: email,
+        to: trimmedEmail,
         subject: welcome.subject,
         html: welcome.html,
         text: welcome.text,

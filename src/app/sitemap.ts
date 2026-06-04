@@ -16,6 +16,7 @@ const routes: Array<{
   { path: '/gallery', changeFrequency: 'weekly', priority: 0.8 },
   { path: '/guide', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/news', changeFrequency: 'weekly', priority: 0.7 },
+  { path: '/support', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/videos', changeFrequency: 'weekly', priority: 0.6 },
 ];
 

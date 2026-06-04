@@ -10,6 +10,9 @@ const Lightbox = dynamic(() => import('yet-another-react-lightbox'), {
   ssr: false,
 });
 
+const INITIAL_VISIBLE_IMAGES = 80;
+const LOAD_MORE_IMAGES = 80;
+
 interface GalleryImage {
   src: string;
   alt: string;
@@ -22,6 +25,12 @@ interface GalleryLightboxProps {
 export default function GalleryLightbox({ images }: GalleryLightboxProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_IMAGES);
+  const visibleImages = useMemo(
+    () => images.slice(0, visibleCount),
+    [images, visibleCount]
+  );
+  const hasMore = visibleImages.length < images.length;
 
   function openLightbox(index: number) {
     setCurrentIndex(index);
@@ -31,18 +40,18 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
   // yet-another-react-lightbox용 슬라이드 배열
   const slides = useMemo(
     () =>
-      images.map((image) => ({
+      visibleImages.map((image) => ({
         src: image.src,
         alt: image.alt,
       })),
-    [images]
+    [visibleImages]
   );
 
   return (
     <>
       {/* Image Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {images.map((image, idx) => (
+        {visibleImages.map((image, idx) => (
           <button
             key={`${image.src}-${idx}`}
             type="button"
@@ -61,6 +70,21 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
           </button>
         ))}
       </div>
+
+      {hasMore && (
+        <div className="mt-12 flex flex-col items-center gap-3">
+          <p className="text-sm text-neutral-400">
+            {visibleImages.length.toLocaleString('ko-KR')} / {images.length.toLocaleString('ko-KR')}
+          </p>
+          <button
+            type="button"
+            onClick={() => setVisibleCount((count) => Math.min(count + LOAD_MORE_IMAGES, images.length))}
+            className="rounded-md border border-neutral-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-primary-red hover:text-primary-red focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-red"
+          >
+            더 보기
+          </button>
+        </div>
+      )}
 
       {/* yet-another-react-lightbox Component */}
       {isOpen && (
