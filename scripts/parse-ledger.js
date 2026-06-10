@@ -7,7 +7,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const xlsx = require('xlsx');
+const { execFileSync } = require('child_process');
 
 const ROOT = path.join(__dirname, '..');
 const EXCEL_PATH = path.join(ROOT, 'docs/예술해방전선 가계부.xlsx');
@@ -41,6 +41,115 @@ const MANUAL_OVERRIDES = {
   },
 };
 
+function readZipEntry(zipPath, entryName, optional = false) {
+  try {
+    return execFileSync('unzip', ['-p', zipPath, entryName], {
+      encoding: 'utf8',
+      maxBuffer: 1024 * 1024 * 20,
+    });
+  } catch (error) {
+    if (optional) return '';
+    throw error;
+  }
+}
+
+function decodeXml(value) {
+  return value
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&amp;/g, '&');
+}
+
+function parseAttrs(tag) {
+  const attrs = {};
+  for (const match of tag.matchAll(/([\w:]+)="([^"]*)"/g)) {
+    attrs[match[1]] = decodeXml(match[2]);
+  }
+  return attrs;
+}
+
+function parseSharedStrings(zipPath) {
+  const xml = readZipEntry(zipPath, 'xl/sharedStrings.xml', true);
+  if (!xml) return [];
+
+  return [...xml.matchAll(/<si\b[^>]*>([\s\S]*?)<\/si>/g)].map((match) => {
+    const textParts = [...match[1].matchAll(/<t\b[^>]*>([\s\S]*?)<\/t>/g)]
+      .map((textMatch) => decodeXml(textMatch[1]));
+    return textParts.join('');
+  });
+}
+
+function columnIndex(cellRef) {
+  const letters = cellRef.replace(/\d+$/g, '');
+  let index = 0;
+  for (const char of letters) {
+    index = index * 26 + char.charCodeAt(0) - 64;
+  }
+  return index - 1;
+}
+
+function normalizeCellValue(rawValue, type, sharedStrings) {
+  if (rawValue === undefined || rawValue === '') return '';
+
+  if (type === 's') {
+    return sharedStrings[Number(rawValue)] ?? '';
+  }
+
+  if (/^-?\d+(?:\.\d+)?$/.test(rawValue)) {
+    return Number(rawValue);
+  }
+
+  return decodeXml(rawValue);
+}
+
+function parseWorksheetRows(xml, sharedStrings) {
+  const rows = [];
+  for (const rowMatch of xml.matchAll(/<row\b[^>]*>([\s\S]*?)<\/row>/g)) {
+    const row = [];
+    for (const cellMatch of rowMatch[1].matchAll(/<c\b([^>]*?)(?:\/>|>([\s\S]*?)<\/c>)/g)) {
+      const attrs = parseAttrs(cellMatch[1]);
+      const col = columnIndex(attrs.r || 'A1');
+      if (col > 3) continue;
+
+      const body = cellMatch[2] || '';
+      const inlineText = body.match(/<is\b[^>]*>[\s\S]*?<t\b[^>]*>([\s\S]*?)<\/t>[\s\S]*?<\/is>/)?.[1];
+      const value = inlineText ?? body.match(/<v\b[^>]*>([\s\S]*?)<\/v>/)?.[1] ?? '';
+      row[col] = normalizeCellValue(value, attrs.t, sharedStrings);
+    }
+    rows.push(row);
+  }
+  return rows;
+}
+
+function readWorkbook(zipPath) {
+  const workbookXml = readZipEntry(zipPath, 'xl/workbook.xml');
+  const relsXml = readZipEntry(zipPath, 'xl/_rels/workbook.xml.rels');
+  const sharedStrings = parseSharedStrings(zipPath);
+
+  const relTargets = {};
+  for (const match of relsXml.matchAll(/<Relationship\b([^>]*?)\/>/g)) {
+    const attrs = parseAttrs(match[1]);
+    if (attrs.Id && attrs.Target) {
+      relTargets[attrs.Id] = attrs.Target.startsWith('xl/')
+        ? attrs.Target
+        : `xl/${attrs.Target}`;
+    }
+  }
+
+  const Sheets = {};
+  for (const match of workbookXml.matchAll(/<sheet\b([^>]*?)\/>/g)) {
+    const attrs = parseAttrs(match[1]);
+    const target = relTargets[attrs['r:id']];
+    if (!attrs.name || !target) continue;
+    const sheetXml = readZipEntry(zipPath, target);
+    Sheets[attrs.name] = parseWorksheetRows(sheetXml, sharedStrings);
+  }
+
+  return { Sheets };
+}
+
 function parseSheet(wb, year, month) {
   const key = `${year}-${String(month).padStart(2, '0')}`;
   if (MANUAL_OVERRIDES[key]) {
@@ -55,7 +164,7 @@ function parseSheet(wb, year, month) {
     return null;
   }
 
-  const rows = xlsx.utils.sheet_to_json(ws, { header: 1, defval: '' });
+  const rows = ws;
 
   const income = [];
   const expense = [];
@@ -153,7 +262,7 @@ function parseSheet(wb, year, month) {
 }
 
 function main() {
-  const wb = xlsx.readFile(EXCEL_PATH);
+  const wb = readWorkbook(EXCEL_PATH);
   const existing = JSON.parse(fs.readFileSync(ACCOUNTING_JSON, 'utf-8'));
 
   const parsed = {};
@@ -217,11 +326,13 @@ function main() {
     added++;
   }
 
-  const sorted = {};
-  for (const k of Object.keys(merged).sort()) sorted[k] = merged[k];
+  if (added > 0) {
+    const sorted = {};
+    for (const k of Object.keys(merged).sort()) sorted[k] = merged[k];
+    fs.writeFileSync(ACCOUNTING_JSON, JSON.stringify(sorted, null, 2), 'utf-8');
+  }
 
-  fs.writeFileSync(ACCOUNTING_JSON, JSON.stringify(sorted, null, 2), 'utf-8');
-  console.log(`\n완료: ${added}개월 추가, 총 ${Object.keys(sorted).length}개월, 연속성 경고 ${warnings}건`);
+  console.log(`\n완료: ${added}개월 추가, 총 ${Object.keys(merged).length}개월, 연속성 경고 ${warnings}건`);
 }
 
 main();

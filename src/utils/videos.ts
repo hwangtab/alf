@@ -35,7 +35,7 @@ export const sortedVideos: VideoCardData[] = [...videosData]
       ...video,
       thumbnailUrl: videoId
         ? getYouTubeThumbnailUrl(videoId)
-        : "/images/placeholder.jpg",
+        : "/images/social-thumbnail.webp",
       formattedPublishDate: new Date(video.publishDate).toLocaleDateString(
         "ko-KR"
       ),

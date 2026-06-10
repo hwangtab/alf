@@ -46,7 +46,7 @@ const CardComponent: React.FC<CardProps> = ({
     <>
       <div className="relative w-full" style={{ paddingTop: aspectRatio }}>
         <Image
-          src={imageUrl || "/images/placeholder.jpg"}
+          src={imageUrl || "/images/social-thumbnail.webp"}
           alt={imageAlt || title} // imageAlt 우선 사용, 없으면 title
           fill
           sizes={imageSizes}
