@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import type { NavLink } from '@/data/navigation';
 
@@ -10,8 +11,13 @@ interface MobileMenuProps {
 
 export default function MobileMenu({ links }: MobileMenuProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const triggerButton = buttonRef.current;
@@ -88,29 +94,32 @@ export default function MobileMenu({ links }: MobileMenuProps) {
         </div>
       </button>
 
-      {isMenuOpen && (
-        <div
-          ref={overlayRef}
-          className="mobile-menu-overlay fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center"
-          role="dialog"
-          aria-modal="true"
-          aria-label="메뉴"
-        >
-          <nav className="flex flex-col items-center gap-8 text-center">
-            {links.map((item, index) => (
-              <div key={item.href} style={{ transitionDelay: `${index * 50}ms` }}>
-                <Link
-                  href={item.href}
-                  onClick={closeMenu}
-                  className="text-white text-2xl font-bold py-3 px-6 block hover:text-red-400 transition-colors duration-200 font-sans"
-                >
-                  {item.label}
-                </Link>
-              </div>
-            ))}
-          </nav>
-        </div>
-      )}
+      {mounted &&
+        isMenuOpen &&
+        createPortal(
+          <div
+            ref={overlayRef}
+            className="mobile-menu-overlay fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center"
+            role="dialog"
+            aria-modal="true"
+            aria-label="메뉴"
+          >
+            <nav className="flex flex-col items-center gap-8 text-center">
+              {links.map((item, index) => (
+                <div key={item.href} style={{ transitionDelay: `${index * 50}ms` }}>
+                  <Link
+                    href={item.href}
+                    onClick={closeMenu}
+                    className="text-white text-2xl font-bold py-3 px-6 block hover:text-red-400 transition-colors duration-200 font-sans"
+                  >
+                    {item.label}
+                  </Link>
+                </div>
+              ))}
+            </nav>
+          </div>,
+          document.body
+        )}
     </>
   );
 }
