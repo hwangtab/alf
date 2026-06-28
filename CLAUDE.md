@@ -115,7 +115,7 @@ node scripts/send-mailing.js <id> --send
 # or: npm run send:mailing -- <id> --send
 ```
 
-`scripts/send-mailing.js` renders all newsletter blocks (heading/paragraph/image/link/ledger) as branded HTML email, reads recipients from `private/members.csv`, and sends individually via Resend (600ms throttle between sends). Accounting data for `ledger` blocks comes from `src/data/accounting.json`.
+`scripts/send-mailing.js` renders all newsletter blocks (heading/paragraph/image/link/ledger/video) as branded HTML email, reads recipients from `private/members.csv`, and sends individually via Resend (600ms throttle between sends). Accounting data for `ledger` blocks comes from `src/data/accounting.json`.
 
 ## Newsletter Data Structure
 
@@ -126,6 +126,7 @@ node scripts/send-mailing.js <id> --send
   - `{ type: 'image', src, alt }` — `src` is a relative path like `/images/news/{id}/*.webp`
   - `{ type: 'link', text, href }`
   - `{ type: 'ledger', month }` — month key like `"2024-03"`, looked up in `src/data/accounting.json`
+  - `{ type: 'video', url, title }` — YouTube 영상 임베드. `url`은 유튜브 전체 URL 또는 단축 URL(`youtu.be/...`)
 - `src/data/newsletterContent.ts` — imports all JSONs, exports `newsletterContent` record and `migratedIds`
 - `src/data/accounting.json` — keyed by `"YYYY-MM"`, each entry: `{ income[], expense[], totalIncome, totalExpense, net, prevBalance, currentBalance }`
 
@@ -136,7 +137,7 @@ To add a new newsletter to the site: add `{id}.json`, add entry to `newsletters.
 **구조 순서 및 heading level 규칙 — 어기면 안 됨:**
 
 1. **인사말** — heading 없이 paragraph 블록들로 시작. 첫 블록은 `"존경하는 예술해방전선 회원 및 투쟁동지 여러분께"` 단독 단락. 이후 각 단락은 별도 paragraph 블록 (줄바꿈 `\n` 사용 금지, 단락마다 쪼갤 것).
-2. **활동 섹션들** — **`level: 2` heading** → image(들) → paragraph(들) → link(있으면). 섹션 내 소제목이 있을 경우에만 `level: 3` 사용.
+2. **활동 섹션들** — **`level: 2` heading** → image(들) → paragraph(들) → video(있으면) → link(있으면). 섹션 내 소제목이 있을 경우에만 `level: 3` 사용.
 3. **회계보고** — **`level: 2` heading** (`"N월 회계보고"`) → ledger 블록 → (선택) `level: 3` 소제목 → 설명 paragraph 2~3개.
 
 **금지 패턴:**
@@ -156,6 +157,7 @@ To add a new newsletter to the site: add `{id}.json`, add entry to `newsletters.
   { "type": "image", "src": "/images/news/{id}/01.webp", "alt": "설명" },
   { "type": "paragraph", "text": "단락 1" },
   { "type": "paragraph", "text": "단락 2" },
+  { "type": "video", "url": "https://youtu.be/...", "title": "영상 제목" },
   { "type": "link", "text": "링크 텍스트", "href": "https://..." },
 
   { "type": "heading", "level": 2, "text": "N월 회계보고" },
