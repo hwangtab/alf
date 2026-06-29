@@ -212,7 +212,7 @@ function renderBlock(block, accounting) {
       // 이메일 클라이언트는 iframe 임베드를 차단하므로, 유튜브 썸네일 + 재생 버튼 + 링크로 대체
       const vid = youtubeId(block.url);
       if (!vid) return '';
-      const thumb = `https://img.youtube.com/vi/${vid}/sddefault.jpg`;
+      const thumb = `https://img.youtube.com/vi/${vid}/hqdefault.jpg`;
       const watch = `https://www.youtube.com/watch?v=${vid}`;
       const caption = block.title
         ? `<p style="font-family:${FONT};font-size:13px;color:#6b7280;text-align:center;margin:8px 0 0;">${esc(block.title)}</p>`
