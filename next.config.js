@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    unoptimized: true,
-    dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    qualities: [75, 85, 90],
     remotePatterns: [
       {
         protocol: 'https',
@@ -23,9 +21,6 @@ const nextConfig = {
     ],
   },
   compress: true,
-  experimental: {
-    optimizePackageImports: ['framer-motion', 'react-icons'],
-  },
 }
 
 module.exports = nextConfig

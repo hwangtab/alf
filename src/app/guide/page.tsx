@@ -1,55 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 
-import Link from 'next/link';
 import Image from 'next/image';
+import GuideTableOfContents from '@/components/guide/GuideTableOfContents';
+import { guideSections as sections } from '@/data/guide-navigation';
 import ScrollToButton from '@/components/ui/ScrollToButton';
-
-// 섹션 데이터 정의 (사이드바 및 ID 생성용)
-const sections = [
-  { id: 'intro', title: '들어가며' },
-  {
-    id: 'meeting', title: '1. 첫 만남', subSections: [
-      { id: 'meeting-prep', title: '1.1 준비' },
-      { id: 'meeting-visit', title: '1.2 첫 방문' },
-    ]
-  },
-  {
-    id: 'deepening', title: '2. 예술가로서 더 깊어지기', subSections: [
-      { id: 'deepening-text', title: '2.1 현장, 창작의 텍스트' },
-      { id: 'deepening-identity', title: '2.2 정체성 확장' },
-      { id: 'deepening-sustain', title: '2.3 지속가능한 연대' },
-    ]
-  },
-  {
-    id: 'co-creation', title: '3. 공동 창조', subSections: [
-      { id: 'co-creation-planning', title: '3.1 함께 기획/만들기' },
-      { id: 'co-creation-language', title: '3.2 현장의 언어/미학' },
-      { id: 'co-creation-festival', title: '3.3 함께 만드는 축제' },
-    ]
-  },
-  {
-    id: 'record', title: '4. 기록과 확산', subSections: [
-      { id: 'record-archiving', title: '4.1 예술적 기록/아카이빙' },
-      { id: 'record-spread', title: '4.2 경계를 넘어선 확산' },
-      { id: 'record-narrative', title: '4.3 대안 서사 만들기' },
-    ]
-  },
-  {
-    id: 'anarchism', title: '5. 아나키즘적 실천', subSections: [
-      { id: 'anarchism-horizontal', title: '5.1 수평적 관계' },
-      { id: 'anarchism-mutual', title: '5.2 상호부조/자원 공유' },
-      { id: 'anarchism-prefiguration', title: '5.3 프리피규레이션' },
-    ]
-  },
-  {
-    id: 'culture', title: '6. 지속가능한 연대 문화', subSections: [
-      { id: 'culture-network', title: '6.1 연대망 구축' },
-      { id: 'culture-generation', title: '6.2 새로운 세대와 동행' },
-      { id: 'culture-after', title: '6.3 투쟁, 그 이후의 관계' },
-    ]
-  },
-  { id: 'epilogue', title: '마무리' },
-];
 
 export default function GuidePage() {
   // 스타일 변수
@@ -65,25 +19,7 @@ export default function GuidePage() {
   return (
     // Flex 레이아웃 적용 (lg 이상 화면에서 사이드바 표시)
     <div className="container mx-auto pt-28 pb-20 px-4 flex flex-col lg:flex-row"> {/* 이전 오류 수정 시도 제거 */}
-      {/* 사이드바 */}
-      <aside className="w-full lg:w-64 lg:flex-shrink-0 lg:sticky lg:top-24 self-start lg:pr-8 lg:mr-8 lg:border-r border-neutral-700 lg:h-[calc(100vh-10rem)] lg:overflow-y-auto mb-12 lg:mb-0">
-        <nav>
-          <p className="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-4 hidden lg:block">목차</p>
-          <ul className="space-y-2">
-            {sections.map((section) => (
-              <li key={section.id}>
-                <Link
-                  href={`#${section.id}`}
-                  className="block text-sm font-medium text-neutral-400 hover:text-white transition-colors"
-                  
-                >
-                  {section.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </aside>
+      <GuideTableOfContents sections={sections} />
 
       {/* 메인 콘텐츠 */}
       <main className="flex-1 min-w-0">

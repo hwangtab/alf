@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, FormEvent, ChangeEvent } from 'react';
+import { SUPPORT_MIN_AMOUNT, validateSupportPayload } from '@/utils/support-validation';
 
 type FormData = {
   name: string;
@@ -30,23 +31,6 @@ const INITIAL: FormData = {
 const inputCls = 'bg-neutral-800 border border-neutral-700 text-white placeholder-neutral-500 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-primary-red focus:border-transparent transition';
 const labelCls = 'block text-sm font-medium text-neutral-300 mb-1';
 const sectionTitleCls = 'text-base font-bold text-white mb-4 mt-8 pt-6 border-t border-neutral-700';
-const AMOUNT_RE = /^\d+$/;
-
-function isValidBirthDate(value: string) {
-  const BIRTHDATE_RE = /^\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])$/;
-  if (!BIRTHDATE_RE.test(value)) return false;
-
-  const [year, month, day] = value.split('-').map(Number);
-  const date = new Date(Date.UTC(year, month - 1, day));
-  const today = new Date();
-  const todayUtc = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
-  return (
-    date.getUTCFullYear() === year &&
-    date.getUTCMonth() === month - 1 &&
-    date.getUTCDate() === day &&
-    date.getTime() <= todayUtc
-  );
-}
 
 export default function SupportForm() {
   const [form, setForm] = useState<FormData>(INITIAL);
@@ -66,61 +50,11 @@ export default function SupportForm() {
     e.preventDefault();
     setErrorMessage('');
 
-    if (!form.privacyConsent || !form.cmsConsent) {
+    const validation = validateSupportPayload(form);
+    if (!validation.ok) {
       setStatus('error');
-      setErrorMessage('개인정보 수집·이용 동의 및 CMS 자동이체 동의가 필요합니다.');
+      setErrorMessage(validation.error);
       return;
-    }
-
-    const required: (keyof FormData)[] = ['name', 'birthDate', 'phone', 'email', 'amount', 'bank', 'accountNumber'];
-    for (const key of required) {
-      if (!String(form[key]).trim()) {
-        setStatus('error');
-        setErrorMessage('모든 필수 항목(*)을 입력해주세요.');
-        return;
-      }
-    }
-
-    const trimmedEmail = form.email.trim();
-    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!EMAIL_RE.test(trimmedEmail)) {
-      setStatus('error');
-      setErrorMessage('이메일 주소 형식이 올바르지 않습니다.');
-      return;
-    }
-
-    const PHONE_RE = /^0\d{1,2}[-\s]?\d{3,4}[-\s]?\d{4}$/;
-    if (!PHONE_RE.test(form.phone.replace(/\s/g, ''))) {
-      setStatus('error');
-      setErrorMessage('전화번호 형식이 올바르지 않습니다. (예: 010-1234-5678)');
-      return;
-    }
-
-    if (!isValidBirthDate(form.birthDate)) {
-      setStatus('error');
-      setErrorMessage('생년월일을 YYYY-MM-DD 형식으로 입력해주세요. (예: 1990-01-01)');
-      return;
-    }
-
-    const trimmedAmount = form.amount.trim();
-    const monthlyAmount = Number(trimmedAmount);
-    if (!AMOUNT_RE.test(trimmedAmount) || !Number.isFinite(monthlyAmount) || monthlyAmount < 10000) {
-      setStatus('error');
-      setErrorMessage('월 후원금액은 10,000원 이상이어야 합니다.');
-      return;
-    }
-
-    if (!form.holderSameAsApplicant) {
-      if (!form.accountHolder.trim() || !form.accountHolderPhone.trim()) {
-        setStatus('error');
-        setErrorMessage('예금주 이름과 연락처를 입력해주세요.');
-        return;
-      }
-      if (!PHONE_RE.test(form.accountHolderPhone.replace(/\s/g, ''))) {
-        setStatus('error');
-        setErrorMessage('예금주 연락처 형식이 올바르지 않습니다. (예: 010-1234-5678)');
-        return;
-      }
     }
 
     setStatus('submitting');
@@ -129,11 +63,11 @@ export default function SupportForm() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...form,
-          email: trimmedEmail,
-          amount: trimmedAmount,
-          accountHolder: form.holderSameAsApplicant ? form.name.trim() : form.accountHolder.trim(),
-          accountHolderPhone: form.holderSameAsApplicant ? form.phone.trim() : form.accountHolderPhone.trim(),
+          ...validation.data,
+          holderSameAsApplicant: form.holderSameAsApplicant,
+          privacyConsent: form.privacyConsent,
+          cmsConsent: form.cmsConsent,
+          company: form.company,
         }),
       });
 
@@ -157,7 +91,7 @@ export default function SupportForm() {
         <h2 className="text-2xl font-bold text-white mb-3">신청이 완료됐습니다</h2>
         <p className="text-neutral-300 leading-relaxed">
           가입 내용을 검토 후 CMS 자동이체를 등록해 드리겠습니다.<br />
-          접수 확인 메일을 발송했으니 확인해 주세요.
+          접수 확인 메일이 도착하지 않아도 신청은 정상 접수되어 있습니다.
         </p>
       </div>
     );
@@ -214,7 +148,7 @@ export default function SupportForm() {
       {/* 회비 정보 */}
       <p className={sectionTitleCls}>회비 정보</p>
       <div>
-        <label htmlFor="amount" className={labelCls}>월 회비 * <span className="text-neutral-500 font-normal">(원, 최소 10,000원)</span></label>
+        <label htmlFor="amount" className={labelCls}>월 회비 * <span className="text-neutral-500 font-normal">(원, 최소 {SUPPORT_MIN_AMOUNT.toLocaleString('ko-KR')}원)</span></label>
         <input id="amount" name="amount" type="text" inputMode="numeric" value={form.amount} onChange={handleChange}
           placeholder="10000" className={inputCls} disabled={status === 'submitting'} />
       </div>
