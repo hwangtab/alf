@@ -80,7 +80,13 @@ src/
 
 ## Email System (Resend)
 
-All outbound email uses [Resend](https://resend.com). Requires `RESEND_API_KEY` in `.env.local`. Sending domain: `noreply@alf.seoul.kr` (verified). Reply-to: `alf.seoul.kr@gmail.com`.
+All outbound email uses [Resend](https://resend.com). Requires `RESEND_API_KEY` in `.env.local`. Default sender is `예술해방전선 <noreply@alf.seoul.kr>` and the default organization inbox is `alf.seoul.kr@gmail.com`.
+
+Optional overrides:
+- `ALF_EMAIL_FROM` — outbound sender, for example `예술해방전선 <noreply@alf.seoul.kr>`
+- `ALF_ORG_INBOX` — organization notification inbox
+
+If either optional override is present but blank, email routes fail closed with a configuration error instead of silently falling back.
 
 Email templates live in `src/app/api/newsletter/emailTemplates.ts` — exports `escapeHtml`, `renderShell`, `supporterNotifyEmail`, `supporterWelcomeEmail`, `welcomeEmail`, `notifyEmail`.
 
