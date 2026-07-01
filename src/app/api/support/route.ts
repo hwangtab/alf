@@ -1,10 +1,8 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { supporterNotifyEmail, supporterWelcomeEmail, type SupporterData } from '../newsletter/emailTemplates';
+import { getOutboundEmailConfig } from '@/utils/email-config';
 import { validateSupportPayload } from '@/utils/support-validation';
-
-const FROM = '예술해방전선 <noreply@alf.seoul.kr>';
-const ORG_INBOX = 'alf.seoul.kr@gmail.com';
 
 export async function POST(request: Request) {
   try {
@@ -35,14 +33,20 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: '이메일 서비스가 올바르게 구성되지 않았습니다.' }, { status: 500 });
     }
 
+    const emailConfig = getOutboundEmailConfig();
+    if (!emailConfig.ok) {
+      console.error('Support email config error:', emailConfig.error);
+      return NextResponse.json({ error: '이메일 서비스가 올바르게 구성되지 않았습니다.' }, { status: 500 });
+    }
+
     const data: SupporterData = validation.data;
 
     const resend = new Resend(apiKey);
     const notify = supporterNotifyEmail(data);
 
     const { error } = await resend.emails.send({
-      from: FROM,
-      to: ORG_INBOX,
+      from: emailConfig.from,
+      to: emailConfig.orgInbox,
       replyTo: data.email,
       subject: notify.subject,
       html: notify.html,
@@ -57,7 +61,7 @@ export async function POST(request: Request) {
     const welcome = supporterWelcomeEmail(data.name);
     try {
       const welcomeResult = await resend.emails.send({
-        from: FROM,
+        from: emailConfig.from,
         to: data.email,
         subject: welcome.subject,
         html: welcome.html,

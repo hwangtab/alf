@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "TZ=America/Los_Angeles NODE_OPTIONS=--disable-warning=MODULE_TYPELESS_PACKAGE_JSON node --test src/utils/*.test.ts",
+    "test": "TZ=America/Los_Angeles node --import tsx --test src/utils/*.test.ts",
     "analyze": "ANALYZE=true next build",
     "build:prod": "next build",
     "convert:gallery": "node scripts/convert-gallery.js",
@@ -36,6 +36,7 @@
     "eslint": "^9",
     "eslint-config-next": "^15.5.18",
     "tailwindcss": "^4.1.4",
+    "tsx": "^4.22.4",
     "typescript": "^5"
   },
   "overrides": {

@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { welcomeEmail, notifyEmail } from './emailTemplates';
+import { getOutboundEmailConfig } from '@/utils/email-config';
 
-const FROM = '예술해방전선 <noreply@alf.seoul.kr>';
-const ORG_INBOX = 'alf.seoul.kr@gmail.com';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(request: Request) {
@@ -43,12 +42,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: '이메일 서비스가 올바르게 구성되지 않았습니다.' }, { status: 500 });
     }
 
+    const emailConfig = getOutboundEmailConfig();
+    if (!emailConfig.ok) {
+      console.error('Newsletter email config error:', emailConfig.error);
+      return NextResponse.json({ error: '이메일 서비스가 올바르게 구성되지 않았습니다.' }, { status: 500 });
+    }
+
     const resend = new Resend(apiKey);
     const notify = notifyEmail(trimmedName, trimmedEmail);
 
     const result = await resend.emails.send({
-      from: FROM,
-      to: ORG_INBOX,
+      from: emailConfig.from,
+      to: emailConfig.orgInbox,
       replyTo: trimmedEmail,
       subject: notify.subject,
       html: notify.html,
@@ -63,7 +68,7 @@ export async function POST(request: Request) {
     const welcome = welcomeEmail(trimmedName);
     try {
       const welcomeResult = await resend.emails.send({
-        from: FROM,
+        from: emailConfig.from,
         to: trimmedEmail,
         subject: welcome.subject,
         html: welcome.html,
