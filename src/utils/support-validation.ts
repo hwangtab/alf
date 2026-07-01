@@ -82,20 +82,10 @@ export function validateSupportPayload(input: unknown): SupportValidationResult 
   const bank = asRequiredString(body.bank);
   const accountNumber = asRequiredString(body.accountNumber);
 
+  // asRequiredString은 비-문자열을 ''로 만들므로, 아래 필수값 검사를 통과하면
+  // 각 값은 이미 비어 있지 않은 문자열임이 보장된다(별도 타입 재검증 불필요).
   if (!name || !birthDate || !phone || !email || !amount || !bank || !accountNumber) {
     return { ok: false, error: '모든 필수 항목을 입력해주세요.' };
-  }
-
-  if (
-    typeof body.name !== 'string' ||
-    typeof body.birthDate !== 'string' ||
-    typeof body.phone !== 'string' ||
-    typeof body.email !== 'string' ||
-    typeof body.amount !== 'string' ||
-    typeof body.bank !== 'string' ||
-    typeof body.accountNumber !== 'string'
-  ) {
-    return { ok: false, error: '요청 항목 형식이 올바르지 않습니다.' };
   }
 
   if (!EMAIL_RE.test(email)) {
