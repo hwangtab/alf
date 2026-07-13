@@ -30,7 +30,9 @@ html {
   src: url('/fonts/Giants-Inline.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  /* optional: 폰트가 즉시 준비되지 않으면 이번 렌더는 fallback으로 확정하고
+     늦은 swap 재페인트를 막는다. 제목 재페인트가 LCP로 잡히던 문제를 제거. */
+  font-display: optional;
 }
 
 /* 페이지 전환 애니메이션 */
