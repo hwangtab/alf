@@ -11,27 +11,28 @@ export default function robots(): MetadataRoute.Robots {
       },
       // AI 언어모델 크롤러 명시적 허용
       {
-        userAgent: 'GPTBot',
+        // OpenAI (ChatGPT)
+        userAgent: ['GPTBot', 'ChatGPT-User', 'OAI-SearchBot'],
         allow: '/',
       },
       {
-        userAgent: 'ChatGPT-User',
+        // Anthropic (Claude)
+        userAgent: ['ClaudeBot', 'Claude-User', 'Claude-SearchBot'],
         allow: '/',
       },
       {
+        // Perplexity
+        userAgent: ['PerplexityBot', 'Perplexity-User'],
+        allow: '/',
+      },
+      {
+        // Google Gemini / AI Overviews
+        userAgent: 'Google-Extended',
+        allow: '/',
+      },
+      {
+        // Common Crawl (AI 학습 데이터셋)
         userAgent: 'CCBot',
-        allow: '/',
-      },
-      {
-        userAgent: 'anthropic-ai',
-        allow: '/',
-      },
-      {
-        userAgent: 'Claude-Web',
-        allow: '/',
-      },
-      {
-        userAgent: 'Perplexity',
         allow: '/',
       },
     ],
