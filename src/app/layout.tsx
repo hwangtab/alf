@@ -111,14 +111,6 @@ export default function RootLayout({
   return (
     <html lang="ko" className="scroll-smooth">
       <head>
-        {/* LCP 요소인 히어로 H1이 쓰는 폰트. @font-face는 자동 preload되지 않아 명시적으로 당긴다. */}
-        <link
-          rel="preload"
-          href="/fonts/Giants-Inline.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
