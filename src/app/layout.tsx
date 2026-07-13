@@ -12,7 +12,9 @@ const gmarketSans = localFont({
   variable: '--font-gmarket-sans',
   display: 'swap',
   fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', 'sans-serif'],
-  preload: true,
+  // display:swap이라 fallback으로 즉시 렌더된다. preload를 끄면 초기 대역폭을
+  // LCP 요소(히어로 H1의 Giants-Inline)와 크리티컬 리소스에 양보한다.
+  preload: false,
 });
 
 const sfHambak = localFont({
@@ -20,7 +22,8 @@ const sfHambak = localFont({
   variable: '--font-sf-hambak',
   display: 'swap',
   fallback: ['Georgia', 'Times New Roman', 'serif'],
-  preload: true,
+  // 첫 화면(히어로)에 직접 쓰이지 않고 스크롤 아래 제목에만 쓰인다. preload 불필요.
+  preload: false,
 });
 
 
@@ -108,6 +111,14 @@ export default function RootLayout({
   return (
     <html lang="ko" className="scroll-smooth">
       <head>
+        {/* LCP 요소인 히어로 H1이 쓰는 폰트. @font-face는 자동 preload되지 않아 명시적으로 당긴다. */}
+        <link
+          rel="preload"
+          href="/fonts/Giants-Inline.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
