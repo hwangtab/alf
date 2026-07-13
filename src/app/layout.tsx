@@ -8,7 +8,7 @@ import NoiseBackground from "@/components/layout/NoiseBackground";
 
 // next/font/local을 사용한 폰트 최적화
 const gmarketSans = localFont({
-  src: '../fonts/GmarketSansTTFLight.ttf',
+  src: '../fonts/GmarketSansTTFLight.woff2',
   variable: '--font-gmarket-sans',
   display: 'swap',
   fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', 'sans-serif'],
@@ -16,7 +16,7 @@ const gmarketSans = localFont({
 });
 
 const sfHambak = localFont({
-  src: '../fonts/SFTTF.ttf',
+  src: '../fonts/SFTTF.woff2',
   variable: '--font-sf-hambak',
   display: 'swap',
   fallback: ['Georgia', 'Times New Roman', 'serif'],

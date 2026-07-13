@@ -27,7 +27,7 @@ html {
 /* Giants-Inline 폰트 정의 */
 @font-face {
   font-family: 'Giants-Inline';
-  src: url('/fonts/Giants-Inline.ttf') format('truetype');
+  src: url('/fonts/Giants-Inline.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
