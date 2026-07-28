@@ -312,6 +312,37 @@ function renderBlock(block, accounting) {
 }
 
 // ── 메인 ─────────────────────────────────────────────────────────────
+/**
+ * 발송 전 이미지 URL 사전 검사.
+ * 메일의 <img>는 배포된 사이트를 참조하므로, 배포보다 먼저 발송하면
+ * 수신자에게 이미지가 깨진 채로 도착한다. 발송 전 실제로 200이 오는지 확인한다.
+ */
+async function verifyImages(blocks) {
+  const urls = blocks
+    .filter(b => b.type === 'image')
+    .map(b => (b.src.startsWith('http') ? b.src : `${SITE}${b.src}`));
+  if (urls.length === 0) return [];
+
+  console.log(`\n이미지 확인 중 (${urls.length}장)...`);
+  const broken = [];
+  for (const url of urls) {
+    let status = 0;
+    try {
+      const res = await fetch(url, { method: 'HEAD' });
+      status = res.status;
+    } catch {
+      status = 0;
+    }
+    if (status === 200) {
+      console.log(`  ✓ ${url}`);
+    } else {
+      console.log(`  ✗ ${url}  (HTTP ${status || '연결 실패'})`);
+      broken.push({ url, status });
+    }
+  }
+  return broken;
+}
+
 async function main() {
   loadEnv();
 
@@ -348,6 +379,18 @@ async function main() {
   ];
   const html    = renderShell(`활동 보고 · ${publishedDate}`, parts.join('\n'));
   const subject = `예술해방전선 ${meta.title}`;
+
+  // 발송 전 이미지 사전 검사 — 배포 전 발송으로 인한 이미지 깨짐 방지
+  if (mode !== 'preview') {
+    const broken = await verifyImages(blocks);
+    if (broken.length > 0) {
+      console.error(`\n❌ 발송 중단: 이미지 ${broken.length}장이 사이트에 없습니다.`);
+      console.error('   메일은 배포된 사이트의 이미지를 참조하므로, 이대로 보내면 수신자에게 깨져 보입니다.');
+      console.error('   먼저 커밋·푸시하여 배포를 완료한 뒤 다시 발송하세요.\n');
+      process.exit(1);
+    }
+    console.log('  → 이미지 모두 정상\n');
+  }
 
   // 수신자
   const csvPath = path.join(ROOT, 'private/members.csv');
