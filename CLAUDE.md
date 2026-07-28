@@ -190,4 +190,12 @@ When the user provides a Notion page URL for a new 활동 보고:
 5. **Deploy** — `git add`, commit, push → Vercel deploys automatically.
 6. **Send mailing** — `node scripts/send-mailing.js <id> --send`
 
+> 🚨 **5번(배포)을 반드시 6번(발송)보다 먼저 하십시오.** 메일 본문의 `<img>`는
+> `https://alf.seoul.kr/images/news/{id}/*.webp` 절대경로를 참조합니다. 배포 전에
+> 발송하면 수신자에게 이미지가 깨진 채로 도착합니다(2026-07-27 57호에서 실제 발생 →
+> 23명 전원 재발송). 사용자가 "발송해줘"라고 해도 배포 완료 여부를 먼저 확인하세요.
+>
+> `send-mailing.js`는 `--test`/`--send` 직전에 모든 이미지 URL에 HEAD 요청을 보내
+> 200이 아니면 발송을 중단합니다. 이 검사를 우회하지 마십시오.
+
 Image numbering: existing files in `public/images/news/{id}/` are not overwritten; script continues from the next number. Use `--overwrite` to reset to 01.
