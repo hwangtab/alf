@@ -2,7 +2,7 @@ export type NewsletterBlock =
   | { type: 'heading'; level: 2 | 3; text: string }
   | { type: 'paragraph'; text: string }
   | { type: 'image'; src: string; alt: string }
-  | { type: 'link'; text: string; href: string }
+  | { type: 'link'; text: string; href: string; variant?: 'button' }
   | { type: 'video'; url: string; title?: string }
   | { type: 'ledger'; month: string };
 

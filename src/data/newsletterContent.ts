@@ -55,6 +55,7 @@ import n53 from './newsletters/53.json';
 import n54 from './newsletters/54.json';
 import n55 from './newsletters/55.json';
 import n56 from './newsletters/56.json';
+import n57 from './newsletters/57.json';
 
 export const newsletterContent: Record<number, NewsletterBlock[]> = {
   1: n1 as NewsletterBlock[],
@@ -113,6 +114,7 @@ export const newsletterContent: Record<number, NewsletterBlock[]> = {
   54: n54 as NewsletterBlock[],
   55: n55 as NewsletterBlock[],
   56: n56 as NewsletterBlock[],
+  57: n57 as NewsletterBlock[],
 };
 
 export const migratedIds = Object.keys(newsletterContent).map(Number);

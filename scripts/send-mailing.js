@@ -206,6 +206,16 @@ function renderBlock(block, accounting) {
     }
 
     case 'link':
+      if (block.variant === 'button') {
+        // 이메일 클라이언트 호환을 위해 테이블 기반 버튼으로 렌더링
+        return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:24px auto;">
+  <tr>
+    <td align="center" bgcolor="#ff5a1f" style="border-radius:8px;">
+      <a href="${esc(block.href)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:14px 28px;color:#ffffff;font-family:${FONT};font-size:15px;font-weight:700;text-decoration:none;border-radius:8px;">${esc(block.text)}</a>
+    </td>
+  </tr>
+</table>`;
+      }
       return `<p style="margin:12px 0;"><a href="${esc(block.href)}" target="_blank" rel="noopener noreferrer" style="color:#ff5a1f;font-weight:600;font-size:14px;font-family:${FONT};">${esc(block.text)}</a></p>`;
 
     case 'video': {
