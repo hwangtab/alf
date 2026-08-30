@@ -1248,6 +1248,17 @@
     "prevBalance": 226484,
     "currentBalance": 285784
   },
+  "2026-07": {
+    "income": [
+      { "label": "CMS 정기후원", "amount": 59300 }
+    ],
+    "expense": [],
+    "totalIncome": 59300,
+    "totalExpense": 0,
+    "net": 59300,
+    "prevBalance": 285784,
+    "currentBalance": 345084
+  },
   "2021-09": {
     "income": [
       {
