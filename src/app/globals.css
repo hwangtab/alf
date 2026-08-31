@@ -84,6 +84,42 @@ html {
   border-top: 1px solid currentColor;
 }
 
+/* Tailwind 3 → 4 전환 때 유실된 유틸리티. error/not-found의 버튼과
+   히어로·푸터 제목 그라디언트가 이 클래스들에 의존한다.
+   transition은 선언하지 않는다 — 호출부가 transition-transform을 쓰는데,
+   레이어 밖 규칙이 Tailwind 유틸리티를 이기므로 여기서 잡으면 hover 스케일이 깨진다. */
+.text-gradient {
+  background: var(--gradient-revolution);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+.text-gradient-art {
+  background: var(--gradient-art);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+.btn-revolution {
+  display: inline-block;
+  background: var(--color-primary-red);
+  color: var(--neutral-100);
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+}
+
+/* 모바일 메뉴가 열린 동안 뒤 본문 스크롤 잠금.
+   원본은 position:fixed였으나 닫을 때 스크롤 위치가 최상단으로 튀어 overflow만 잠근다. */
+body.menu-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 /* iOS Safari 동적 뷰포트 높이 지원 */
 :root {
   --vh: 1vh;

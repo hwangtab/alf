@@ -18,7 +18,7 @@ export default function Header() {
           />
         </Link>
 
-        <nav className="hidden md:block py-2">
+        <nav className="hidden md:block py-2" aria-label="주요 메뉴">
           <ul className="flex items-center space-x-1 md:space-x-2">
             {navigationLinks.map((link) => (
               <li key={link.href}>

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import localFont from 'next/font/local';
+import { Analytics } from '@vercel/analytics/next';
 import { generateOrganizationSchema, generateWebsiteSchema } from '@/utils/structured-data';
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -119,6 +120,14 @@ export default function RootLayout({
         />
       </head>
       <body className={`${gmarketSans.variable} ${sfHambak.variable} antialiased flex flex-col min-h-screen relative bg-black text-white font-sans`}>
+        {/* 키보드 사용자가 고정 헤더의 링크 9개를 매번 지나치지 않도록 */}
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:rounded-lg focus:bg-primary-red focus:px-4 focus:py-2 focus:font-semibold focus:text-white"
+        >
+          본문 바로가기
+        </a>
+
         {/* 노이즈 텍스처 배경 - 즉시 렌더링 */}
         <div className="fixed inset-0 bg-black z-0" />
         <NoiseBackground />
@@ -126,9 +135,10 @@ export default function RootLayout({
         {/* 메인 콘텐츠 */}
         <div className="flex flex-col min-h-screen relative z-[1]">
           <Header />
-          <main className="flex-grow">{children}</main>
+          <main id="main" className="flex-grow">{children}</main>
           <Footer />
         </div>
+        <Analytics />
       </body>
     </html>
   );

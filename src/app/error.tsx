@@ -1,13 +1,20 @@
 "use client";
 
-import React from "react";
+import { useEffect } from "react";
 
 export default function Error({
+  error,
   reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  useEffect(() => {
+    // 이 경계에서 삼켜버리면 프로덕션 오류의 흔적이 아무 데도 남지 않는다.
+    // digest는 Vercel 서버 로그의 같은 오류를 찾는 열쇠라 함께 남긴다.
+    console.error("페이지 렌더링 오류:", error);
+  }, [error]);
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16">
       <div className="text-center">
@@ -26,6 +33,11 @@ export default function Error({
         >
           다시 시도하기
         </button>
+        {error.digest && (
+          <p className="mt-6 text-xs text-neutral-500">
+            문의 시 알려주세요 — 오류 번호 {error.digest}
+          </p>
+        )}
       </div>
     </div>
   );

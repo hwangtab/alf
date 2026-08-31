@@ -1,4 +1,10 @@
 import Link from 'next/link';
+import { navigationLinks } from '@/data/navigation';
+
+// 헤더와 같은 목록을 쓴다. 따로 적어두면 이번처럼 조용히 어긋난다 —
+// 비디오 메뉴가 헤더에만 있고 푸터에는 빠져 있었다.
+// 홈은 상단 로고로 이미 닿으므로 제외한다.
+const footerLinks = navigationLinks.filter((link) => link.href !== '/');
 
 const Footer = () => {
   return (
@@ -45,27 +51,21 @@ const Footer = () => {
           
           {/* 빠른 링크 */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-white font-serif">바로가기</h3>
-            <ul className="space-y-2">
-              {[
-                { href: '/about', label: '소개' },
-                { href: '/activities', label: '활동' },
-                { href: '/albums', label: '음반/작품' },
-                { href: '/gallery', label: '갤러리' },
-                { href: '/guide', label: '가이드' }, // 가이드 메뉴 추가
-                { href: '/news', label: '활동 보고' },
-                { href: '/support', label: '회원 가입' },
-              ].map((link) => (
-                <li key={link.href}>
-                  <Link 
-                    href={link.href}
-                    className="text-neutral-400 hover:text-primary-red transition-colors inline-block py-1 font-sans"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <h3 className="text-xl font-bold mb-4 text-white font-serif" id="footer-nav-heading">바로가기</h3>
+            <nav aria-labelledby="footer-nav-heading">
+              <ul className="space-y-2">
+                {footerLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-neutral-400 hover:text-primary-red transition-colors inline-block py-1 font-sans"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
           
           {/* 연락처 */}

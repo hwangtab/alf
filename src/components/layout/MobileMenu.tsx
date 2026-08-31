@@ -54,8 +54,17 @@ export default function MobileMenu({ links }: MobileMenuProps) {
 
     document.addEventListener('keydown', handleKeyDown);
 
+    // 메뉴를 연 채 데스크톱 폭으로 넓히면 토글 버튼(md:hidden)이 사라져 오버레이에 갇힌다.
+    // 숨기기만 하면 body 스크롤이 잠긴 채로 남으므로 실제로 닫는다.
+    const desktopQuery = window.matchMedia('(min-width: 768px)');
+    const handleBreakpointChange = (event: MediaQueryListEvent) => {
+      if (event.matches) setIsMenuOpen(false);
+    };
+    desktopQuery.addEventListener('change', handleBreakpointChange);
+
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
+      desktopQuery.removeEventListener('change', handleBreakpointChange);
       document.body.classList.remove('menu-open');
       triggerButton?.focus();
     };
@@ -69,7 +78,7 @@ export default function MobileMenu({ links }: MobileMenuProps) {
     <>
       <button
         ref={buttonRef}
-        className="hamburger-button block md:hidden text-white p-2 focus:outline-none relative z-[110]"
+        className="block md:hidden text-white p-2 focus:outline-none relative z-[110]"
         onClick={() => setIsMenuOpen((open) => !open)}
         aria-label={isMenuOpen ? '메뉴 닫기' : '메뉴 열기'}
         aria-expanded={isMenuOpen}
@@ -99,12 +108,14 @@ export default function MobileMenu({ links }: MobileMenuProps) {
         createPortal(
           <div
             ref={overlayRef}
-            className="mobile-menu-overlay fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center"
+            className="fixed inset-0 z-[100] bg-black overflow-y-auto"
             role="dialog"
             aria-modal="true"
             aria-label="메뉴"
           >
-            <nav className="flex flex-col items-center gap-8 text-center">
+            {/* min-h-full + 부모 스크롤: 링크가 화면보다 길어지는 작은 기기에서도
+                위쪽 항목이 잘리지 않고 닿는다. */}
+            <nav className="min-h-full flex flex-col items-center justify-center gap-8 text-center py-24 px-4">
               {links.map((item, index) => (
                 <div key={item.href} style={{ transitionDelay: `${index * 50}ms` }}>
                   <Link
