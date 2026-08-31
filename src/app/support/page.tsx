@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import SupportForm from './SupportForm';
 
 export const metadata: Metadata = {
-  title: '회원 가입 | 예술해방전선',
+  title: '회원 가입',
   description: '예술해방전선 정기 회원이 되어 예술로 저항하고 연대하는 활동을 함께 만들어 가세요. 매월 회비 납부와 함께 활동 보고를 받으실 수 있습니다.',
   alternates: { canonical: '/support' },
   openGraph: {

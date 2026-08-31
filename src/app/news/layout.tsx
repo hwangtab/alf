@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "활동 보고 | 예술해방전선",
+  title: "활동 보고",
   description: "예술해방전선의 소식과 활동 소식을 담은 활동 보고를 확인하세요. 최신 활동 소식과 연대 현장의 이야기들을 전해드립니다.",
   keywords: ["예술해방전선", "활동 보고", "소식", "활동소식", "연대현장", "이야기"],
   alternates: {

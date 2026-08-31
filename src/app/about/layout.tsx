@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { generateArticleSchema, generateBreadcrumbSchema } from "@/utils/structured-data";
 
 export const metadata: Metadata = {
-  title: "소개 | 예술해방전선",
+  title: "소개",
   description: "예술해방전선의 창립 배경과 가치관을 소개합니다. 2019년 노량진수산시장에서 시작된 예술을 통한 연대와 저항의 여정을 확인하세요.",
   keywords: ["예술해방전선", "소개", "창립배경", "가치관", "노량진수산시장", "예술연대", "저항예술"],
   alternates: {
