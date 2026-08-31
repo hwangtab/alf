@@ -1,3 +1,10 @@
+/**
+ * 정기 회원 가입(/api/support) 메일 템플릿.
+ *
+ * 원래 api/newsletter/ 아래에 있었고 소식 구독 템플릿도 함께 담고 있었으나,
+ * 구독 폼과 라우트가 삭제되면서 이 파일의 소비자는 /api/support 하나만 남아 이리로 옮겼다.
+ * 소식 구독 템플릿(welcomeEmail·notifyEmail)이 다시 필요해지면 커밋 0996958에서 꺼내 쓸 것.
+ */
 const SITE = 'https://alf.seoul.kr';
 const FB = 'https://www.facebook.com/artliberationfront';
 const YT = 'https://www.youtube.com/@artliberationfront';
@@ -83,38 +90,6 @@ function navLinks(): string {
       `<a href="${href}" style="color:#ff7b00;text-decoration:none;font-weight:600;">${label}</a>`
     ).join('&nbsp;&nbsp;&middot;&nbsp;&nbsp;')}
   </p>`;
-}
-
-export function welcomeEmail(name: string): { subject: string; html: string; text: string } {
-  const safeName = escapeHtml(name);
-  const bodyHtml = `
-    <p style="margin:0 0 16px;font-size:22px;font-weight:700;color:#111827;line-height:1.4;">
-      ${safeName}님, 환영합니다 🎨
-    </p>
-    <p style="margin:0 0 14px;color:#374151;">
-      예술해방전선 소식 구독을 신청해 주셔서 감사합니다.
-    </p>
-    <p style="margin:0 0 4px;color:#374151;">
-      예술로 저항하고 연대하는 예술해방전선의 소식과 활동 기록을 이메일로 전해드리겠습니다.
-      지금 바로 웹사이트에서 활동 기록과 갤러리를 확인해 보세요.
-    </p>
-    ${ctaButton(SITE, '웹사이트 둘러보기')}
-    ${navLinks()}
-  `;
-  return {
-    subject: '예술해방전선 소식 구독을 환영합니다',
-    html: renderShell('예술로 저항하고 연대합니다', bodyHtml),
-    text: [
-      `${name}님, 예술해방전선 소식 구독을 신청해 주셔서 감사합니다.`,
-      '',
-      `웹사이트: ${SITE}`,
-      `활동: ${SITE}/activities`,
-      `갤러리: ${SITE}/gallery`,
-      `가이드: ${SITE}/guide`,
-      '',
-      '© 예술해방전선',
-    ].join('\n'),
-  };
 }
 
 export type SupporterData = {
@@ -224,45 +199,3 @@ export function supporterWelcomeEmail(name: string): { subject: string; html: st
   };
 }
 
-export function notifyEmail(
-  name: string,
-  email: string,
-): { subject: string; html: string; text: string } {
-  const safeName = escapeHtml(name);
-  const safeEmail = escapeHtml(email);
-  const bodyHtml = `
-    <p style="margin:0 0 20px;font-size:17px;font-weight:600;color:#111827;">
-      새 소식 구독 신청이 접수됐습니다.
-    </p>
-    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color:#f9fafb;border-radius:8px;margin:0 0 24px;">
-      <tr>
-        <td style="padding:20px 24px;">
-          <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
-            <tr>
-              <td style="font-size:13px;color:#6b7280;padding-bottom:10px;width:72px;vertical-align:top;">이름</td>
-              <td style="font-size:15px;color:#111827;font-weight:600;padding-bottom:10px;">${safeName}</td>
-            </tr>
-            <tr>
-              <td style="font-size:13px;color:#6b7280;vertical-align:top;">이메일</td>
-              <td style="font-size:15px;color:#111827;font-weight:600;">${safeEmail}</td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-    <p style="margin:0;font-size:14px;color:#6b7280;background-color:#fff7ed;border-left:3px solid #ff7b00;padding:12px 16px;border-radius:0 6px 6px 0;">
-      이 메일에 회신하면 신청자(${safeEmail})에게 바로 답장됩니다.
-    </p>
-  `;
-  return {
-    subject: `새 소식 구독 신청: ${name.replace(/[\r\n]/g, ' ')}`,
-    html: renderShell('관리자 알림', bodyHtml),
-    text: [
-      '새 소식 구독 신청',
-      `이름: ${name}`,
-      `이메일: ${email}`,
-      '',
-      '이 메일에 회신하면 신청자에게 바로 답장됩니다.',
-    ].join('\n'),
-  };
-}

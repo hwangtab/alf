@@ -11,6 +11,9 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    // 테스트는 node --import tsx로 직접 실행되어 확장자까지 명시한 import가 필요하다.
+    // 이 옵션이 없으면 tsc --noEmit이 테스트 파일마다 TS5097로 실패한다.
+    "allowImportingTsExtensions": true,
     "jsx": "preserve",
     "incremental": true,
     "plugins": [

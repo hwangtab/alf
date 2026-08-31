@@ -1,8 +1,13 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { supporterNotifyEmail, supporterWelcomeEmail, type SupporterData } from '../newsletter/emailTemplates';
+import { supporterNotifyEmail, supporterWelcomeEmail, type SupporterData } from './emailTemplates';
 import { getOutboundEmailConfig } from '@/utils/email-config';
 import { validateSupportPayload } from '@/utils/support-validation';
+import { consumeRateLimit, getClientKey } from '@/utils/rate-limit';
+
+// 가입 신청은 한 사람이 여러 번 낼 일이 없다. 오타 수정 재제출 여지만 남긴다.
+const SIGNUP_LIMIT = 3;
+const SIGNUP_WINDOW_MS = 60 * 60 * 1000;
 
 export async function POST(request: Request) {
   try {
@@ -37,6 +42,16 @@ export async function POST(request: Request) {
     if (!emailConfig.ok) {
       console.error('Support email config error:', emailConfig.error);
       return NextResponse.json({ error: '이메일 서비스가 올바르게 구성되지 않았습니다.' }, { status: 500 });
+    }
+
+    // 검증을 통과한 뒤에 한도를 소비한다. 입력 실수로 되돌아온 사용자가
+    // 재제출 기회를 잃지 않도록, 실제 발송으로 이어지는 요청만 센다.
+    const rate = consumeRateLimit(`support:${getClientKey(request)}`, SIGNUP_LIMIT, SIGNUP_WINDOW_MS);
+    if (!rate.ok) {
+      return NextResponse.json(
+        { error: '신청이 너무 잦습니다. 잠시 후 다시 시도해주세요.' },
+        { status: 429, headers: { 'Retry-After': String(rate.retryAfterSeconds) } }
+      );
     }
 
     const data: SupporterData = validation.data;
