@@ -1155,6 +1155,25 @@
     "prevBalance": -216,
     "currentBalance": 80484
   },
+  "2025-11": {
+    "income": [
+      {
+        "label": "CMS 정기후원",
+        "amount": 110000
+      }
+    ],
+    "expense": [
+      {
+        "label": "CMS 수수료",
+        "amount": 34000
+      }
+    ],
+    "totalIncome": 110000,
+    "totalExpense": 34000,
+    "net": 76000,
+    "prevBalance": 80484,
+    "currentBalance": 156484
+  },
   "2025-12": {
     "income": [
       {
@@ -1178,6 +1197,25 @@
     "net": 2000,
     "prevBalance": 156484,
     "currentBalance": 158484
+  },
+  "2026-01": {
+    "income": [
+      {
+        "label": "CMS 정기후원",
+        "amount": 109000
+      }
+    ],
+    "expense": [
+      {
+        "label": "CMS 수수료",
+        "amount": 33000
+      }
+    ],
+    "totalIncome": 109000,
+    "totalExpense": 33000,
+    "net": 76000,
+    "prevBalance": 158484,
+    "currentBalance": 234484
   },
   "2026-02": {
     "income": [
