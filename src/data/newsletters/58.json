@@ -23,7 +23,6 @@
     "type": "paragraph",
     "text": "여름의 끝자락을 건너고 계신 동지 여러분께 안부를 여쭙습니다. 부디 건강하시기를 바랍니다. 늘 변함없는 후원과 연대로 우리를 지탱해 주시는 모든 분들께 깊은 감사를 담아 8월 소식지를 엽니다. 함께 연대하며, 예술해방전선 드림"
   },
-
   {
     "type": "heading",
     "level": 2,
@@ -68,12 +67,66 @@
     "text": "그러나 그날 청와대 앞을 지나던 사람들이 풍천리라는 지명을 처음 들었습니다. 기사가 나왔고, 영상이 남았고, 마을 사람들은 자신들의 싸움이 혼자만의 것이 아니라는 것을 눈으로 보았습니다. 대책위는 다음 행동을 홍천군청과 한국전력 인근으로 넓혀갈 예정입니다. 숲이 베이는 속도보다 이름이 불리는 속도가 빨라야 한다고 지난달에 적었습니다. 그 문장을 거두지 않겠습니다."
   },
   {
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=zSBkMxudKUI",
+    "title": "강민정_베어지기 전에 풍천리 260801"
+  },
+  {
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=aXVFnYZurhk",
+    "title": "강상석 - 베어지기 전에 풍천리 260801"
+  },
+  {
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=s-sKvnLSt-4",
+    "title": "경하와 세민과 멍구와 흑염소 - 베어지기 전에 풍천리 260801"
+  },
+  {
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=kpI9PS3oskA",
+    "title": "길가는 밴드 장현호 - 베어지기 전에 풍천리 260801"
+  },
+  {
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=ZdbTGMPg8kc",
+    "title": "김민정(알마즈) - 베어지기 전에 풍천리 260801"
+  },
+  {
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=KmlpSSm5-go",
+    "title": "남수 - 베어지기 전에 풍천리 260801"
+  },
+  {
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=roQq22X98TM",
+    "title": "물장구 클럽 - 베어지기 전에 풍천리 260801"
+  },
+  {
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=NPABbiq84sc",
+    "title": "삼각 전파사 - 베어지기 전에 풍천리 260801"
+  },
+  {
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=3MrWSM3Jk-E",
+    "title": "종이코트 - 베어지기 전에 풍천리 260801"
+  },
+  {
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=B7yzCkQ3AEA",
+    "title": "치핵 - 베어지기 전에 풍천리 260801"
+  },
+  {
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=i8WXHWHWWA4",
+    "title": "하늘소년 - 베어지기 전에 풍천리 260801"
+  },
+  {
     "type": "link",
     "text": "「베어지기 전에, 풍천리」 자세히 보기",
     "href": "https://www.saf2026.com/funding/pungcheonri",
     "variant": "button"
   },
-
   {
     "type": "heading",
     "level": 2,
@@ -114,7 +167,6 @@
     "type": "paragraph",
     "text": "연대는 오래 하는 일입니다. 618번을 이어온 촛불도, 칠 년을 버틴 마을도 그렇게 여기까지 왔습니다. 그 곁에 오래 있으려면 우리도 지치지 않아야 하고, 지치지 않으려면 쉬어야 합니다. 계곡에서 보낸 하루를 소식지에 적는 이유입니다. 동지 여러분께서도 올여름 어딘가에서 발을 담그셨기를 바랍니다."
   },
-
   {
     "type": "heading",
     "level": 2,
@@ -155,7 +207,6 @@
     "href": "https://pungcheonri.vercel.app/concert/village-feast",
     "variant": "button"
   },
-
   {
     "type": "heading",
     "level": 2,
