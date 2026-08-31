@@ -15,6 +15,7 @@
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
+const { parseCsv } = require('./lib/csv.js');
 
 // ── 상수 ─────────────────────────────────────────────────────────────
 const ROOT       = path.join(__dirname, '..');
@@ -78,28 +79,6 @@ function loadEnv() {
       process.env[m[1]] = quoted ? quoted[2] : raw.replace(/\s+#.*$/, '').trim();
     }
   }
-}
-
-// ── CSV 파서 (따옴표 처리) ─────────────────────────────────────────────
-function parseRow(line) {
-  const fields = [];
-  let field = '';
-  let inQuote = false;
-  for (let i = 0; i < line.length; i++) {
-    const ch = line[i];
-    if (inQuote) {
-      if (ch === '"') {
-        if (line[i + 1] === '"') { field += '"'; i++; }
-        else inQuote = false;
-      } else { field += ch; }
-    } else {
-      if (ch === '"') { inQuote = true; }
-      else if (ch === ',') { fields.push(field); field = ''; }
-      else { field += ch; }
-    }
-  }
-  fields.push(field);
-  return fields;
 }
 
 // ── HTML 헬퍼 ─────────────────────────────────────────────────────────
@@ -398,20 +377,29 @@ async function main() {
     console.error('오류: private/members.csv 파일이 없습니다');
     process.exit(1);
   }
-  const csvLines = fs.readFileSync(csvPath, 'utf8')
-    .replace(/^﻿/, '').replace(/\r\n/g, '\n').replace(/\r/g, '\n')
-    .split('\n').filter(Boolean);
-  const headers = parseRow(csvLines[0]);
-  const emailCol = headers.indexOf('이메일');
+  const csvRows = parseCsv(fs.readFileSync(csvPath, 'utf8'));
+  if (csvRows.length === 0) {
+    console.error('오류: private/members.csv가 비어 있습니다');
+    process.exit(1);
+  }
+  const emailCol = csvRows[0].indexOf('이메일');
   if (emailCol < 0) {
     console.error('오류: members.csv에서 이메일 열을 찾을 수 없습니다');
     process.exit(1);
   }
-  const recipients = [...new Set(
-    csvLines.slice(1)
-      .map(line => (parseRow(line)[emailCol] || '').trim())
-      .filter(e => EMAIL_RE.test(e))
-  )];
+
+  // 대소문자만 다른 같은 주소로 두 번 발송되지 않도록 소문자 키로 중복을 제거하되,
+  // 실제 발송에는 원본 표기를 그대로 쓴다.
+  const seenEmails = new Set();
+  const recipients = [];
+  for (const row of csvRows.slice(1)) {
+    const email = (row[emailCol] || '').trim();
+    if (!EMAIL_RE.test(email)) continue;
+    const key = email.toLowerCase();
+    if (seenEmails.has(key)) continue;
+    seenEmails.add(key);
+    recipients.push(email);
+  }
 
   // ── 드라이런 ────────────────────────────────────────────────────────
   if (mode === 'preview') {

@@ -72,15 +72,17 @@ async function main() {
         if (options.clearBadges && entry.badges) {
           delete entry.badges;
         }
+        // 추출 실패는 "값이 없다"가 아니라 "이번에 못 찾았다"이다.
+        // 손으로 큐레이션한 기존 값을 지우지 않는다.
         if (payload.highlights.length > 0) {
           entry.highlights = payload.highlights;
-        } else {
-          delete entry.highlights;
         }
-        if (payload.thumbnail) {
+        // 배포된 로컬 이미지를 만료 가능한 원격(stibee) URL로 바꾸지 않는다.
+        // 메일 본문과 OG 태그가 이 경로를 alf.seoul.kr 절대 URL로 참조한다.
+        const hasLocalThumbnail =
+          typeof entry.thumbnail === "string" && entry.thumbnail.startsWith("/");
+        if (payload.thumbnail && !hasLocalThumbnail) {
           entry.thumbnail = payload.thumbnail;
-        } else {
-          delete entry.thumbnail;
         }
       }
 
@@ -89,9 +91,14 @@ async function main() {
           payload.highlights.length ? `, highlights: ${payload.highlights.length}` : ""
         }${payload.thumbnail ? ", thumbnail" : ""})`
       );
-      await sleep(WAIT_MS);
     } catch (error) {
       console.log(`오류: ${error.message}`);
+    } finally {
+      // 성공·건너뜀·실패 모두 같은 간격을 둔다. 실패 때만 간격이 사라지면
+      // 연쇄 실패 상황에서 원 서버를 연타하게 된다.
+      if (i < limitedTargets.length - 1) {
+        await sleep(WAIT_MS);
+      }
     }
   }
 
@@ -480,7 +487,16 @@ function parseArgs(rawArgs) {
     } else if (arg === "--all") {
       opts.onlyMissing = false;
     } else if (arg === "--limit") {
-      opts.limit = Number(rawArgs[i + 1]);
+      // 값이 없으면 NaN이 되고, targets.slice(0, NaN)이 빈 배열이라
+      // "업데이트할 뉴스레터가 없습니다"만 찍고 조용히 끝나 버린다. 크게 실패시킨다.
+      const parsed = Number(rawArgs[i + 1]);
+      if (!Number.isFinite(parsed) || parsed <= 0) {
+        console.error(
+          `오류: --limit 다음에는 양의 정수를 지정하세요 (받은 값: ${rawArgs[i + 1] ?? "없음"})`
+        );
+        process.exit(1);
+      }
+      opts.limit = parsed;
       i += 1;
     } else if (arg === "--wait") {
       opts.wait = Number(rawArgs[i + 1]);

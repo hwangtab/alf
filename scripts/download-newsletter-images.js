@@ -29,18 +29,27 @@ const args = process.argv.slice(2).filter(a => a !== '--overwrite');
 const overwrite = process.argv.includes('--overwrite');
 
 if (args.length < 2) {
-  process.stdout.write([
+  const usage = [
     '사용법:',
     '  node scripts/download-newsletter-images.js <id> <url1> [url2] ...',
     '',
     '옵션:',
-    '  --overwrite   기존 이미지 무시하고 01부터 새로 번호 매기기',
+    '  --overwrite   기존 NN.webp를 삭제하고 01부터 새로 시작',
     '',
     '예시:',
     '  node scripts/download-newsletter-images.js 54 https://example.com/img1.jpg https://example.com/img2.png',
     '',
-  ].join('\n'));
-  process.exit(0);
+  ].join('\n');
+
+  // 인자를 아예 안 준 건 도움말 요청, 부족하게 준 건 사용법 오류다.
+  // 후자를 0으로 끝내면 워크플로 중간에서 실패가 묻힌다.
+  if (args.length === 0) {
+    process.stdout.write(usage);
+    process.exit(0);
+  }
+  console.error('오류: 뉴스레터 ID와 URL을 하나 이상 입력하세요\n');
+  process.stderr.write(usage);
+  process.exit(1);
 }
 
 const id   = parseInt(args[0], 10);
@@ -48,10 +57,6 @@ const urls = args.slice(1);
 
 if (isNaN(id) || id <= 0) {
   console.error('오류: 유효한 뉴스레터 ID(양의 정수)를 입력하세요');
-  process.exit(1);
-}
-if (urls.length === 0) {
-  console.error('오류: 다운로드할 URL을 하나 이상 입력하세요');
   process.exit(1);
 }
 
@@ -68,20 +73,96 @@ function nextIndex() {
   return existing.length > 0 ? Math.max(...existing) + 1 : 1;
 }
 
-// ── URL에서 버퍼 다운로드 (리다이렉트 처리 포함) ───────────────────────
+/**
+ * --overwrite는 "01부터 새로 시작"이므로 기존 NN.webp를 실제로 치운다.
+ * 번호만 되돌리고 파일을 남기면, 이번에 받은 장수가 더 적을 때 지난 회차 이미지가
+ * 유령으로 남아 메일·페이지에 섞여 들어간다.
+ */
+function clearExistingImages() {
+  const stale = fs.readdirSync(outDir).filter(f => /^\d+\.webp$/.test(f));
+  if (stale.length === 0) return;
+
+  console.log(`--overwrite: 기존 이미지 ${stale.length}장을 삭제합니다`);
+  for (const file of stale) {
+    fs.unlinkSync(path.join(outDir, file));
+    console.log(`  삭제 ${file}`);
+  }
+  console.log('');
+}
+
+// ── 다운로드 설정 ─────────────────────────────────────────────────────
+// 노션 이미지 URL은 만료되는 S3 서명 URL이라, 일시적 실패 한 번이 곧 원본 소실이다.
+// (다시 받으려면 노션 페이지를 열어 새 서명 URL을 얻어야 한다.) 그래서 재시도한다.
+const MAX_ATTEMPTS = 3;
+const TIMEOUT_MS = 30_000;
+const MAX_BYTES = 25 * 1024 * 1024;
+
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+// ── URL에서 버퍼 다운로드 (타임아웃·재시도 포함) ───────────────────────
 async function downloadBuffer(url) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`);
-  return Buffer.from(await res.arrayBuffer());
+  let parsed;
+  try {
+    parsed = new URL(url);
+  } catch {
+    throw new Error(`URL 형식이 올바르지 않습니다: ${url}`);
+  }
+  if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+    throw new Error(`http(s) URL만 받습니다 (받은 스킴: ${parsed.protocol})`);
+  }
+
+  let lastError;
+
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      const res = await fetch(url, { signal: AbortSignal.timeout(TIMEOUT_MS) });
+
+      if (!res.ok) {
+        // 서명 만료·삭제는 재시도해도 결과가 같다. 원인을 알려주고 즉시 포기한다.
+        if (res.status === 401 || res.status === 403 || res.status === 404) {
+          throw Object.assign(
+            new Error(`HTTP ${res.status} — URL이 만료됐거나 접근할 수 없습니다`),
+            { permanent: true }
+          );
+        }
+        throw new Error(`HTTP ${res.status}`);
+      }
+
+      const declaredLength = Number(res.headers.get('content-length'));
+      if (Number.isFinite(declaredLength) && declaredLength > MAX_BYTES) {
+        throw Object.assign(
+          new Error(`이미지가 너무 큽니다 (${Math.round(declaredLength / 1024 / 1024)}MB)`),
+          { permanent: true }
+        );
+      }
+
+      const buf = Buffer.from(await res.arrayBuffer());
+      if (buf.byteLength > MAX_BYTES) {
+        throw Object.assign(new Error('이미지가 너무 큽니다'), { permanent: true });
+      }
+      return buf;
+    } catch (err) {
+      lastError = err;
+      if (err.permanent || attempt === MAX_ATTEMPTS) break;
+      await sleep(1000 * attempt);
+    }
+  }
+
+  throw lastError;
 }
 
 // ── 메인 ─────────────────────────────────────────────────────────────
 async function main() {
-  let idx = nextIndex();
-  const results = [];
-
   console.log(`\n뉴스레터 #${id} 이미지 다운로드 · WebP 변환`);
   console.log(`저장 경로: ${outDir}`);
+
+  if (overwrite) clearExistingImages();
+
+  let idx = nextIndex();
+  const results = [];
+  const failures = [];
+  const appending = idx > 1;
+
   console.log(`시작 번호: ${String(idx).padStart(2, '0')}\n`);
 
   for (let i = 0; i < urls.length; i++) {
@@ -101,18 +182,33 @@ async function main() {
       idx++;
     } catch (err) {
       process.stdout.write(`실패 ✗ (${err.message})\n`);
+      failures.push({ url, message: err.message });
     }
   }
 
-  if (results.length === 0) {
-    console.error('\n저장된 이미지가 없습니다.');
+  if (results.length > 0) {
+    console.log('\n저장된 이미지 경로 (블록 JSON에 그대로 사용):');
+    results.forEach(r => console.log(`  ${r}`));
+
+    // 이어붙이기 모드에서는 이번에 받은 첫 장이 이 호의 첫 이미지가 아니다.
+    if (!appending) {
+      console.log(`\n썸네일 후보 (첫 번째 이미지): ${results[0]}`);
+      console.log('→ newsletters.json의 thumbnail 값으로 사용하세요.');
+    } else {
+      console.log('\n(이어붙이기 모드 — 이 호의 첫 이미지는 01.webp이며, 위 목록의 첫 항목이 아닙니다.)');
+    }
+  }
+
+  if (failures.length > 0) {
+    console.error(`\n❌ ${failures.length}/${urls.length}장 실패`);
+    console.error('   노션 이미지 URL은 약 1시간 뒤 만료됩니다. 만료됐다면 노션 페이지를');
+    console.error('   다시 열어 새 URL을 얻은 뒤, 아래 주소만 다시 실행하세요:\n');
+    failures.forEach(f => console.error(`   ${f.url}\n     → ${f.message}`));
+    console.error('');
     process.exit(1);
   }
 
-  console.log('\n저장된 이미지 경로 (블록 JSON에 그대로 사용):');
-  results.forEach(r => console.log(`  ${r}`));
-  console.log(`\n썸네일 후보 (첫 번째 이미지): ${results[0]}`);
-  console.log('→ newsletters.json의 thumbnail 값으로 사용하세요.\n');
+  console.log('');
 }
 
 main().catch(err => {
