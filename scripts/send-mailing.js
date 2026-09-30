@@ -113,14 +113,18 @@ function renderShell(subtitle, bodyHtml) {
       <td align="center" style="padding:32px 12px;">
         <table role="presentation" cellpadding="0" cellspacing="0" width="600" style="max-width:600px;background-color:#ffffff;border-radius:12px;overflow:hidden;">
           <tr>
-            <td align="center" style="padding:32px 40px 24px;background-color:#ffffff;">
-              <a href="${SITE}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="${LOGO_URL}" width="200" height="200" alt="예술해방전선" style="display:block;width:200px;height:auto;border:0;"></a>
-            </td>
-          </tr>
-          <tr>
-            <td style="background-color:#ff5a1f;background-image:linear-gradient(135deg,#ff3d3d,#ff7b00);padding:36px 40px;">
-              <div style="font-family:${FONT};font-size:26px;font-weight:900;color:#ffffff;letter-spacing:-0.5px;line-height:1.2;">예술해방전선</div>
-              <div style="font-family:${FONT};font-size:13px;color:rgba(255,255,255,0.85);margin-top:8px;letter-spacing:0.3px;">${subtitle}</div>
+            <td style="background-color:#d62010;padding:0;">
+              <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color:#d62010;">
+                <tr>
+                  <td width="140" valign="top" style="width:140px;padding:0;line-height:0;font-size:0;">
+                    <a href="${SITE}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="${LOGO_URL}" width="140" height="140" alt="예술해방전선" style="display:block;width:140px;height:140px;border:0;"></a>
+                  </td>
+                  <td valign="middle" style="padding:0 32px 0 28px;background-color:#d62010;">
+                    <div style="font-family:${FONT};font-size:11px;font-weight:700;color:rgba(255,255,255,0.75);letter-spacing:2.4px;">ART LIBERATION FRONT</div>
+                    <div style="font-family:${FONT};font-size:22px;font-weight:900;color:#ffffff;letter-spacing:-0.4px;line-height:1.3;margin-top:8px;">${subtitle}</div>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
           <tr>
@@ -363,7 +367,7 @@ async function main() {
     ...blocks.map(b => renderBlock(b, accounting)),
     ctaButton(`${SITE}/news/${id}`, '웹사이트에서 보기'),
   ];
-  const html    = renderShell(`활동 보고 · ${publishedDate}`, parts.join('\n'));
+  const html    = renderShell('활동 보고', parts.join('\n'));
   const subject = `예술해방전선 ${meta.title}`;
 
   // 발송 전 이미지 사전 검사 — 배포 전 발송으로 인한 이미지 깨짐 방지
