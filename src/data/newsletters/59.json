@@ -182,12 +182,6 @@
     "variant": "button"
   },
   {
-    "type": "link",
-    "text": "「木자르기」 공연 안내 보기",
-    "href": "https://pungcheonri.vercel.app/concert/mok-jareugi",
-    "variant": "button"
-  },
-  {
     "type": "heading",
     "level": 2,
     "text": "강가히말라야, 음반을 녹음하고 있습니다"
