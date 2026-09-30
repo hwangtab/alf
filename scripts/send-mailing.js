@@ -24,6 +24,8 @@ const FB         = 'https://www.facebook.com/artliberationfront';
 const YT         = 'https://www.youtube.com/@artliberationfront';
 const FROM       = '예술해방전선 <noreply@alf.seoul.kr>';
 const REPLY_TO   = 'alf.seoul.kr@gmail.com';
+// 모든 메일의 맨 앞에 들어가는 로고 (스티비 시절부터 이어온 정사각 로고)
+const LOGO_URL   = `${SITE}/images/gallery/${encodeURIComponent('예술해방전선로고정사각')}.webp`;
 const FONT       = "-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', sans-serif";
 const DELAY_MS   = 600; // Resend 레이트리밋 안전 마진 (~2 req/s)
 const EMAIL_RE   = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -110,6 +112,11 @@ function renderShell(subtitle, bodyHtml) {
     <tr>
       <td align="center" style="padding:32px 12px;">
         <table role="presentation" cellpadding="0" cellspacing="0" width="600" style="max-width:600px;background-color:#ffffff;border-radius:12px;overflow:hidden;">
+          <tr>
+            <td align="center" style="padding:32px 40px 24px;background-color:#ffffff;">
+              <a href="${SITE}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="${LOGO_URL}" width="200" height="200" alt="예술해방전선" style="display:block;width:200px;height:auto;border:0;"></a>
+            </td>
+          </tr>
           <tr>
             <td style="background-color:#ff5a1f;background-image:linear-gradient(135deg,#ff3d3d,#ff7b00);padding:36px 40px;">
               <div style="font-family:${FONT};font-size:26px;font-weight:900;color:#ffffff;letter-spacing:-0.5px;line-height:1.2;">예술해방전선</div>
@@ -300,7 +307,7 @@ async function verifyImages(blocks) {
   const urls = blocks
     .filter(b => b.type === 'image')
     .map(b => (b.src.startsWith('http') ? b.src : `${SITE}${b.src}`));
-  if (urls.length === 0) return [];
+  urls.unshift(LOGO_URL);
 
   console.log(`\n이미지 확인 중 (${urls.length}장)...`);
   const broken = [];
