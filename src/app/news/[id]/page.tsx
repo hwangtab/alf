@@ -11,6 +11,7 @@ import {
   getNewsletterMeta,
   getNewsletterNavigation,
   getNewsletterOgImage,
+  parseNewsletterId,
   type NewsletterMeta,
 } from '@/utils/newsletters';
 
@@ -19,6 +20,10 @@ const newsletters = newslettersData as NewsletterMeta[];
 
 // 활동 보고 상세 페이지 최상단 히어로 이미지 — 모든 호 공통 브랜드 로고
 const HERO_IMAGE = '/images/gallery/예술해방전선로고정사각.webp';
+
+// 모든 호가 빌드 때 정적 생성된다. 목록 밖의 주소는 렌더하지 않고 바로 404로 —
+// 그러지 않으면 notFound()가 스트리밍 중에 불려 상태 코드가 200으로 나간다.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return migratedIds.map((id) => ({ id: String(id) }));
@@ -29,8 +34,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  const { id: idStr } = await params;
-  const id = parseInt(idStr, 10);
+  const id = parseNewsletterId((await params).id);
+  if (id === null) return {};
   const meta = getNewsletterMeta(newsletters, id);
   const blocks = newsletterContent[id];
   if (!meta || !blocks) return {};
@@ -66,11 +71,10 @@ export default async function NewsletterDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id: idStr } = await params;
-  const id = parseInt(idStr, 10);
-  const blocks = newsletterContent[id];
+  const id = parseNewsletterId((await params).id);
+  const blocks = id === null ? undefined : newsletterContent[id];
 
-  if (isNaN(id) || !blocks) {
+  if (id === null || !blocks) {
     notFound();
   }
 

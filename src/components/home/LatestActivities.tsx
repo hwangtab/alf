@@ -20,7 +20,8 @@ const LatestActivities = () => {
             imageAlt={`${activity.title} 대표 이미지`}
             tags={activity.tags}
             index={index}
-            loadingPriority={index < 2} // 첫 2개 카드만 우선 로딩
+            // 히어로(min-h-screen) 아래라 첫 화면에 보이지 않는다. priority를 주면 히어로 LCP와 대역폭을 다툰다.
+            loadingPriority={false}
             tagLimit={2} // 홈에서는 태그 2개만 표시
             imageChildren={ // 이미지 위에 제목 표시
               <h3 className="text-lg font-bold font-serif">{activity.title}</h3>

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import accountingData from '@/data/accounting.json';
 import type { AccountingMonth, NewsletterBlock } from '@/types/newsletter';
 import { getYouTubeVideoId } from '@/utils/videos';
+import { getPublicImageSize, type ImageSize } from '@/utils/image-size';
 
 function Amount({ value }: { value: number }) {
   const amountClass = value < 0 ? 'text-primary-red' : 'text-neutral-200';
@@ -98,7 +99,7 @@ function LedgerBlock({ month }: { month: string }) {
   );
 }
 
-function BlockRenderer({ block }: { block: NewsletterBlock }) {
+function BlockRenderer({ block, imageSize }: { block: NewsletterBlock; imageSize?: ImageSize }) {
   if (block.type === 'heading') {
     if (block.level === 2) {
       return (
@@ -128,8 +129,8 @@ function BlockRenderer({ block }: { block: NewsletterBlock }) {
         <Image
           src={block.src}
           alt={block.alt}
-          width={800}
-          height={500}
+          width={imageSize?.width ?? 800}
+          height={imageSize?.height ?? 500}
           sizes="(min-width: 768px) 720px, 100vw"
           className="w-full h-auto object-contain"
           quality={85}
@@ -206,11 +207,15 @@ function BlockRenderer({ block }: { block: NewsletterBlock }) {
   return null;
 }
 
-export default function NewsletterBlocks({ blocks }: { blocks: NewsletterBlock[] }) {
+export default async function NewsletterBlocks({ blocks }: { blocks: NewsletterBlock[] }) {
+  const imageSizes = await Promise.all(
+    blocks.map((block) => (block.type === 'image' ? getPublicImageSize(block.src) : undefined))
+  );
+
   return (
     <article className="space-y-0">
       {blocks.map((block, index) => (
-        <BlockRenderer key={index} block={block} />
+        <BlockRenderer key={index} block={block} imageSize={imageSizes[index]} />
       ))}
     </article>
   );

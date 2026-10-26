@@ -23,6 +23,14 @@ export function getNewsletterMeta(
   return newsletters.find((newsletter) => newsletter.id === id);
 }
 
+/**
+ * URL 세그먼트를 호수로. parseInt만 쓰면 `12abc`·`012`도 12호로 열리므로
+ * 정규형 정수 문자열만 받는다.
+ */
+export function parseNewsletterId(segment: string): number | null {
+  return /^[1-9]\d*$/.test(segment) ? Number(segment) : null;
+}
+
 export function formatNewsletterDate(iso: string) {
   const [datePart] = iso.split('T');
   const [year, month, day] = datePart.split('-').map(Number);

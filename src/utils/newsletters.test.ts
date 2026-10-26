@@ -5,6 +5,7 @@ import {
   getNewsletterMeta,
   getNewsletterNavigation,
   getNewsletterOgImage,
+  parseNewsletterId,
   type NewsletterMeta,
 } from './newsletters.ts';
 
@@ -52,4 +53,14 @@ test('uses thumbnail, first content image, then site fallback for newsletter OG 
     getNewsletterOgImage(metas[2], [{ type: 'paragraph', text: '본문' }]),
     '/images/social-thumbnail.webp'
   );
+});
+
+test('accepts only canonical newsletter id segments', () => {
+  assert.equal(parseNewsletterId('12'), 12);
+  assert.equal(parseNewsletterId('60'), 60);
+  assert.equal(parseNewsletterId('12abc'), null);
+  assert.equal(parseNewsletterId('012'), null);
+  assert.equal(parseNewsletterId('0'), null);
+  assert.equal(parseNewsletterId('-1'), null);
+  assert.equal(parseNewsletterId(''), null);
 });

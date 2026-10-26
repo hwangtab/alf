@@ -37,14 +37,15 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
     setIsOpen(true);
   }
 
-  // yet-another-react-lightbox용 슬라이드 배열
+  // 그리드는 나눠 보여줘도 라이트박스는 전체를 넘겨볼 수 있어야 한다.
+  // visibleImages로 만들면 80번째 사진에서 더 넘어가지 않는다.
   const slides = useMemo(
     () =>
-      visibleImages.map((image) => ({
+      images.map((image) => ({
         src: image.src,
         alt: image.alt,
       })),
-    [visibleImages]
+    [images]
   );
 
   return (
@@ -65,7 +66,8 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
               fill
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
               className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-              priority={idx < 10}
+              // 모바일 2열 기준 첫 화면은 4장 남짓. 그 이상 preload하면 서로 대역폭만 다툰다.
+              priority={idx < 4}
             />
           </button>
         ))}

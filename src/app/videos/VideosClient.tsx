@@ -41,7 +41,7 @@ export default function VideosClient({ videos }: VideosClientProps) {
             index={index % VIDEOS_PER_PAGE}
             aspectRatio="56.25%"
             imageSizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            loadingPriority={index < 6}
+            loadingPriority={index < 3}
             useLazyMotion={false}
           >
             <div className="text-xs text-neutral-400 mt-2">

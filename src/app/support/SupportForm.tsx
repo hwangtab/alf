@@ -72,8 +72,9 @@ export default function SupportForm() {
       });
 
       if (!res.ok) {
-        const { error } = await res.json();
-        throw new Error(error || '신청에 실패했습니다.');
+        // 게이트웨이 타임아웃 등은 HTML로 응답하므로 JSON 파싱 실패를 기본 문구로 받는다.
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.error || '신청에 실패했습니다. 잠시 후 다시 시도해주세요.');
       }
 
       setStatus('success');
