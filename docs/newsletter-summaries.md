@@ -38,4 +38,6 @@ npm run generate:newsletters -- --all
 
 ## 자동 실행
 
-`.github/workflows/update-newsletters.yml` 워크플로가 매주 월요일 오전 6시(KST)마다 `npm run generate:newsletters -- --wait 200 --clear-badges`를 실행합니다. 변경분이 있을 때만 `chore: update newsletter summaries (auto)` 커밋을 만들고 `main` 브랜치에 푸시합니다. 필요 시 `workflow_dispatch`로 수동 실행도 가능합니다.
+없음. 예전에는 `.github/workflows/update-newsletters.yml`이 매주 이 스크립트를 돌렸지만, 모든 항목의
+`link`가 비어 있어 아무 일도 하지 않으면서 저장소 쓰기 권한으로 매주 `npm ci`를 실행하고 있었다.
+npm 웜이 CI 토큰을 노리는 상황이라 2026-10-27에 삭제했다. 필요하면 로컬에서 `npm run generate:newsletters`로 돌린다.

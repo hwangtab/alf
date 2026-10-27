@@ -18,6 +18,11 @@ Art Liberation Front (예술해방전선) is a Next.js-based Korean art activism
 
 Before committing, the useful gate is `npm test && npm run lint && npx tsc --noEmit && npm run build`.
 
+`.npmrc` hardens installs against npm worm attacks: `ignore-scripts=true` (no postinstall/binding.gyp),
+`min-release-age=7` (versions younger than 7 days are not resolved), `allow-git=none`. The build and
+`sharp` work without install scripts. For an urgent security patch, override per command:
+`npm install next@<ver> --min-release-age=0`. Do not remove these settings to make an install "just work".
+
 ## Architecture
 
 ### Tech Stack
