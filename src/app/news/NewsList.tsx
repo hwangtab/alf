@@ -25,10 +25,12 @@ export default function NewsList({ items }: { items: NewsListItem[] }) {
 
   const { ref, inView } = useInView({ threshold: 0 });
 
+  // displayed.length를 의존성에 둔다. 한 묶음을 붙인 뒤에도 감시 요소가 여전히 화면 안이면
+  // inView가 바뀌지 않아 멈추므로, 길이가 바뀔 때마다 다시 확인해 화면이 찰 때까지 이어 붙인다.
   useEffect(() => {
     if (!inView || !hasMore) return;
     setPage((p) => p + 1);
-  }, [hasMore, inView]);
+  }, [hasMore, inView, displayed.length]);
 
   return (
     <div className="space-y-8 max-w-3xl mx-auto">
@@ -110,7 +112,18 @@ export default function NewsList({ items }: { items: NewsListItem[] }) {
         </p>
       )}
 
-      {hasMore && <div ref={ref} className="h-10" />}
+      {/* 스크롤로 자동 로드되지만, 키보드 사용자도 닿을 수 있도록 버튼으로 둔다 */}
+      {hasMore && (
+        <div ref={ref} className="flex justify-center pt-4">
+          <button
+            type="button"
+            onClick={() => setPage((p) => p + 1)}
+            className="rounded-md border border-neutral-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-primary-red hover:text-primary-red focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-red"
+          >
+            더 보기
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -26,7 +26,8 @@ export default function VideosClient({ videos }: VideosClientProps) {
     }
 
     setPage((currentPage) => currentPage + 1);
-  }, [hasMore, inView]);
+    // displayedVideos.length: 붙인 뒤에도 감시 요소가 화면 안이면 inView가 그대로라 멈추므로 다시 확인한다
+  }, [hasMore, inView, displayedVideos.length]);
 
   return (
     <>
@@ -57,7 +58,18 @@ export default function VideosClient({ videos }: VideosClientProps) {
         )}
       </div>
 
-      {hasMore && <div ref={ref} className="h-10" />}
+      {/* 스크롤로 자동 로드되지만, 키보드 사용자도 닿을 수 있도록 버튼으로 둔다 */}
+      {hasMore && (
+        <div ref={ref} className="mt-12 flex justify-center">
+          <button
+            type="button"
+            onClick={() => setPage((currentPage) => currentPage + 1)}
+            className="rounded-md border border-neutral-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-primary-red hover:text-primary-red focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-red"
+          >
+            더 보기
+          </button>
+        </div>
+      )}
     </>
   );
 }

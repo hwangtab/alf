@@ -42,7 +42,7 @@ src/
 │   └── globals.css        # Global styles + Tailwind @theme
 ├── components/
 │   ├── home/              # Homepage components
-│   ├── layout/            # Header, Footer, MobileMenu, NoiseBackground
+│   ├── layout/            # Header, Footer, MobileMenu
 │   ├── guide/             # Guide table of contents
 │   ├── newsletter/        # Newsletter block renderer
 │   └── ui/                # Reusable UI components (Card, Button, ...)
@@ -55,7 +55,9 @@ scripts/
 ```
 
 ### Key Components
-- **Layout**: Header with navigation, Footer, NoiseBackground for texture
+- **Layout**: Header with navigation, Footer. (A `NoiseBackground` overlay used to sit behind the
+  content, but `mix-blend-mode: overlay` on a black backdrop always yields black — it was pixel-for-pixel
+  invisible and was removed. A visible texture would need a different blend mode; that is a design change.)
 - **Home**: HeroSection with Giants-Inline font, LatestActivities
 - **Gallery**: `yet-another-react-lightbox` over hundreds of webp images
 
@@ -84,7 +86,6 @@ loading is changed there, update `--font-sans` / `--font-serif` to match.
   Re-enabling either has regressed LCP before; measure before changing.
 - Image optimization with Sharp, WebP everywhere
 - Bundle analysis available (`npm run analyze`)
-- Custom noise background texture
 
 ### Internationalization
 - Korean language (ko_KR locale)

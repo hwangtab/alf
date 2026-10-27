@@ -5,7 +5,6 @@ import { Analytics } from '@vercel/analytics/next';
 import { generateOrganizationSchema, generateWebsiteSchema } from '@/utils/structured-data';
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import NoiseBackground from "@/components/layout/NoiseBackground";
 
 // next/font/local을 사용한 폰트 최적화
 const gmarketSans = localFont({
@@ -128,9 +127,7 @@ export default function RootLayout({
           본문 바로가기
         </a>
 
-        {/* 노이즈 텍스처 배경 - 즉시 렌더링 */}
         <div className="fixed inset-0 bg-black z-0" />
-        <NoiseBackground />
         
         {/* 메인 콘텐츠 */}
         <div className="flex flex-col min-h-screen relative z-[1]">

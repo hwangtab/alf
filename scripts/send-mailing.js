@@ -29,6 +29,9 @@ const LOGO_URL   = `${SITE}/images/gallery/${encodeURIComponent('예술해방전
 const FONT       = "-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', sans-serif";
 const DELAY_MS   = 600; // Resend 레이트리밋 안전 마진 (~2 req/s)
 const EMAIL_RE   = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// 본문 칸 폭(600 - 좌우 패딩 40×2). 클래식 Outlook(Windows)은 CSS width를 무시하고
+// width 속성이 없으면 원본 픽셀 폭(최대 2048px)으로 그려 레이아웃을 깨뜨린다.
+const CONTENT_WIDTH = 520;
 // 이메일 이미지 캐시 버스터 — Gmail 등 이미지 프록시가 과거 404(미배포 시점)를
 // 캐싱해 이미지가 깨지는 문제 방지. 발송 시각 기준으로 새 URL을 만들어 강제 재요청.
 const CACHE_BUST = Date.now();
@@ -192,7 +195,7 @@ function renderBlock(block, accounting) {
     case 'image': {
       const base = block.src.startsWith('http') ? block.src : `${SITE}${block.src}`;
       const src = base + (base.includes('?') ? '&' : '?') + 'v=' + CACHE_BUST;
-      return `<div style="margin:20px 0;border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;"><img src="${esc(src)}" alt="${esc(block.alt)}" style="display:block;width:100%;max-width:100%;height:auto;"></div>`;
+      return `<div style="margin:20px 0;border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;"><img src="${esc(src)}" alt="${esc(block.alt)}" width="${CONTENT_WIDTH}" style="display:block;width:100%;max-width:100%;height:auto;"></div>`;
     }
 
     case 'link':
@@ -219,7 +222,7 @@ function renderBlock(block, accounting) {
         : '';
       return `<div style="margin:20px 0;">
   <a href="${watch}" target="_blank" rel="noopener noreferrer" style="display:block;border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;text-decoration:none;">
-    <img src="${thumb}" alt="${esc(block.title || '연대공연 영상')}" style="display:block;width:100%;max-width:100%;height:auto;">
+    <img src="${thumb}" alt="${esc(block.title || '연대공연 영상')}" width="${CONTENT_WIDTH}" style="display:block;width:100%;max-width:100%;height:auto;">
     <span style="display:block;background-color:#111827;color:#ffffff;font-family:${FONT};font-size:14px;font-weight:700;text-align:center;padding:13px;">&#9654;&nbsp;&nbsp;유튜브에서 영상 보기</span>
   </a>
   ${caption}
@@ -301,6 +304,37 @@ function renderBlock(block, accounting) {
   }
 }
 
+// ── 블록 → 텍스트 본문 ───────────────────────────────────────────────
+// HTML만 보내면 스팸 점수에 불리하고, 텍스트 전용 클라이언트에서는 빈 메일이 된다.
+function renderTextBlock(block, accounting) {
+  switch (block.type) {
+    case 'heading':
+      return block.level === 2 ? `\n■ ${block.text}` : `\n${block.text}`;
+    case 'paragraph':
+      return block.text;
+    case 'link':
+      return `${block.text}: ${block.href}`;
+    case 'video': {
+      const vid = youtubeId(block.url);
+      return vid ? `▶ ${block.title || '영상 보기'}: https://www.youtube.com/watch?v=${vid}` : '';
+    }
+    case 'ledger': {
+      const data = accounting[block.month];
+      if (!data) return '';
+      const rows = (items) => items.map(r => `  - ${r.label}${r.note ? ` (${r.note})` : ''}: ${Math.abs(r.amount).toLocaleString('ko-KR')}원`);
+      return [
+        '[수입]', ...rows(data.income), `  총수입: ${data.totalIncome.toLocaleString('ko-KR')}원`,
+        '[지출]', ...(data.expense.length ? rows(data.expense) : ['  지출 없음']), `  총지출: ${data.totalExpense.toLocaleString('ko-KR')}원`,
+        `당월 차액: ${fmtKRW(data.net)}`,
+        `전월 잔액: ${fmtKRW(data.prevBalance)}`,
+        `현재 잔액: ${fmtKRW(data.currentBalance)}`,
+      ].join('\n');
+    }
+    default:
+      return ''; // 이미지는 텍스트 본문에서 생략
+  }
+}
+
 // ── 메인 ─────────────────────────────────────────────────────────────
 /**
  * 발송 전 이미지 URL 사전 검사.
@@ -368,6 +402,18 @@ async function main() {
     ctaButton(`${SITE}/news/${id}`, '웹사이트에서 보기'),
   ];
   const html    = renderShell('활동 보고', parts.join('\n'));
+  const text    = [
+    `예술해방전선 ${meta.title}`,
+    publishedDate,
+    '',
+    ...blocks.map(b => renderTextBlock(b, accounting)).filter(Boolean).map(s => s + '\n'),
+    `웹사이트에서 보기: ${SITE}/news/${id}`,
+    '',
+    '—',
+    `Facebook: ${FB}`,
+    `YouTube: ${YT}`,
+    '수신을 원치 않으시면 이 메일에 회신해 주세요.',
+  ].join('\n');
   const subject = `예술해방전선 ${meta.title}`;
 
   // 발송 전 이미지 사전 검사 — 배포 전 발송으로 인한 이미지 깨짐 방지
@@ -418,12 +464,14 @@ async function main() {
     if (!fs.existsSync(privateDir)) fs.mkdirSync(privateDir, { recursive: true });
     const previewPath = path.join(ROOT, `private/preview-${id}.html`);
     fs.writeFileSync(previewPath, html, 'utf8');
+    fs.writeFileSync(previewPath.replace(/\.html$/, '.txt'), text, 'utf8');
     console.log(`\n[드라이런] 발송 안 함`);
     console.log(`  뉴스레터 : #${id} — ${meta.title}`);
     console.log(`  발행일   : ${publishedDate}`);
     console.log(`  수신자   : ${recipients.length}명`);
     recipients.forEach((e, i) => console.log(`    ${i + 1}. ${e}`));
     console.log(`\n  HTML 프리뷰 → ${previewPath}`);
+    console.log(`  텍스트 본문 → ${previewPath.replace(/\.html$/, '.txt')}`);
     console.log('  브라우저에서 열어 레이아웃을 확인하세요.\n');
     console.log('실제 발송:');
     console.log(`  --test <이메일>  : 1통 테스트 발송`);
@@ -440,7 +488,7 @@ async function main() {
     console.log(`\n[테스트 발송] → ${testEmail}`);
     const result = await resend.emails.send({
       from: FROM, to: testEmail, replyTo: REPLY_TO,
-      subject: `[테스트] ${subject}`, html,
+      subject: `[테스트] ${subject}`, html, text,
     });
     if (result.error) {
       console.error('  실패:', result.error.message);
@@ -476,7 +524,7 @@ async function main() {
     process.stdout.write(`  [${i + 1}/${recipients.length}] ${to} ... `);
     try {
       const result = await resend.emails.send({
-        from: FROM, to, replyTo: REPLY_TO, subject, html,
+        from: FROM, to, replyTo: REPLY_TO, subject, html, text,
       });
       if (result.error) {
         console.log(`실패 (${result.error.message})`);
