@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -41,7 +41,17 @@ const CardComponent: React.FC<CardProps> = ({
   children,
   useLazyMotion = true,
 }) => {
-  void useLazyMotion;
+  const [isVisible, setIsVisible] = useState(false);
+  useEffect(() => {
+    if (!useLazyMotion) {
+      setIsVisible(true);
+      return;
+    }
+    // For lazy motion, rely on initial delay only when not explicitly disabled
+    const timer = setTimeout(() => setIsVisible(true), Math.min(index * 100, 500));
+    return () => clearTimeout(timer);
+  }, [useLazyMotion, index]);
+
   const cardContent = (
     <>
       <div className="relative w-full" style={{ paddingTop: aspectRatio }}>
@@ -112,8 +122,8 @@ const CardComponent: React.FC<CardProps> = ({
 
   return (
     <div
-      className="group bg-neutral-800 border border-neutral-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full hover:-translate-y-1"
-      style={{ transitionDelay: `${Math.min(index * 100, 500)}ms` }}
+      className="group bg-neutral-800 border border-neutral-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-transform duration-300 flex flex-col h-full hover:-translate-y-1"
+      style={{ transitionDelay: isVisible ? `${Math.min(index * 100, 500)}ms` : '0ms' }}
     >
       {isInternalLink ? (
         <Link href={href} className="flex flex-col h-full">

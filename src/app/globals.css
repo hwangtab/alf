@@ -58,6 +58,12 @@ html {
     opacity: 1;
     transform: none;
   }
+
+  .animate-fade-in-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Card 애니메이션 */
@@ -159,7 +165,7 @@ body.menu-open {
   }
 
   body {
-    transition: opacity 0.2s ease-out;
+    /* 불필요한 opacity 전환 제거 — 인터랙션 지연 방지 */
   }
 
   h1, h2, h3, h4, h5, h6 {

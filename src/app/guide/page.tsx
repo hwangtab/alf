@@ -65,7 +65,8 @@ export default function GuidePage() {
                 src="/images/gallery/DSC05755.webp" // 이미지 경로 변경
                 alt="예술해방전선 회원들이 연대 현장에서 함께 피켓을 들고 있는 모습"
                 fill
-                className="object-cover transition-transform duration-700 hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover transition-transform duration-300 hover:scale-105"
               />
             </div>
           </div>
@@ -92,6 +93,7 @@ export default function GuidePage() {
               src="/images/gallery/IMG_0034.webp"
               alt="집회와 연대 현장에서 함께하는 사람들"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -129,6 +131,7 @@ export default function GuidePage() {
               src="/images/gallery/DSC08525.webp"
               alt="첫 만남과 현장 방문의 순간"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -179,6 +182,7 @@ export default function GuidePage() {
               src="/images/gallery/IMG_3829.webp"
               alt="예술가들의 공동 작업과 창작 활동"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -215,6 +219,7 @@ export default function GuidePage() {
               src="/images/gallery/IMG_9946.webp"
               alt="예술가로서 현장에서 깊어지는 경험"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -238,6 +243,7 @@ export default function GuidePage() {
               src="/images/gallery/DSC03211.webp"
               alt="지속가능한 연대"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -292,6 +298,7 @@ export default function GuidePage() {
               src="/images/gallery/DSC05730.webp"
               alt="함께하는 공동 창작과 축제의 현장"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -325,6 +332,7 @@ export default function GuidePage() {
               src="/images/gallery/IMG_5937.webp"
               alt="함께 만드는 공동 창작의 과정"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -359,6 +367,7 @@ export default function GuidePage() {
               src="/images/gallery/DSC01928.webp"
               alt="함께 만드는 축제"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -412,6 +421,7 @@ export default function GuidePage() {
               src="/images/gallery/IMG_9984.webp"
               alt="현장 기록과 아카이빙 활동"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -447,6 +457,7 @@ export default function GuidePage() {
               src="/images/gallery/DSC02821.webp"
               alt="현장의 기록과 확산"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -481,6 +492,7 @@ export default function GuidePage() {
               src="/images/gallery/DSC02808.webp"
               alt="보이지 않던 이야기의 힘"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -533,6 +545,7 @@ export default function GuidePage() {
               src="/images/gallery/DSC04644.webp"
               alt="수평적 관계와 상호부조의 현장"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -569,6 +582,7 @@ export default function GuidePage() {
               src="/images/gallery/IMG_9949.webp"
               alt="수평적 관계와 상호부조의 실천"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -606,6 +620,7 @@ export default function GuidePage() {
               src="/images/gallery/DSC02826.webp"
               alt="프리피규레이션"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -661,6 +676,7 @@ export default function GuidePage() {
               src="/images/gallery/DSC08066.webp"
               alt="다양한 세대가 함께하는 지속가능한 연대 문화"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -699,6 +715,7 @@ export default function GuidePage() {
               src="/images/gallery/IMG_1960.webp"
               alt="지속가능한 연대와 교류"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -731,6 +748,7 @@ export default function GuidePage() {
               src="/images/gallery/DSC02878.webp"
               alt="마침표가 아닌 쉼표"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -781,6 +799,7 @@ export default function GuidePage() {
               src="/images/gallery/DSC07756.webp"
               alt="예술과 투쟁의 경계에서 함께하는 모습"
               fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>

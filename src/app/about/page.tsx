@@ -36,7 +36,7 @@ export default function AboutPage() {
               alt="노량진수산시장에서 열린 예술해방전선 연대 활동 모습"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 640px"
-              className="object-cover transition-transform duration-700 hover:scale-105"
+              className="object-cover transition-transform duration-300 hover:scale-105"
               quality={85}
               placeholder="blur"
               blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
