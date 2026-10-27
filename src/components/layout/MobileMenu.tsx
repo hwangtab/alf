@@ -70,15 +70,6 @@ export default function MobileMenu({ links }: MobileMenuProps) {
     };
   }, [isMenuOpen]);
 
-  const [reducedMotion, setReducedMotion] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReducedMotion(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, []);
-
   const closeMenu = useCallback(() => {
     setIsMenuOpen(false);
   }, []);
@@ -125,10 +116,8 @@ export default function MobileMenu({ links }: MobileMenuProps) {
             {/* min-h-full + 부모 스크롤: 링크가 화면보다 길어지는 작은 기기에서도
                 위쪽 항목이 잘리지 않고 닿는다. */}
             <nav className="min-h-full flex flex-col items-center justify-center gap-8 text-center py-24 px-4">
-              {links.map((item, index) => (
-                <div key={item.href} style={{
-                  transitionDelay: reducedMotion ? '0ms' : `${index * 50}ms`
-                }}>
+              {links.map((item) => (
+                <div key={item.href}>
                   <Link
                     href={item.href}
                     onClick={closeMenu}

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -12,7 +12,7 @@ interface CardProps {
   tags?: string[];
   imageChildren?: React.ReactNode;
   footerContent?: React.ReactNode;
-  index?: number;
+  index?: number; // 예전 hover 지연용. 호출부 호환을 위해 남겨 둠
   aspectRatio?: string;
   imageSizes?: string;
   loadingPriority?: boolean;
@@ -31,7 +31,6 @@ const CardComponent: React.FC<CardProps> = ({
   tags,
   imageChildren,
   footerContent,
-  index = 0,
   aspectRatio = '66.67%',
   imageSizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
   loadingPriority = false,
@@ -41,16 +40,7 @@ const CardComponent: React.FC<CardProps> = ({
   children,
   useLazyMotion = true,
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  useEffect(() => {
-    if (!useLazyMotion) {
-      setIsVisible(true);
-      return;
-    }
-    // For lazy motion, rely on initial delay only when not explicitly disabled
-    const timer = setTimeout(() => setIsVisible(true), Math.min(index * 100, 500));
-    return () => clearTimeout(timer);
-  }, [useLazyMotion, index]);
+  void useLazyMotion;
 
   const cardContent = (
     <>
@@ -122,8 +112,7 @@ const CardComponent: React.FC<CardProps> = ({
 
   return (
     <div
-      className="group bg-neutral-800 border border-neutral-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-transform duration-300 flex flex-col h-full hover:-translate-y-1"
-      style={{ transitionDelay: isVisible ? `${Math.min(index * 100, 500)}ms` : '0ms' }}
+      className="group bg-neutral-800 border border-neutral-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-[transform,box-shadow] duration-300 flex flex-col h-full hover:-translate-y-1"
     >
       {isInternalLink ? (
         <Link href={href} className="flex flex-col h-full">
