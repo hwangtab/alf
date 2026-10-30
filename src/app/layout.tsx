@@ -7,8 +7,16 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 // next/font/local을 사용한 폰트 최적화
+// Light만 있던 시절 font-bold가 합성 볼드(가짜 굵기)로 뭉개지던 문제를 없애기 위해
+// Medium(500)/Bold(700)을 실제 웨이트로 등록한다. 세 웨이트 모두
+// `npm run subset:fonts`로 만든 서브셋(상용 한글 2,350자 + 사이트 문자)이다.
+
 const gmarketSans = localFont({
-  src: '../fonts/GmarketSansTTFLight.woff2',
+  src: [
+    { path: '../fonts/GmarketSansTTFLight.woff2', weight: '400', style: 'normal' },
+    { path: '../fonts/GmarketSansTTFMedium.woff2', weight: '500', style: 'normal' },
+    { path: '../fonts/GmarketSansTTFBold.woff2', weight: '700', style: 'normal' },
+  ],
   variable: '--font-gmarket-sans',
   display: 'swap',
   fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', 'sans-serif'],
@@ -18,8 +26,13 @@ const gmarketSans = localFont({
 });
 
 const sfHambak = localFont({
-  src: '../fonts/SFTTF.woff2',
+  // 원본 SFTTF.woff2(570KB)는 소스로만 두고, 실제 로딩은 서브셋을 쓴다
+  // (`npm run subset:fonts -- sf`).
+  src: '../fonts/SFTTF.subset.woff2',
   variable: '--font-sf-hambak',
+  // 파일은 ExtraBold 한 종류뿐이다. 굵기 범위를 선언해 두면 h1~h6의
+  // font-weight(700~900)에 브라우저가 합성 볼드를 덧입히지 않는다.
+  weight: '400 900',
   display: 'swap',
   fallback: ['Georgia', 'Times New Roman', 'serif'],
   // 첫 화면(히어로)에 직접 쓰이지 않고 스크롤 아래 제목에만 쓰인다. preload 불필요.
@@ -109,8 +122,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className="scroll-smooth">
+    <html lang="ko" className={`scroll-smooth ${gmarketSans.variable} ${sfHambak.variable}`}>
       <head>
+        {/* 히어로 LCP 요소가 쓰는 폰트. 23KB 서브셋이라 preload 비용이 작다.
+            폰트 preload는 same-origin이어도 crossOrigin이 필요하다. */}
+        <link
+          rel="preload"
+          href="/fonts/Giants-Inline.subset.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -118,7 +140,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${gmarketSans.variable} ${sfHambak.variable} antialiased flex flex-col min-h-screen relative bg-black text-white font-sans`}>
+      <body className="antialiased flex flex-col min-h-screen relative bg-black text-white font-sans">
         {/* 키보드 사용자가 고정 헤더의 링크 9개를 매번 지나치지 않도록 */}
         <a
           href="#main"
